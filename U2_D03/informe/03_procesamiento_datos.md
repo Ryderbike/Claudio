@@ -99,7 +99,17 @@ Cada estructura tiene un uso definido en las etapas del análisis.
 
 ## 3.6 Línea base generada
 
-RESULTADOS_LINEA_BASE
+La constructiva aleatoria del cuaderno se ejecutó con 10 semillas (0 a 9) en cada instancia. Todas las soluciones pasaron el verificador. Los costos son diarios, en pesos.
+
+| Instancia | Corridas | Mínimo | Promedio | Máximo | Desviación | Brecha del promedio |
+|---|---|---|---|---|---|---|
+| Reducida | 10 | 219 980 | 250 919 | 268 360 | 16 795 | +135 % sobre el óptimo DP (106 786) |
+| Intermedia | 10 | 1 744 827 | 1 981 668 | 2 206 024 | 183 617 | Sin referencia exacta |
+| Completa | 10 | 8 603 435 | 8 981 095 | 9 733 928 | 360 316 | Sin referencia exacta |
+
+**Cómo leer la línea base.** La aleatoria es deliberadamente mala, como dice el dossier: en la reducida su costo promedio es más del doble del óptimo, y en la completa, con la semilla 0, 84 de los 150 clientes terminan con transportista arrendado. Esta línea base es el punto de comparación para la constructiva propia (U2-A3 y U2-A4) y para la metaheurística.
+
+**Advertencia sobre la tabla estándar.** La fila «exacto CBC» de la tabla exportada en la primera corrida dice «Optimal». Ese estado no certifica el óptimo: corresponde a una solución detenida por el límite de tiempo. La versión corregida del cuaderno registra la nota «límite de tiempo: solución sin cota probada» y usa `sol_status` para decidirlo.
 
 ---
 
