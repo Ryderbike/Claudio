@@ -317,11 +317,11 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
   <div class="tbl"><table>
     <thead><tr><th>Instancia</th><th>Método</th><th class="n">Corridas</th><th class="n">Mínimo ($)</th><th class="n">Promedio ($)</th><th class="n">Máximo ($)</th><th class="n">Tiempo (s)</th></tr></thead>
     <tbody>
-      <tr><td>Reducida</td><td>Aleatoria</td><td class="n">10</td><td class="n">219 980</td><td class="n">250 919</td><td class="n">268 360</td><td class="n">&lt; 0,001</td></tr>
-      <tr><td>Intermedia</td><td>Aleatoria</td><td class="n">10</td><td class="n">1 744 827</td><td class="n">1 981 668</td><td class="n">2 206 024</td><td class="n">&lt; 0,001</td></tr>
-      <tr><td>Completa</td><td>Aleatoria</td><td class="n">10</td><td class="n">8 603 435</td><td class="n">8 981 095</td><td class="n">9 733 928</td><td class="n">&lt; 0,001</td></tr>
-      <tr><td>Escenario P3</td><td>Aleatoria (10 camiones)</td><td class="n">1</td><td class="n">9 009 720</td><td class="n">9 009 720</td><td class="n">9 009 720</td><td class="n">&lt; 0,001</td></tr>
-      <tr><td>Reducida</td><td>Constructiva propia (plantilla)</td><td class="n">1</td><td class="n">260 606</td><td class="n">260 606</td><td class="n">260 606</td><td class="n">&lt; 0,001</td></tr>
+      <tr><td>Reducida</td><td>Aleatoria</td><td class="n">10</td><td class="n">219 980</td><td class="n">250 919</td><td class="n">268 360</td><td class="n">0,000</td></tr>
+      <tr><td>Intermedia</td><td>Aleatoria</td><td class="n">10</td><td class="n">1 744 827</td><td class="n">1 981 668</td><td class="n">2 206 024</td><td class="n">0,000</td></tr>
+      <tr><td>Completa</td><td>Aleatoria</td><td class="n">10</td><td class="n">8 603 435</td><td class="n">8 981 095</td><td class="n">9 733 928</td><td class="n">0,001–0,002</td></tr>
+      <tr><td>Escenario P3</td><td>Aleatoria (10 camiones)</td><td class="n">1</td><td class="n">9 009 720</td><td class="n">9 009 720</td><td class="n">9 009 720</td><td class="n">0,002</td></tr>
+      <tr><td>Reducida</td><td>Constructiva propia (plantilla)</td><td class="n">1</td><td class="n">260 606</td><td class="n">260 606</td><td class="n">260 606</td><td class="n">0,000</td></tr>
       <tr><td>Completa</td><td>Constructiva propia (plantilla)</td><td class="n">1</td><td class="n">8 699 291</td><td class="n">8 699 291</td><td class="n">8 699 291</td><td class="n">0,002</td></tr>
       <tr><td>Reducida</td><td>MIP con CBC, final</td><td class="n">1</td><td class="n">106 786</td><td class="n">106 786</td><td class="n">106 786</td><td class="n">600,8 (límite)</td></tr>
       <tr><td>Reducida</td><td>Programación dinámica</td><td class="n">1</td><td class="n hl">106 786</td><td class="n">106 786</td><td class="n">106 786</td><td class="n">0,26</td></tr>
@@ -598,6 +598,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
     <p><strong>Por qué sirven.</strong> Como <em>T<sub>i</sub></em> nunca supera <em>L − s<sub>i</sub></em>, el lado izquierdo de la restricción de tiempo entre clientes nunca supera <em>L + t<sub>ij</sub></em>, que es exactamente <math><msub><mi>M</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></math>. Para el arco de regreso, la cota <math><msub><mi>M</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub></math> también es válida, pero es holgada en <em>L</em> minutos: la restricción ya suma <em>L</em> en su lado derecho, así que la cota más fuerte sería <math><msub><mi>t</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub></math>. Ese valor más fuerte no lo usamos en el cuaderno, y lo señalamos aquí. Una sola cota global, como <math><mrow><mi>L</mi><mo>+</mo><mi>máx</mi><mo>(</mo><mi>s</mi><mo>)</mo><mo>+</mo><mi>máx</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow></math>, también sería válida pero más grande.</p>
   </div>
 
+  <p>En R4 la constante no es una cota por arco: es la capacidad <em>Q</em>. Como <math><msub><mi>u</mi><mi>i</mi></msub><mo>≤</mo><mi>Q</mi></math> y <math><msub><mi>d</mi><mi>j</mi></msub><mo>≤</mo><msub><mi>u</mi><mi>j</mi></msub></math>, la desigualdad se cumple cuando el arco no se usa, y no estorba (ver R4).</p>
   <h3>3.7 · El modelo completo, en una sola vista</h3>
   <p>Así se leería el modelo en un libro de texto. Todas las piezas juntas:</p>
   <div class="formula">
@@ -704,7 +705,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
   <h3>Cómo calculamos el óptimo exacto</h3>
   <p>La programación dinámica sobre subconjuntos (Held-Karp) encuentra el óptimo sin usar un solver. Funciona así:</p>
   <ol class="route">
-    <li><span><strong>Mejor camino por subconjunto.</strong> Sea <em>d</em>(<em>S</em>, <em>j</em>) la distancia mínima de un camino que sale de la base, visita exactamente los clientes de <em>S</em> y termina en <em>j</em>. Empezamos con <em>d</em>({<em>j</em>}, <em>j</em>) = <em>D</em><sub>0j</sub> y calculamos los subconjuntos de tamaño creciente:</span></li>
+    <li><span><strong>Mejor camino por subconjunto.</strong> Sea <em>d</em>(<em>S</em>, <em>j</em>) la distancia mínima de un camino que sale de la base, visita exactamente los clientes de <em>S</em> y termina en <em>j</em>. Empezamos con <em>d</em>({<em>j</em>}, <em>j</em>) = <em>D</em><sub>0j</sub> y calculamos los subconjuntos en orden creciente de su código binario. Así, <em>d</em>(<em>S</em> ∖ {<em>j</em>}, ·) ya está calculado cuando se necesita para <em>S</em>:</span></li>
     <li><span><strong>La recurrencia.</strong> <math display="inline"><mrow><mi>d</mi><mo>(</mo><mi>S</mi><mo>,</mo><mi>j</mi><mo>)</mo><mo>=</mo><munder><mo>mín</mo><mrow><mi>k</mi><mo>∈</mo><mi>S</mi><mo>∖</mo><mrow><mo>{</mo><mi>j</mi><mo>}</mo></mrow></mrow></munder><mrow><mo>[</mo><mi>d</mi><mo>(</mo><mi>S</mi><mo>∖</mo><mrow><mo>{</mo><mi>j</mi><mo>}</mo></mrow><mo>,</mo><mi>k</mi><mo>)</mo><mo>+</mo><msub><mi>D</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><mo>]</mo></mrow></mrow></math></span></li>
     <li><span><strong>Ruta factible.</strong> Para cada <em>S</em>, la ruta cuesta <em>F</em> + <em>c</em> × (<em>d</em>(<em>S</em>, <em>j</em>) + <em>D</em><sub>j0</sub>) con el mejor <em>j</em>. Solo es factible si la carga de <em>S</em> no pasa de <em>Q</em> y si la duración, <em>1,5</em> × km más la descarga de <em>S</em>, no pasa de <em>L</em>.</span></li>
     <li><span><strong>Combinación.</strong> Se eligen hasta <em>K</em> conjuntos disjuntos que minimicen el costo total. Cada cliente que no entra en ninguno va con flete externo.</span></li>
