@@ -273,7 +273,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
     <span class="label">CONJUNTOS</span>
     <math display="block">
       <mrow>
-        <mi>N</mi><mo>=</mo><mrow><mo>{</mo><mn>1</mn><mo>,</mo><mo>…</mo><mo>,</mo><mi>n</mi><mo>}</mo></mrow>
+        <mi>N</mi><mo>=</mo><mtext>{ identificadores de los clientes }</mtext>
         <mtext>&nbsp;&nbsp;clientes,&nbsp;&nbsp;</mtext>
         <msub><mi>V</mi><mn>0</mn></msub><mo>=</mo><mi>N</mi><mo>∪</mo><mrow><mo>{</mo><mn>0</mn><mo>}</mo></mrow>
         <mtext>&nbsp;&nbsp;clientes más la base,&nbsp;&nbsp;</mtext>
@@ -282,7 +282,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
       </mrow>
     </math>
   </div>
-  <p>La base es el nodo 0. Cada arco <em>(i, j)</em> es un trayecto directo de <em>i</em> a <em>j</em>. Con 12 clientes hay 13 nodos y 156 arcos. Con 150 clientes hay 22 650.</p>
+  <p>Para la reducida, N = {8, 15, 21, 26, 53, 62, 68, 86, 88, 113, 115, 137} y n = |N| = 12. La base es el nodo 0. Cada arco <em>(i, j)</em> es un trayecto directo de <em>i</em> a <em>j</em>. Con 12 clientes hay 13 nodos y 156 arcos. Con 150 clientes hay 22 650.</p>
   <div class="note">
     <p><strong>¿Por qué arcos dirigidos?</strong> La matriz es simétrica, así que ir de A a B cuesta lo mismo que ir de B a A. Pero las variables de tiempo dependen del sentido: la hora de llegada a cada cliente cambia con el orden, aunque la duración total de la ruta no. Usar arcos dirigidos permite contar esa hora bien.</p>
   </div>
@@ -427,12 +427,12 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
       </math>
       <math display="block">
         <mrow>
-          <msub><mi>d</mi><mi>i</mi></msub><mo>≤</mo><msub><mi>u</mi><mi>i</mi></msub><mo>≤</mo><mi>Q</mi>
+          <msub><mi>u</mi><mi>i</mi></msub><mo>≥</mo><msub><mi>d</mi><mi>i</mi></msub>
           <mspace width="1em"/><mo>∀</mo><mi>i</mi><mo>∈</mo><mi>N</mi>
         </mrow>
       </math>
     </div>
-    <p>Esta es la restricción de capacidad en forma de cadena. Si el camión pasa de <em>i</em> a <em>j</em> (<math><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mn>1</mn></math>), la carga al llegar a <em>j</em> es la carga de <em>i</em> más la demanda de <em>j</em>. Como <em>u</em> nunca supera <em>Q</em>, la carga de toda la ruta tampoco la supera.</p>
+    <p>Esta es la restricción de capacidad en forma de cadena. Si el camión pasa de <em>i</em> a <em>j</em> (<math><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mn>1</mn></math>), la carga al llegar a <em>j</em> es la carga de <em>i</em> más la demanda de <em>j</em>. Como <em>u</em> nunca supera <em>Q</em>, la carga de toda la ruta tampoco la supera. La cota <math><msub><mi>u</mi><mi>i</mi></msub><mo>≤</mo><mi>Q</mi></math> es el dominio de la variable (ver R6), no una restricción adicional.</p>
     <div class="note">
       <p><strong>¿Qué pasa cuando el arco no se usa?</strong> Si <math><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mn>0</mn></math>, el término <math><mrow><mi>Q</mi><mo>(</mo><mn>1</mn><mo>−</mo><mn>0</mn><mo>)</mo></mrow></math> vale <math><mi>Q</mi></math> y la desigualdad queda <math><mrow><msub><mi>u</mi><mi>j</mi></msub><mo>≥</mo><msub><mi>u</mi><mi>i</mi></msub><mo>+</mo><msub><mi>d</mi><mi>j</mi></msub><mo>−</mo><mi>Q</mi></mrow></math>. Como <math><msub><mi>u</mi><mi>i</mi></msub><mo>≤</mo><mi>Q</mi></math> y <math><msub><mi>d</mi><mi>j</mi></msub><mo>≤</mo><msub><mi>u</mi><mi>j</mi></msub></math>, siempre se cumple y no estorba. A esto se le llama <em>restricción desactivada</em>.</p>
     </div>
@@ -500,7 +500,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
 
   <h3>3.6 · Por qué las cotas grandes son válidas</h3>
   <p>En R4 y R5 aparecen términos de la forma <math><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mi>i</mi><mi>j</mi></msub><mo>)</mo></mrow></math> multiplicados por una constante grande. Son las llamadas cotas grandes o <em>big-M</em>. Su trabajo es apagar la restricción cuando el arco no existe.</p>
-  <p>Para que sean correctas, la constante debe ser al menos el mayor valor que el lado izquierdo puede tomar cuando el arco no se usa. Elegimos cotas ajustadas, por arco:</p>
+  <p>Para que sean correctas, la constante debe ser al menos el mayor valor que el lado izquierdo puede tomar cuando el arco no se usa. Elegimos cotas válidas por arco:</p>
   <div class="formula">
     <span class="label">COTAS GRANDES AJUSTADAS</span>
     <math display="block">
@@ -514,7 +514,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
     </math>
   </div>
   <div class="note">
-    <p><strong>Por qué sirven.</strong> Como <em>T<sub>i</sub></em> nunca supera <em>L − s<sub>i</sub></em>, el lado izquierdo de la restricción de tiempo, <math><mrow><msub><mi>T</mi><mi>i</mi></msub><mo>+</mo><msub><mi>s</mi><mi>i</mi></msub><mo>+</mo><msub><mi>t</mi><mi>ij</mi></msub><mo>−</mo><msub><mi>T</mi><mi>j</mi></msub></mrow></math>, nunca supera <math><mrow><mi>L</mi><mo>+</mo><msub><mi>t</mi><mi>ij</mi></msub></mrow></math>. Ese valor es exactamente <math><msub><mi>M</mi><mi>ij</mi></msub></math>, así que la restricción nunca corta una ruta factible. Usar una sola cota global, como <math><mrow><mi>L</mi><mo>+</mo><mi>máx</mi><mo>(</mo><mi>s</mi><mo>)</mo><mo>+</mo><mi>máx</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow></math>, también sería válida pero más grande, y eso debilita la relajación del modelo.</p>
+    <p><strong>Por qué sirven.</strong> Como <em>T<sub>i</sub></em> nunca supera <em>L − s<sub>i</sub></em>, el lado izquierdo de la restricción de tiempo entre clientes nunca supera <em>L + t<sub>ij</sub></em>, que es exactamente <math><msub><mi>M</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></math>. Para el arco de regreso, la cota <math><msub><mi>M</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub></math> también es válida, pero es holgada en <em>L</em> minutos: la restricción ya suma <em>L</em> en su lado derecho, así que la cota más fuerte sería <math><msub><mi>t</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub></math>. Ese valor más fuerte no lo usamos en el cuaderno, y lo señalamos aquí. Una sola cota global, como <math><mrow><mi>L</mi><mo>+</mo><mi>máx</mi><mo>(</mo><mi>s</mi><mo>)</mo><mo>+</mo><mi>máx</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow></math>, también sería válida pero más grande.</p>
   </div>
 
   <h3>3.7 · El modelo completo, en una sola vista</h3>
@@ -552,7 +552,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
 
 <section id="ejemplo">
   <h2>4 · Ejemplo: la ruta óptima, paso a paso</h2>
-  <p>Para entender las restricciones conviene recorrer una solución real. El modelo encontró el mejor plan de la instancia reducida: <strong>un solo camión</strong> que visita los 12 clientes en este orden: 137, 88, 15, 113, 115, 68, 62, 86, 8, 26, 21, 53.</p>
+  <p>Para entender las restricciones conviene recorrer una solución real. El modelo encontró el mejor plan de la instancia reducida: <strong>un solo camión</strong> que visita los 12 clientes. El solver CBC devolvió el recorrido en orden inverso (53, 21, 26, …, 88, 137). La programación dinámica lo reporta en el orden 137, 88, 15, …, 53, que es el que usa esta tabla. Con distancias simétricas, ambos sentidos tienen el mismo costo y la misma duración.</p>
   <p>La tabla sigue el camión. Cada fila muestra cuánto viaja, a qué hora empieza la descarga (<em>T</em>), cuánto dura la descarga y cuántos bidones lleva acumulados (<em>u</em>).</p>
   <div class="tbl"><table>
     <thead><tr><th class="n">Paso</th><th class="n">Cliente</th><th class="n">Demanda</th><th class="n">Km desde el anterior</th><th class="n">Inicio de descarga (<em>T</em>)</th><th class="n">Descarga (min)</th><th class="n">Fin</th><th class="n">Carga acumulada (<em>u</em>)</th></tr></thead>
@@ -615,7 +615,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
     <tbody>
       <tr><td>Programación dinámica exacta</td><td class="n hl">106 786</td><td class="good">Óptimo certificado, por construcción</td><td class="n">0,26 s</td></tr>
       <tr><td>Modelo IP/MIP con el solver CBC, versión final</td><td class="n">106 786</td><td class="bad">Solución del mismo valor, sin prueba de optimalidad</td><td class="n">600 s (límite)</td></tr>
-      <tr><td>Modelo IP/MIP con el solver CBC, primera versión</td><td class="n">107 236</td><td>Solución 0,42 % más cara; sin prueba de optimalidad</td><td class="n">600 s (límite)</td></tr>
+      <tr><td>Modelo IP/MIP con el solver CBC, primera versión</td><td class="n">107 236</td><td>Solución 0,42 % más cara; sin prueba de optimalidad. Salida en <span class="mono">U2_D03/evidencia/primera_version_salida.txt</span></td><td class="n">600 s (límite)</td></tr>
     </tbody>
   </table></div>
 
@@ -625,7 +625,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
   <div class="note">
     <p><strong>Por qué confiamos en el 106 786.</strong> Dos métodos de naturaleza distinta, uno que es un programa de optimización y otro que es una búsqueda exacta sobre subconjuntos, llegan al mismo valor. El óptimo certificado proviene del segundo. El primero muestra que el modelo puede producir el mismo plan, aunque no pruebe que es el mejor.</p>
   </div>
-  <p>La primera versión del modelo, con una sola cota global, llegaba a 107 236 $. Lo reportamos igual, porque la regla de evidencia del curso pide mostrar todas las corridas, no solo las mejores.</p>
+  <p>La primera versión del modelo, con una sola cota global, llegaba a 107 236 $. Su salida completa está en la carpeta de evidencia del repositorio. Lo reportamos igual, porque la regla de evidencia del curso pide mostrar todas las corridas, no solo las mejores.</p>
 </section>
 
 <section id="escala">
@@ -641,6 +641,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
     </tbody>
   </table></div>
 
+  <p><strong>De dónde sale cada cifra.</strong> La fila de la reducida viene de la ejecución del cuaderno. Las filas de 50 y 150 clientes son conteos con fórmulas, porque el cuaderno solo construye el modelo de la reducida. Las fórmulas son: binarias = n(n+1) + n; continuas = 2n; restricciones = 2n² + 3n + 2. Las restricciones se desglosan así: 2n de R1, 1 de R2, 1 de R3, n de u<sub>i</sub> ≥ d<sub>i</sub>, n(n−1) de R4, 2n de R5 (inicio y fin), y n(n−1) de R5 (tiempo). Con n = 12 suman 326, el número que reporta el cuaderno.</p>
   <h3>Lo que crece, y por qué</h3>
   <ol class="route">
     <li><span><strong>Las variables de arco crecen con n².</strong> Hay <math><mrow><mi>n</mi><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></math> arcos posibles, más <em>n</em> binarias de transportista. Pasar de 12 a 50 clientes multiplica las binarias por unas 15. Pasar a 150 las lleva a 22 800.</span></li>
@@ -756,6 +757,6 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
 </section>
 
 <footer>
-  <p>Fuentes: Dossier D03 (enunciado y reglas de la sección 3), cuaderno IO2_U2_D03_Constructiva.ipynb (celdas 18 y 19), y los documentos <em>03_procesamiento_datos.md</em> y <em>04_modelamiento_matematico.md</em> del repositorio. Todas las cifras corresponden a la ejecución completa del cuaderno y a la ruta de la sección 4.</p>
+  <p>Fuentes: Dossier D03 (enunciado y reglas de la sección 3), cuaderno IO2_U2_D03_Constructiva.ipynb (celdas 18 y 19), y los documentos <em>03_procesamiento_datos.md</em> y <em>04_modelamiento_matematico.md</em> del repositorio. Las cifras de la reducida provienen de la ejecución completa del cuaderno; las de 50 y 150 clientes son conteos analíticos. La salida de la primera versión del modelo está en U2_D03/evidencia/.</p>
 </footer>
 </main>

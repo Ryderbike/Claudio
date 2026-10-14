@@ -1,0 +1,35 @@
+Salida de la PRIMERA ejecución del cuaderno (versión con cotas big-M globales, antes de ajustar las cotas por arco).
+Muestra la solución de CBC de 107 236,0 $ tras 600,6 s, con estado Optimal. Ese estado de PuLP no certifica óptimo: CBC se detuvo por límite de tiempo.
+Nota: en esta versión la línea de binarias contaba 0 por un error de conteo, corregido después (ver celda 18 actual).
+--- salida original ---
+--- celda 1 [OK]
+Dossier D03 | tablas: puntos, distancias, parametros
+--- celda 3 [OK]
+completa   puntos: 150  flota K: 11
+reducida   puntos: 12  flota K: 2
+intermedia puntos: 50  flota K: 4
+--- celda 5 [OK]
+--- celda 7 [OK]
+--- celda 9 [OK]
+Todas las soluciones son factibles: 30 de 30
+--- celda 10 [OK]
+costo 8,699,291 | vehículos 11 | km 3,024.0 | puntos con flete externo 84
+--- celda 12 [OK]
+Escenario P3, aleatoria (semilla 0): costo 9,009,720 | vehículos 10 | km 2,746.7 | puntos con flete externo 90
+--- celda 14 [OK]
+--- celda 16 [OK]
+reducida -> factible
+    costo 260,606 | vehículos 2 | km 334.7 | puntos con flete externo 0 | tiempo 0.000 s
+completa -> factible
+    costo 8,699,291 | vehículos 11 | km 3,024.0 | puntos con flete externo 84 | tiempo 0.001 s
+--- celda 18 [OK]
+Listo: PuLP 3.3.2, solver CBC disponible: True
+Modelo: 192 variables (0 binarias), 326 restricciones
+Optimal 107236.0 600.6348223686218
+Solución exacta: costo 107,236 | vehículos 1 | km 116.1 | puntos con flete externo 0
+Rutas: [[21, 53, 26, 8, 86, 62, 68, 115, 113, 15, 88, 137]] | con flete externo: []
+--- celda 20 [OK]
+Guardados: tabla_estandar_D03.csv y soluciones_aleatoria_D03.json
+total s: 601.7
+
+[exited with code 0]
