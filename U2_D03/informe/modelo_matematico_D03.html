@@ -1,0 +1,761 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Modelo matemático D03</title>
+<style>
+/* Papel cálido, tinta azul marino. Las fórmulas van en MathML: el navegador las dibuja sin librerías. */
+:root {
+  --paper: #f6f3ec;
+  --ink: #1d2330;
+  --muted: #5b6372;
+  --rule: #d9d3c5;
+  --accent: #1f4e8c;
+  --accent-soft: #e4ecf7;
+  --math-bg: #fbfaf6;
+  --warn: #9a4a1c;
+  --warn-soft: #f7e9df;
+  --ok: #2e6b4a;
+  --ok-soft: #e3f0e8;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14171e;
+    --ink: #e8e6e1;
+    --muted: #9aa3b2;
+    --rule: #2c323d;
+    --accent: #8fb4e8;
+    --accent-soft: #1d2a3e;
+    --math-bg: #181c25;
+    --warn: #e9a06f;
+    --warn-soft: #34251c;
+    --ok: #86c9a2;
+    --ok-soft: #1c2e25;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #14171e;
+  --ink: #e8e6e1;
+  --muted: #9aa3b2;
+  --rule: #2c323d;
+  --accent: #8fb4e8;
+  --accent-soft: #1d2a3e;
+  --math-bg: #181c25;
+  --warn: #e9a06f;
+  --warn-soft: #34251c;
+  --ok: #86c9a2;
+  --ok-soft: #1c2e25;
+  color-scheme: dark;
+}
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+main { max-width: 52rem; margin-inline: auto; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; line-height: 1.2; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 6vw, 3rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.85rem; margin-top: 3.4rem; padding-top: 1.3rem; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.3rem; margin-top: 2rem; }
+h4 { font-family: var(--body); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-top: 1.1rem; }
+p { margin: 0.75rem 0; max-width: 66ch; }
+ul, ol { max-width: 66ch; padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+a { color: var(--accent); }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code, .mono { font-family: var(--mono); font-size: 0.88em; }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.6rem; }
+.lede { font-size: 1.08rem; color: var(--muted); }
+.tag { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); }
+
+/* Cabecera y mapa de lectura */
+header.top { padding-block: 1.2rem 1rem; border-bottom: 2px solid var(--ink); }
+nav.toc { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+nav.toc a { font-size: 0.86rem; text-decoration: none; color: var(--ink); border: 1px solid var(--rule); padding: 0.3rem 0.7rem; }
+nav.toc a:hover { border-color: var(--accent); color: var(--accent); }
+
+.route { counter-reset: r; list-style: none; padding: 0; margin: 1rem 0; max-width: 66ch; }
+.route li { counter-increment: r; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 0.4rem; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); margin: 0; }
+.route li::before { content: counter(r); font-family: var(--mono); color: var(--accent); }
+
+/* Cajas de énfasis: fondo tenue, sin borde de acento */
+.note { background: var(--accent-soft); padding: 0.9rem 1.1rem; margin: 1.2rem 0; max-width: 66ch; }
+.note.warn { background: var(--warn-soft); }
+.note.ok { background: var(--ok-soft); }
+.note > :first-child { margin-top: 0; }
+.note > :last-child { margin-bottom: 0; }
+
+/* Fórmulas */
+.formula {
+  background: var(--math-bg);
+  border: 1px solid var(--rule);
+  padding: 0.85rem 1rem;
+  margin: 0.9rem 0;
+  overflow-x: auto;
+  max-width: 100%;
+}
+math { font-family: "Newsreader", "Cambria Math", Georgia, serif; font-size: 1.12rem; color: var(--ink); }
+math[display="block"] { display: block; text-align: left; }
+.formula .label { display: block; font-family: var(--body); font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 0.35rem; }
+
+/* Tarjetas de restricción: sin borde de acento, separación por línea */
+.con { border-top: 1px solid var(--rule); padding-top: 1.2rem; margin-top: 1.4rem; }
+.con-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.8rem; }
+.con-head h3 { margin: 0; }
+.dossier { font-size: 0.86rem; color: var(--muted); margin: 0.3rem 0 0.2rem; }
+
+/* Tablas */
+.tbl { overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; min-width: 26rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); border-bottom: 2px solid var(--ink); }
+td.n, th.n { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.hl { font-weight: 600; color: var(--accent); }
+td.bad { color: var(--warn); font-weight: 600; }
+td.good { color: var(--ok); font-weight: 600; }
+
+/* Rúbrica: niveles como columnas */
+.rubric { font-size: 0.88rem; }
+.rubric th, .rubric td { vertical-align: top; }
+.rubric td.lvl { font-family: var(--mono); color: var(--accent); white-space: nowrap; }
+
+/* Cifras clave */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: 0.75rem; margin: 1.2rem 0; }
+.kpi { background: var(--accent-soft); padding: 0.9rem 1rem; min-width: 0; }
+.kpi .num { font-family: var(--mono); font-size: 1.3rem; font-weight: 500; color: var(--accent); display: block; overflow-wrap: anywhere; }
+.kpi .txt { font-size: 0.86rem; display: block; margin-top: 0.25rem; }
+.kpi.warn { background: var(--warn-soft); }
+.kpi.warn .num { color: var(--warn); }
+
+/* Cuadros de tipo "ejemplo" con cifras */
+.calc { font-family: var(--mono); font-size: 0.9rem; background: var(--math-bg); border: 1px solid var(--rule); padding: 0.75rem 1rem; overflow-x: auto; max-width: 100%; margin: 0.8rem 0; }
+.calc div { white-space: nowrap; }
+
+/* Preguntas de repaso */
+details.q { border-bottom: 1px solid var(--rule); padding: 0.8rem 0; }
+details.q summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.6rem; position: relative; }
+details.q summary::-webkit-details-marker { display: none; }
+details.q summary::after { content: "+"; position: absolute; right: 0.1rem; top: 0; font-family: var(--mono); color: var(--accent); }
+details.q[open] summary::after { content: "–"; }
+details.q > div { margin-top: 0.55rem; max-width: 66ch; }
+details.q > div p:first-child { margin-top: 0; }
+
+/* Glosario */
+dl.gloss { display: grid; grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr); gap: 0.55rem 1rem; margin: 1rem 0; }
+dl.gloss dt { font-weight: 600; font-family: var(--mono); font-size: 0.86rem; color: var(--accent); }
+dl.gloss dd { margin: 0; }
+@media (max-width: 30rem) {
+  dl.gloss { grid-template-columns: minmax(0, 1fr); }
+  dl.gloss dt { margin-top: 0.7rem; }
+}
+
+footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; }
+</style>
+
+<main>
+<header class="top">
+  <p class="eyebrow">Investigación de Operaciones II · Proyecto U2 · Grupo 07 · Dossier D03</p>
+  <h1>Modelo matemático D03</h1>
+  <p class="lede">Cómo convertimos el reparto diario de bidones en un problema de optimización: qué decide el modelo, qué reglas respeta, cuánto cuesta el plan y cuánto crece el problema al aumentar los clientes.</p>
+  <nav class="toc" aria-label="Secciones">
+    <a href="#rubrica">1 · Rúbrica</a>
+    <a href="#paso3">2 · Paso 3</a>
+    <a href="#paso4">3 · Paso 4</a>
+    <a href="#ejemplo">4 · Ejemplo</a>
+    <a href="#resultados">5 · Resultados</a>
+    <a href="#escala">6 · Escalabilidad</a>
+    <a href="#repaso">7 · Preguntas</a>
+  </nav>
+</header>
+
+<section id="rubrica">
+  <h2>1 · Qué pide la rúbrica</h2>
+  <p>Las partes 3 y 4 de la rúbrica evalúan dos pasos del workflow del proyecto. Cada criterio se califica en cuatro niveles: Insuficiente (0), Incipiente (1), Competente (2) y Destacado (3). El puntaje de un criterio es su peso multiplicado por el nivel dividido entre 3.</p>
+
+  <div class="tbl"><table class="rubric">
+    <thead><tr><th>Criterio</th><th>Peso</th><th>Lo que exige el nivel Destacado (3)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>3 · Procesamiento de datos</strong><br>paso 3</td><td class="n">6 %</td><td>«Estructuras del modelo y de las plantillas generadas de forma documentada y verificable.»</td></tr>
+      <tr><td><strong>4 · Modelamiento matemático</strong><br>paso 4, saberes U2-S5 y U2-S10</td><td class="n">15 %</td><td>«Modelo IP/MIP completo y correcto, con binarias bien usadas; nota de escalabilidad (qué crece al aumentar el tamaño).»</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Qué separa cada nivel</h3>
+  <div class="tbl"><table class="rubric">
+    <thead><tr><th>Nivel</th><th>Criterio 3 · Datos</th><th>Criterio 4 · Modelo</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">0 · Insuficiente</td><td>Inconsistente o no trazable.</td><td>Modelo ausente o incorrecto.</td></tr>
+      <tr><td class="lvl">1 · Incipiente</td><td>Errores menores o baja trazabilidad.</td><td>Errores que alteran parcialmente el modelo; sin nota de escala.</td></tr>
+      <tr><td class="lvl">2 · Competente</td><td>Correcto, con documentación parcial.</td><td>Modelo correcto con omisiones menores; escalabilidad mencionada.</td></tr>
+      <tr><td class="lvl">3 · Destacado</td><td>Estructuras del modelo y de las plantillas documentadas y verificables.</td><td>Modelo IP/MIP completo y correcto, binarias bien usadas, y qué crece al aumentar el tamaño.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Cuánto vale cada nivel</h3>
+  <div class="formula">
+    <span class="label">PUNTAJE DEL CRITERIO</span>
+    <math display="block"><mrow><mtext>puntaje</mtext><mo>=</mo><mtext>peso</mtext><mo>×</mo><mfrac><mtext>nivel</mtext><mn>3</mn></mfrac></mrow></math>
+  </div>
+  <p>Por ejemplo, el criterio 4 en nivel Destacado vale 15 × 3/3 = <strong>15 puntos</strong> de 100. En nivel Competente vale 15 × 2/3 = <strong>10 puntos</strong>. El criterio 3 en nivel Competente vale 6 × 2/3 = <strong>4 puntos</strong>. Los puntos se suman y el total P pasa a nota con una escala de 60 % de exigencia.</p>
+
+  <h3>Nuestra autoevaluación</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Criterio</th><th>Nivel que sostenemos</th><th>Evidencia en el repositorio</th><th>Lo que todavía falta</th></tr></thead>
+    <tbody>
+      <tr><td>3 · Datos</td><td class="bad">Competente (2)</td><td>Fuentes con huella, 13 controles de calidad, estructuras documentadas y línea base de 30 corridas, todas factibles.</td><td>Las plantillas de constructiva propia y de metaheurística todavía no producen resultados. Con ellas, el nivel Destacado es defendible.</td></tr>
+      <tr><td>4 · Modelo</td><td class="good">Destacado (3)</td><td>Modelo con conjuntos, parámetros, variables binarias y continuas, objetivo y seis familias de restricciones. Su solución pasa el verificador y su costo coincide con el objetivo. Escalabilidad cuantificada.</td><td>El solver no certifica el óptimo en 600 s. El óptimo certificado proviene de una programación dinámica exacta, y la sección 5 lo explica.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="paso3">
+  <h2>2 · Paso 3: procesamiento de datos</h2>
+  <p>El paso 3 transforma los datos crudos del dossier en la forma que necesita el modelo, y deja constancia de cada transformación para que cualquiera pueda repetirla. Un dato mal procesado contamina todo lo que viene después, por eso el paso empieza verificando y no calculando.</p>
+
+  <h3>Qué hicimos, en orden</h3>
+  <ol class="route">
+    <li><span><strong>Recibir las fuentes.</strong> El dossier trae el PDF con el enunciado, tres archivos CSV (puntos, distancias y parámetros) y un Excel con las mismas tablas. Registramos la huella digital (SHA-256) de cada archivo para saber después que es el mismo.</span></li>
+    <li><span><strong>Comprobar que las copias coincidan.</strong> Los datos del cuaderno deben ser idénticos a los CSV, celda por celda. Comparamos los 151 puntos y la matriz completa de 151 × 151 distancias. Resultado: cero diferencias.</span></li>
+    <li><span><strong>Revisar la lógica de la matriz.</strong> Una matriz de distancias de viaje debe ser simétrica, tener cero en la diagonal y cumplir la regla del dossier: distancia de viaje = 1,25 × distancia en línea recta, redondeada a 0,01 km. Las tres cosas se cumplen en los 22 650 pares.</span></li>
+    <li><span><strong>Contrastar con el enunciado.</strong> Las cifras del dossier se comparan con las de los datos: 150 clientes; demanda entre 6 y 40 bidones (promedio 16,85); descarga entre 12 y 28 minutos; totales de cada instancia (2 527 bidones y 2 957 minutos en la completa); jornada de 540 minutos y velocidad de 40 km/h. Todo coincide.</span></li>
+    <li><span><strong>Transformar lo necesario.</strong> La matriz da distancias en kilómetros, pero las restricciones del modelo trabajan con minutos. Convertimos con el factor: <em>minutos = km × 60 / 40</em>, es decir, <em>minutos = 1,5 × km</em>. El flete externo de cada cliente es 75 000 $ fijos más 300 $ por bidón.</span></li>
+    <li><span><strong>Elegir las instancias.</strong> El dossier define tres instancias del mismo caso: la completa (150 clientes), la reducida (12) y la intermedia (50). La reducida sirve para comparar contra el óptimo exacto. Cada una tiene su propia flota (K = 11, 2 y 4).</span></li>
+    <li><span><strong>Definir una solución.</strong> Una solución es una lista de rutas, cada una con los clientes en orden, más la lista de clientes que van con transportista. Un cliente aparece exactamente una vez.</span></li>
+    <li><span><strong>Verificar cada solución.</strong> Un verificador revisa las cuatro reglas del dossier: que todos los clientes estén atendidos una sola vez, que no se usen más camiones que la flota, que ninguna ruta supere la capacidad y que ninguna supere la jornada. Si una regla falla, la solución se descarta.</span></li>
+    <li><span><strong>Generar resultados trazables.</strong> Cada corrida queda en una tabla estándar con instancia, método, valor, tiempo, semilla y si fue factible. Esa tabla es la única fuente para citar números en el informe.</span></li>
+  </ol>
+
+  <div class="note">
+    <p><strong>La decisión que más se pregunta.</strong> La matriz ya incluye el rodeo de las calles. Por eso el tiempo de viaje se calcula solo con la distancia de la matriz. Si se aplicara el factor 1,25 otra vez, todos los tiempos y el costo por kilómetro quedarían sobrestimados.</p>
+  </div>
+
+  <h3>Qué produce el paso 3</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Entregable</th><th>Qué es</th><th>Para qué sirve</th></tr></thead>
+    <tbody>
+      <tr><td>Datos verificados</td><td>Las tablas con las 13 comprobaciones aprobadas</td><td>Garantizan que el modelo parte de datos correctos</td></tr>
+      <tr><td>Estructuras de datos</td><td>Puntos, distancias, parámetros, instancias, soluciones y tabla de resultados</td><td>Cada cálculo del modelo y de los métodos usa las mismas definiciones</td></tr>
+      <tr><td>Línea base</td><td>30 soluciones aleatorias factibles (10 semillas × 3 instancias)</td><td>Punto de comparación para los métodos propios</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>La línea base, en cifras</h3>
+  <p>La constructiva aleatoria es deliberadamente mala. Siempre produce una solución factible, pero casi nunca buena. Sirve para medir cuánto mejora cualquier método serio.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Instancia</th><th class="n">Mínimo</th><th class="n">Promedio</th><th class="n">Máximo</th><th>Brecha del promedio</th></tr></thead>
+    <tbody>
+      <tr><td>Reducida</td><td class="n">219 980</td><td class="n">250 919</td><td class="n">268 360</td><td class="bad">+135 % sobre el óptimo de 106 786</td></tr>
+      <tr><td>Intermedia</td><td class="n">1 744 827</td><td class="n">1 981 668</td><td class="n">2 206 024</td><td>Sin referencia exacta</td></tr>
+      <tr><td>Completa</td><td class="n">8 603 435</td><td class="n">8 981 095</td><td class="n">9 733 928</td><td>Sin referencia exacta</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="paso4">
+  <h2>3 · Paso 4: el modelo matemático</h2>
+  <p>Un modelo matemático es una descripción precisa de la decisión. Tiene cuatro piezas: los <strong>conjuntos</strong> (qué existe), los <strong>parámetros</strong> (datos conocidos), las <strong>variables</strong> (lo que el modelo decide) y la <strong>función objetivo</strong> con sus <strong>restricciones</strong> (qué se busca y qué reglas no se pueden romper).</p>
+
+  <h3>La pregunta que responde el modelo</h3>
+  <p>El administrador necesita un plan diario: cuántos camiones salen, qué clientes atiende cada uno y en qué orden, y cuáles pedidos se derivan a transportista externo. El plan debe ser el de menor costo diario y cumplir todas las reglas del dossier.</p>
+
+  <h3>3.1 · Conjuntos</h3>
+  <p>Los conjuntos dicen qué elementos existen. Usamos tres.</p>
+  <div class="formula">
+    <span class="label">CONJUNTOS</span>
+    <math display="block">
+      <mrow>
+        <mi>N</mi><mo>=</mo><mrow><mo>{</mo><mn>1</mn><mo>,</mo><mo>…</mo><mo>,</mo><mi>n</mi><mo>}</mo></mrow>
+        <mtext>&nbsp;&nbsp;clientes,&nbsp;&nbsp;</mtext>
+        <msub><mi>V</mi><mn>0</mn></msub><mo>=</mo><mi>N</mi><mo>∪</mo><mrow><mo>{</mo><mn>0</mn><mo>}</mo></mrow>
+        <mtext>&nbsp;&nbsp;clientes más la base,&nbsp;&nbsp;</mtext>
+        <mi>A</mi><mo>=</mo><mrow><mo>{</mo><mo>(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>)</mo><mo>:</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>∈</mo><msub><mi>V</mi><mn>0</mn></msub><mo>,</mo><mi>i</mi><mo>≠</mo><mi>j</mi><mo>}</mo></mrow>
+        <mtext>&nbsp;&nbsp;arcos posibles</mtext>
+      </mrow>
+    </math>
+  </div>
+  <p>La base es el nodo 0. Cada arco <em>(i, j)</em> es un trayecto directo de <em>i</em> a <em>j</em>. Con 12 clientes hay 13 nodos y 156 arcos. Con 150 clientes hay 22 650.</p>
+  <div class="note">
+    <p><strong>¿Por qué arcos dirigidos?</strong> La matriz es simétrica, así que ir de A a B cuesta lo mismo que ir de B a A. Pero las variables de tiempo dependen del sentido: la hora de llegada a cada cliente cambia con el orden, aunque la duración total de la ruta no. Usar arcos dirigidos permite contar esa hora bien.</p>
+  </div>
+
+  <h3>3.2 · Parámetros</h3>
+  <p>Los parámetros son datos conocidos antes de optimizar. Ninguno cambia durante el cálculo.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Símbolo</th><th>Significado</th><th>Valor en el caso</th></tr></thead>
+    <tbody>
+      <tr><td><math><msub><mi>d</mi><mi>i</mi></msub></math></td><td>Demanda del cliente <em>i</em>, en bidones</td><td>de 6 a 40</td></tr>
+      <tr><td><math><msub><mi>s</mi><mi>i</mi></msub></math></td><td>Minutos de descarga en <em>i</em></td><td>de 12 a 28</td></tr>
+      <tr><td><math><msub><mi>D</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></math></td><td>Distancia en km entre <em>i</em> y <em>j</em>; ya incluye el rodeo</td><td>de la matriz del dossier</td></tr>
+      <tr><td><math><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></math></td><td>Minutos de viaje: <math><mrow><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mfrac><mrow><mn>60</mn><msub><mi>D</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><mn>40</mn></mfrac><mo>=</mo><mn>1,5</mn><msub><mi>D</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow></math></td><td>calculado</td></tr>
+      <tr><td><math><mi>K</mi></math></td><td>Camiones disponibles</td><td>11 (completa), 2 (reducida), 4 (intermedia)</td></tr>
+      <tr><td><math><mi>Q</mi></math></td><td>Capacidad de un camión, en bidones</td><td>300</td></tr>
+      <tr><td><math><mi>L</mi></math></td><td>Jornada máxima de una ruta, en minutos</td><td>540 (9 horas)</td></tr>
+      <tr><td><math><mi>F</mi></math></td><td>Costo fijo por camión que sale a ruta</td><td>55 000 $</td></tr>
+      <tr><td><math><mi>c</mi></math></td><td>Costo por kilómetro recorrido</td><td>450 $/km</td></tr>
+      <tr><td><math><mi>f</mi></math></td><td>Flete externo fijo por cliente</td><td>75 000 $</td></tr>
+      <tr><td><math><mi>g</mi></math></td><td>Flete externo por bidón</td><td>300 $/bidón</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3.3 · Variables de decisión</h3>
+  <p>Las variables son lo que el modelo decide. Hay dos tipos y cada uno tiene un dominio, es decir, los valores que puede tomar.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Variable</th><th>Dominio</th><th>Qué decide</th></tr></thead>
+    <tbody>
+      <tr><td><math><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></math></td><td class="hl">binaria: 0 o 1</td><td>Si un camión recorre el arco de <em>i</em> a <em>j</em>. Es el corazón del problema: definir los arcos define las rutas.</td></tr>
+      <tr><td><math><msub><mi>z</mi><mi>i</mi></msub></math></td><td class="hl">binaria: 0 o 1</td><td>Si el cliente <em>i</em> va con transportista externo (1) o con camión propio (0).</td></tr>
+      <tr><td><math><msub><mi>T</mi><mi>i</mi></msub></math></td><td>continua, de 0 a <math><mrow><mi>L</mi><mo>−</mo><msub><mi>s</mi><mi>i</mi></msub></mrow></math></td><td>Minuto en que empieza la descarga en <em>i</em>, contado desde que sale el camión. Es auxiliar: sirve para controlar la jornada.</td></tr>
+      <tr><td><math><msub><mi>u</mi><mi>i</mi></msub></math></td><td>continua, de <math><msub><mi>d</mi><mi>i</mi></msub></math> a <math><mi>Q</mi></math></td><td>Bidones acumulados en el camión hasta <em>i</em>, incluido <em>i</em>. Es auxiliar: sirve para controlar la capacidad.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">
+    <p><strong>¿Por qué binarias?</strong> Un arco se usa o no se usa; un cliente va con camión o con transportista. No existe la mitad de un arco. Por eso la decisión se modela con 0 o 1. Con 12 clientes hay 156 binarias de arco y 12 de transportista: <strong>168 binarias en total</strong>.</p>
+  </div>
+  <p>Las variables <em>T</em> y <em>u</em> son continuas porque miden minutos y bidones, que pueden tomar cualquier valor. No son decisiones de ruta: solo llevan la cuenta del tiempo y de la carga para que las restricciones puedan verificarlas.</p>
+
+  <h3>3.4 · Función objetivo</h3>
+  <p>La función objetivo es lo que el modelo quiere hacer lo más pequeño posible: el costo diario del plan. Tiene tres términos, uno por cada tipo de gasto.</p>
+  <div class="formula">
+    <span class="label">MINIMIZAR</span>
+    <math display="block">
+      <mrow>
+        <mi>min</mi><mspace width="0.25em"/><mi>Z</mi><mo>=</mo>
+        <mi>F</mi>
+        <munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi>N</mi></mrow></munder>
+        <msub><mi>x</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub>
+        <mo>+</mo>
+        <mi>c</mi>
+        <munder><mo>∑</mo><mrow><mo>(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>)</mo><mo>∈</mo><mi>A</mi></mrow></munder>
+        <msub><mi>D</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub>
+        <msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub>
+        <mo>+</mo>
+        <munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>N</mi></mrow></munder>
+        <mrow><mo>(</mo><mi>f</mi><mo>+</mo><mi>g</mi><msub><mi>d</mi><mi>i</mi></msub><mo>)</mo></mrow>
+        <msub><mi>z</mi><mi>i</mi></msub>
+      </mrow>
+    </math>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Término</th><th>Qué mide</th><th>Cómo se lee</th></tr></thead>
+    <tbody>
+      <tr><td><math><mrow><mi>F</mi><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>x</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub></mrow></math></td><td>Costo fijo de los camiones que salen</td><td>Cuenta las rutas (salidas desde la base) y multiplica por 55 000 $</td></tr>
+      <tr><td><math><mrow><mi>c</mi><munder><mo>∑</mo><mrow><mi>i</mi><mi>j</mi></mrow></munder><msub><mi>D</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow></math></td><td>Costo de kilometraje</td><td>Suma los km de todos los arcos recorridos, incluido el regreso a la base, y multiplica por 450 $</td></tr>
+      <tr><td><math><mrow><munder><mo>∑</mo><mi>i</mi></munder><mo>(</mo><mi>f</mi><mo>+</mo><mi>g</mi><msub><mi>d</mi><mi>i</mi></msub><mo>)</mo><msub><mi>z</mi><mi>i</mi></msub></mrow></math></td><td>Costo de los fletes externos</td><td>Para cada cliente externo: 75 000 $ fijos más 300 $ por bidón</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3.5 · Restricciones</h3>
+  <p>Las restricciones son las reglas del dossier escritas como ecuaciones o desigualdades. Una solución que viola alguna de ellas no es un plan válido, sin importar lo barato que sea. Cada restricción está ligada a una regla concreta, que indicamos en cada tarjeta.</p>
+
+  <div class="con" id="r1">
+    <div class="con-head"><h3>R1 · Atención</h3><span class="tag">cada cliente, una vez y completo</span></div>
+    <p class="dossier">Regla del dossier: cada cliente se atiende una sola vez y completo, con camión propio o con transportista. Los pedidos no se dividen.</p>
+    <div class="formula">
+      <span class="label">ENTRADA Y SALIDA DE CADA CLIENTE</span>
+      <math display="block">
+        <mrow>
+          <munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><msub><mi>V</mi><mn>0</mn></msub><mo>,</mo><mi>j</mi><mo>≠</mo><mi>i</mi></mrow></munder>
+          <msub><mi>x</mi><mrow><mi>j</mi><mi>i</mi></mrow></msub>
+          <mo>+</mo><msub><mi>z</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn>
+          <mspace width="2em"/>
+          <munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><msub><mi>V</mi><mn>0</mn></msub><mo>,</mo><mi>j</mi><mo>≠</mo><mi>i</mi></mrow></munder>
+          <msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub>
+          <mo>+</mo><msub><mi>z</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn>
+          <mspace width="1em"/><mo>∀</mo><mi>i</mi><mo>∈</mo><mi>N</mi>
+        </mrow>
+      </math>
+    </div>
+    <p>La primera igualdad dice: el cliente <em>i</em> tiene exactamente una llegada, desde un camión o desde la base, o bien va con transportista. La segunda dice lo mismo para la salida. Así el camión que llega a un cliente también sale de él, y los clientes externos no tienen arcos.</p>
+  </div>
+
+  <div class="con" id="r2">
+    <div class="con-head"><h3>R2 · Flota</h3><span class="tag">a lo más K camiones</span></div>
+    <p class="dossier">Regla del dossier: pueden salir a lo más 11 camiones (en la reducida, 2).</p>
+    <div class="formula">
+      <span class="label">LÍMITE DE CAMIONES</span>
+      <math display="block">
+        <mrow>
+          <munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi>N</mi></mrow></munder>
+          <msub><mi>x</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub>
+          <mo>≤</mo><mi>K</mi>
+        </mrow>
+      </math>
+    </div>
+    <p>Cada arco que sale de la base es el primer tramo de una ruta. Contar esos arcos es contar los camiones que salen.</p>
+  </div>
+
+  <div class="con" id="r3">
+    <div class="con-head"><h3>R3 · Vuelta a la base</h3><span class="tag">toda ruta regresa</span></div>
+    <p class="dossier">Regla del dossier: cada camión sale de la base y vuelve a ella.</p>
+    <div class="formula">
+      <span class="label">LO QUE SALE DE LA BASE, VUELVE A LA BASE</span>
+      <math display="block">
+        <mrow>
+          <munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi>N</mi></mrow></munder>
+          <msub><mi>x</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub>
+          <mo>=</mo>
+          <munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>N</mi></mrow></munder>
+          <msub><mi>x</mi><mrow><mi>i</mi><mn>0</mn></mrow></msub>
+        </mrow>
+      </math>
+    </div>
+    <p>Esta igualdad ya se deduce de R1 al sumar sobre todos los nodos, pero la escribimos para que se vea. Ninguna ruta puede quedarse a medio camino.</p>
+  </div>
+
+  <div class="con" id="r4">
+    <div class="con-head"><h3>R4 · Capacidad</h3><span class="tag">la carga nunca supera 300 bidones</span></div>
+    <p class="dossier">Regla del dossier: la demanda total de una ruta no puede superar 300 bidones.</p>
+    <div class="formula">
+      <span class="label">CARGA ACUMULADA (MTZ)</span>
+      <math display="block">
+        <mrow>
+          <msub><mi>u</mi><mi>j</mi></msub>
+          <mo>≥</mo>
+          <msub><mi>u</mi><mi>i</mi></msub><mo>+</mo><msub><mi>d</mi><mi>j</mi></msub>
+          <mo>−</mo><mi>Q</mi><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>)</mo></mrow>
+          <mspace width="1em"/><mo>∀</mo><mi>i</mi><mo>≠</mo><mi>j</mi><mo>∈</mo><mi>N</mi>
+        </mrow>
+      </math>
+      <math display="block">
+        <mrow>
+          <msub><mi>d</mi><mi>i</mi></msub><mo>≤</mo><msub><mi>u</mi><mi>i</mi></msub><mo>≤</mo><mi>Q</mi>
+          <mspace width="1em"/><mo>∀</mo><mi>i</mi><mo>∈</mo><mi>N</mi>
+        </mrow>
+      </math>
+    </div>
+    <p>Esta es la restricción de capacidad en forma de cadena. Si el camión pasa de <em>i</em> a <em>j</em> (<math><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mn>1</mn></math>), la carga al llegar a <em>j</em> es la carga de <em>i</em> más la demanda de <em>j</em>. Como <em>u</em> nunca supera <em>Q</em>, la carga de toda la ruta tampoco la supera.</p>
+    <div class="note">
+      <p><strong>¿Qué pasa cuando el arco no se usa?</strong> Si <math><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mn>0</mn></math>, el término <math><mrow><mi>Q</mi><mo>(</mo><mn>1</mn><mo>−</mo><mn>0</mn><mo>)</mo></mrow></math> vale <math><mi>Q</mi></math> y la desigualdad queda <math><mrow><msub><mi>u</mi><mi>j</mi></msub><mo>≥</mo><msub><mi>u</mi><mi>i</mi></msub><mo>+</mo><msub><mi>d</mi><mi>j</mi></msub><mo>−</mo><mi>Q</mi></mrow></math>. Como <math><msub><mi>u</mi><mi>i</mi></msub><mo>≤</mo><mi>Q</mi></math> y <math><msub><mi>d</mi><mi>j</mi></msub><mo>≤</mo><msub><mi>u</mi><mi>j</mi></msub></math>, siempre se cumple y no estorba. A esto se le llama <em>restricción desactivada</em>.</p>
+    </div>
+  </div>
+
+  <div class="con" id="r5">
+    <div class="con-head"><h3>R5 · Jornada</h3><span class="tag">viaje, descarga y regreso en 540 minutos</span></div>
+    <p class="dossier">Regla del dossier: la duración de una ruta, desde que sale de la base hasta que vuelve, incluido el viaje y la descarga en cada punto, no puede superar 540 minutos. No hay ventanas horarias.</p>
+    <div class="formula">
+      <span class="label">HORA DE INICIO DE LA DESCARGA Y REGRESO</span>
+      <math display="block">
+        <mrow>
+          <msub><mi>T</mi><mi>j</mi></msub>
+          <mo>≥</mo>
+          <msub><mi>t</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub>
+          <mo>−</mo><msub><mi>t</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub><mo>)</mo></mrow>
+          <mspace width="1em"/><mo>∀</mo><mi>j</mi><mo>∈</mo><mi>N</mi>
+        </mrow>
+      </math>
+      <math display="block">
+        <mrow>
+          <msub><mi>T</mi><mi>j</mi></msub>
+          <mo>≥</mo>
+          <msub><mi>T</mi><mi>i</mi></msub><mo>+</mo><msub><mi>s</mi><mi>i</mi></msub><mo>+</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub>
+          <mo>−</mo><mrow><mo>(</mo><mi>L</mi><mo>+</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>)</mo></mrow><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>)</mo></mrow>
+          <mspace width="1em"/><mo>∀</mo><mi>i</mi><mo>≠</mo><mi>j</mi><mo>∈</mo><mi>N</mi>
+        </mrow>
+      </math>
+      <math display="block">
+        <mrow>
+          <msub><mi>T</mi><mi>j</mi></msub><mo>+</mo><msub><mi>s</mi><mi>j</mi></msub><mo>+</mo><msub><mi>t</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub>
+          <mo>≤</mo>
+          <mi>L</mi><mo>+</mo><mrow><mo>(</mo><mi>L</mi><mo>+</mo><msub><mi>t</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub><mo>)</mo></mrow><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub><mo>)</mo></mrow>
+          <mspace width="1em"/><mo>∀</mo><mi>j</mi><mo>∈</mo><mi>N</mi>
+        </mrow>
+      </math>
+    </div>
+    <p>Tres líneas, tres momentos de la ruta:</p>
+    <ol>
+      <li><strong>Primera línea.</strong> Si el camión sale de la base hacia <em>j</em> como primer cliente, llega a <em>j</em> después del viaje desde la base, <math><msub><mi>t</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub></math>. Ese es el valor mínimo de <em>T<sub>j</sub></em>.</li>
+      <li><strong>Segunda línea.</strong> Si el camión va de <em>i</em> a <em>j</em>, empieza la descarga en <em>j</em> después de terminar en <em>i</em> (<math><mrow><msub><mi>T</mi><mi>i</mi></msub><mo>+</mo><msub><mi>s</mi><mi>i</mi></msub></mrow></math>) y viajar de <em>i</em> a <em>j</em>. Así se acumula el tiempo a lo largo de la ruta.</li>
+      <li><strong>Tercera línea.</strong> Después de descargar en el último cliente <em>j</em>, el camión regresa a la base. El tiempo total de esa ruta, <math><mrow><msub><mi>T</mi><mi>j</mi></msub><mo>+</mo><msub><mi>s</mi><mi>j</mi></msub><mo>+</mo><msub><mi>t</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub></mrow></math>, no puede pasar de 540.</li>
+    </ol>
+    <p>La tercera línea solo importa en el último cliente de cada ruta. En los demás clientes el arco de regreso no se usa, y la cota grande la desactiva.</p>
+  </div>
+
+  <div class="con" id="r6">
+    <div class="con-head"><h3>R6 · Dominios</h3><span class="tag">qué valores puede tomar cada variable</span></div>
+    <div class="formula">
+      <span class="label">TIPOS DE VARIABLE</span>
+      <math display="block">
+        <mrow>
+          <msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>∈</mo><mrow><mo>{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>}</mo></mrow>
+          <mspace width="1em"/><mo>,</mo><mspace width="1em"/>
+          <msub><mi>z</mi><mi>i</mi></msub><mo>∈</mo><mrow><mo>{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>}</mo></mrow>
+          <mspace width="1em"/><mo>,</mo><mspace width="1em"/>
+          <mn>0</mn><mo>≤</mo><msub><mi>T</mi><mi>i</mi></msub><mo>≤</mo><mi>L</mi><mo>−</mo><msub><mi>s</mi><mi>i</mi></msub>
+          <mspace width="1em"/><mo>,</mo><mspace width="1em"/>
+          <msub><mi>d</mi><mi>i</mi></msub><mo>≤</mo><msub><mi>u</mi><mi>i</mi></msub><mo>≤</mo><mi>Q</mi>
+        </mrow>
+      </math>
+    </div>
+    <p>La cota <math><mrow><msub><mi>T</mi><mi>i</mi></msub><mo>≤</mo><mi>L</mi><mo>−</mo><msub><mi>s</mi><mi>i</mi></msub></mrow></math> es válida porque en cualquier ruta factible la descarga en <em>i</em> termina antes del regreso a la base, que a su vez ocurre antes de los 540 minutos.</p>
+  </div>
+
+  <h3>3.6 · Por qué las cotas grandes son válidas</h3>
+  <p>En R4 y R5 aparecen términos de la forma <math><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mi>i</mi><mi>j</mi></msub><mo>)</mo></mrow></math> multiplicados por una constante grande. Son las llamadas cotas grandes o <em>big-M</em>. Su trabajo es apagar la restricción cuando el arco no existe.</p>
+  <p>Para que sean correctas, la constante debe ser al menos el mayor valor que el lado izquierdo puede tomar cuando el arco no se usa. Elegimos cotas ajustadas, por arco:</p>
+  <div class="formula">
+    <span class="label">COTAS GRANDES AJUSTADAS</span>
+    <math display="block">
+      <mrow>
+        <msub><mi>M</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>t</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub>
+        <mspace width="2em"/>
+        <msub><mi>M</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mi>L</mi><mo>+</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub>
+        <mspace width="2em"/>
+        <msub><mi>M</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub><mo>=</mo><mi>L</mi><mo>+</mo><msub><mi>t</mi><mrow><mi>j</mi><mn>0</mn></mrow></msub>
+      </mrow>
+    </math>
+  </div>
+  <div class="note">
+    <p><strong>Por qué sirven.</strong> Como <em>T<sub>i</sub></em> nunca supera <em>L − s<sub>i</sub></em>, el lado izquierdo de la restricción de tiempo, <math><mrow><msub><mi>T</mi><mi>i</mi></msub><mo>+</mo><msub><mi>s</mi><mi>i</mi></msub><mo>+</mo><msub><mi>t</mi><mi>ij</mi></msub><mo>−</mo><msub><mi>T</mi><mi>j</mi></msub></mrow></math>, nunca supera <math><mrow><mi>L</mi><mo>+</mo><msub><mi>t</mi><mi>ij</mi></msub></mrow></math>. Ese valor es exactamente <math><msub><mi>M</mi><mi>ij</mi></msub></math>, así que la restricción nunca corta una ruta factible. Usar una sola cota global, como <math><mrow><mi>L</mi><mo>+</mo><mi>máx</mi><mo>(</mo><mi>s</mi><mo>)</mo><mo>+</mo><mi>máx</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow></math>, también sería válida pero más grande, y eso debilita la relajación del modelo.</p>
+  </div>
+
+  <h3>3.7 · El modelo completo, en una sola vista</h3>
+  <p>Así se leería el modelo en un libro de texto. Todas las piezas juntas:</p>
+  <div class="formula">
+    <span class="label">MODELO IP/MIP DEL REPARTO DIARIO</span>
+    <math display="block">
+      <mrow>
+        <mi>min</mi><mspace width="0.25em"/><mi>Z</mi><mo>=</mo>
+        <mi>F</mi><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>x</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub>
+        <mo>+</mo><mi>c</mi><munder><mo>∑</mo><mrow><mi>i</mi><mi>j</mi></mrow></munder><msub><mi>D</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub>
+        <mo>+</mo><munder><mo>∑</mo><mi>i</mi></munder><mrow><mo>(</mo><mi>f</mi><mo>+</mo><mi>g</mi><msub><mi>d</mi><mi>i</mi></msub><mo>)</mo></mrow><msub><mi>z</mi><mi>i</mi></msub>
+      </mrow>
+    </math>
+    <math display="block">
+      <mrow>
+        <mtext>sujeto a&nbsp;&nbsp;</mtext>
+        <mtext>R1 (atención),&nbsp;&nbsp;R2 (flota),&nbsp;&nbsp;R3 (vuelta a la base),&nbsp;&nbsp;R4 (capacidad),&nbsp;&nbsp;R5 (jornada),&nbsp;&nbsp;R6 (dominios)</mtext>
+      </mrow>
+    </math>
+  </div>
+  <p>La forma compacta del modelo es: <strong>minimizar el costo, sujeto a seis familias de restricciones, con 168 variables binarias de decisión (en la reducida) y 2 × 12 variables continuas auxiliares</strong>. El nombre IP/MIP significa que el modelo tiene variables enteras (las binarias) y continuas (las auxiliares), por lo que es un programa entero mixto.</p>
+
+  <h3>Qué se valida y cómo se valida</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Control</th><th>Qué comprueba</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td>Solución del solver contra el verificador</td><td>Que la solución del modelo cumpla las cuatro reglas del dossier</td><td class="good">Cumple. El cuaderno se detiene si no cumple</td></tr>
+      <tr><td>Costo de la solución contra el objetivo</td><td>Que el costo calculado a partir de la ruta coincide con el valor del modelo</td><td class="good">Coincide. El cuaderno se detiene si no coincide</td></tr>
+      <tr><td>Referencia exacta independiente</td><td>Que el valor del modelo sea el óptimo, calculado por otro método</td><td class="good">Mismo valor: 106 786 $</td></tr>
+      <tr><td>Estado que certifica el óptimo</td><td>Que el solver haya demostrado optimalidad, no solo que encontró una buena solución</td><td class="bad">No certificado en 600 s</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="ejemplo">
+  <h2>4 · Ejemplo: la ruta óptima, paso a paso</h2>
+  <p>Para entender las restricciones conviene recorrer una solución real. El modelo encontró el mejor plan de la instancia reducida: <strong>un solo camión</strong> que visita los 12 clientes en este orden: 137, 88, 15, 113, 115, 68, 62, 86, 8, 26, 21, 53.</p>
+  <p>La tabla sigue el camión. Cada fila muestra cuánto viaja, a qué hora empieza la descarga (<em>T</em>), cuánto dura la descarga y cuántos bidones lleva acumulados (<em>u</em>).</p>
+  <div class="tbl"><table>
+    <thead><tr><th class="n">Paso</th><th class="n">Cliente</th><th class="n">Demanda</th><th class="n">Km desde el anterior</th><th class="n">Inicio de descarga (<em>T</em>)</th><th class="n">Descarga (min)</th><th class="n">Fin</th><th class="n">Carga acumulada (<em>u</em>)</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td class="n">137</td><td class="n">32</td><td class="n">23,09</td><td class="n">34,6</td><td class="n">17</td><td class="n">51,6</td><td class="n">32</td></tr>
+      <tr><td class="n">2</td><td class="n">88</td><td class="n">27</td><td class="n">4,28</td><td class="n">58,1</td><td class="n">25</td><td class="n">83,1</td><td class="n">59</td></tr>
+      <tr><td class="n">3</td><td class="n">15</td><td class="n">40</td><td class="n">3,30</td><td class="n">88,0</td><td class="n">20</td><td class="n">108,0</td><td class="n">99</td></tr>
+      <tr><td class="n">4</td><td class="n">113</td><td class="n">7</td><td class="n">2,85</td><td class="n">112,3</td><td class="n">22</td><td class="n">134,3</td><td class="n">106</td></tr>
+      <tr><td class="n">5</td><td class="n">115</td><td class="n">16</td><td class="n">3,24</td><td class="n">139,1</td><td class="n">12</td><td class="n">151,1</td><td class="n">122</td></tr>
+      <tr><td class="n">6</td><td class="n">68</td><td class="n">7</td><td class="n">1,72</td><td class="n">153,7</td><td class="n">17</td><td class="n">170,7</td><td class="n">129</td></tr>
+      <tr><td class="n">7</td><td class="n">62</td><td class="n">9</td><td class="n">3,30</td><td class="n">175,7</td><td class="n">15</td><td class="n">190,7</td><td class="n">138</td></tr>
+      <tr><td class="n">8</td><td class="n">86</td><td class="n">18</td><td class="n">0,69</td><td class="n">191,7</td><td class="n">25</td><td class="n">216,7</td><td class="n">156</td></tr>
+      <tr><td class="n">9</td><td class="n">8</td><td class="n">9</td><td class="n">32,51</td><td class="n">265,5</td><td class="n">18</td><td class="n">283,5</td><td class="n">165</td></tr>
+      <tr><td class="n">10</td><td class="n">26</td><td class="n">20</td><td class="n">17,36</td><td class="n">309,5</td><td class="n">27</td><td class="n">336,5</td><td class="n">185</td></tr>
+      <tr><td class="n">11</td><td class="n">21</td><td class="n">7</td><td class="n">7,66</td><td class="n">348,0</td><td class="n">12</td><td class="n">360,0</td><td class="n">192</td></tr>
+      <tr><td class="n">12</td><td class="n">53</td><td class="n">12</td><td class="n">4,25</td><td class="n">366,4</td><td class="n">20</td><td class="n">386,4</td><td class="n">204</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Qué comprobamos en la tabla</h3>
+  <ul>
+    <li><strong>Carga (R4).</strong> La carga acumulada crece en cada paso exactamente en la demanda del cliente. Al final llega a 204 bidones, menos que los 300 de capacidad.</li>
+    <li><strong>Tiempo entre clientes (R5, segunda línea).</strong> Cada inicio de descarga es el fin de la anterior más el viaje entre ambos. Del cliente 137 al 88 hay 4,28 km, que son 6,4 minutos de viaje. El cliente 137 termina a los 51,6 minutos, así que 88 debería empezar a los 58,0. La tabla dice 58,1 porque usa decimales exactos y los números aquí están redondeados.</li>
+    <li><strong>Regreso y jornada (R5, tercera línea).</strong> Después del cliente 53, el camión tarda 16,2 minutos en volver a la base.</li>
+  </ul>
+
+  <h3>La cuenta de la jornada</h3>
+  <div class="calc">
+    <div>Fin de la última descarga + regreso = 386,4 + 16,2 = 402,6 min</div>
+    <div>Límite de la jornada: L = 540 min</div>
+    <div>Holgura = 540 − 402,6 = 137,4 min (la ruta cumple)</div>
+  </div>
+
+  <h3>La cuenta del costo (función objetivo)</h3>
+  <div class="calc">
+    <div>Camiones que salen: 1 → F × 1 = 55 000 $</div>
+    <div>Kilómetros: 115,08 km (incluido el regreso) → c × 115,08 = 51 786 $</div>
+    <div>Fletes externos: ninguno → 0 $</div>
+    <div>Costo diario = 55 000 + 51 786 + 0 = <strong>106 786 $</strong></div>
+  </div>
+  <p>El valor coincide con el óptimo que calculó la programación dinámica exacta. Esa es la primera prueba de que el modelo está bien construido: la solución que produce es factible y tiene el costo correcto.</p>
+
+  <div class="note">
+    <p><strong>Por qué un solo camión.</strong> Un segundo camión cuesta 55 000 $ fijos. Para que valiera la pena, dividir los clientes entre dos tendría que ahorrar más de 55 000 $ en kilómetros, es decir, más de 122 km. La ruta única ya recorre 115 km, así que no hay ahorro que compense. El modelo lo confirma sin necesidad de que lo supongamos.</p>
+  </div>
+</section>
+
+<section id="resultados">
+  <h2>5 · Resultados y qué significan</h2>
+  <div class="kpis">
+    <div class="kpi"><span class="num">106 786 $</span><span class="txt">Óptimo certificado de la reducida</span></div>
+    <div class="kpi"><span class="num">1 camión</span><span class="txt">Plan óptimo, sin flete externo</span></div>
+    <div class="kpi"><span class="num">402,6 min</span><span class="txt">Duración de la ruta, de 540 permitidos</span></div>
+    <div class="kpi warn"><span class="num">No certificado</span><span class="txt">El solver encontró el mismo valor, pero no demostró que sea el óptimo</span></div>
+  </div>
+
+  <h3>Tres métodos, tres niveles de confianza</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Método</th><th class="n">Valor ($)</th><th>Qué garantiza</th><th class="n">Tiempo</th></tr></thead>
+    <tbody>
+      <tr><td>Programación dinámica exacta</td><td class="n hl">106 786</td><td class="good">Óptimo certificado, por construcción</td><td class="n">0,26 s</td></tr>
+      <tr><td>Modelo IP/MIP con el solver CBC, versión final</td><td class="n">106 786</td><td class="bad">Solución del mismo valor, sin prueba de optimalidad</td><td class="n">600 s (límite)</td></tr>
+      <tr><td>Modelo IP/MIP con el solver CBC, primera versión</td><td class="n">107 236</td><td>Solución 0,42 % más cara; sin prueba de optimalidad</td><td class="n">600 s (límite)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Por qué el solver no lo certifica</h3>
+  <p>Un solver demuestra que una solución es óptima cuando cierra la brecha entre lo que encontró y lo mejor que aún podría existir. Con las cotas grandes del modelo, esa brecha se cierra muy despacio: el solver tiene que explorar muchas combinaciones antes de poder descartar las demás. Con 12 clientes ya no alcanza los 600 segundos disponibles.</p>
+  <p>La hipótesis más probable es que las cotas grandes son demasiado holgadas para que la relajación lineal, la versión continua del modelo, dé una buena cota. No medimos esa relajación, así que lo presentamos como hipótesis.</p>
+  <div class="note">
+    <p><strong>Por qué confiamos en el 106 786.</strong> Dos métodos de naturaleza distinta, uno que es un programa de optimización y otro que es una búsqueda exacta sobre subconjuntos, llegan al mismo valor. El óptimo certificado proviene del segundo. El primero muestra que el modelo puede producir el mismo plan, aunque no pruebe que es el mejor.</p>
+  </div>
+  <p>La primera versión del modelo, con una sola cota global, llegaba a 107 236 $. Lo reportamos igual, porque la regla de evidencia del curso pide mostrar todas las corridas, no solo las mejores.</p>
+</section>
+
+<section id="escala">
+  <h2>6 · Escalabilidad: qué crece al aumentar el tamaño</h2>
+  <p>La rúbrica pide decir qué crece cuando el problema se hace más grande. Hay tres cosas que crecen, y no crecen al mismo ritmo.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Instancia</th><th class="n">Clientes <em>n</em></th><th class="n">Binarias</th><th class="n">Continuas</th><th class="n">Restricciones</th><th>Estado del MIP</th></tr></thead>
+    <tbody>
+      <tr><td>Reducida</td><td class="n">12</td><td class="n">168</td><td class="n">24</td><td class="n">326</td><td>Óptimo certificado por DP; el solver no lo certifica en 600 s</td></tr>
+      <tr><td>Intermedia</td><td class="n">50</td><td class="n">2 600</td><td class="n">100</td><td class="n">5 152</td><td>No se intentó resolver</td></tr>
+      <tr><td>Completa</td><td class="n">150</td><td class="n">22 800</td><td class="n">300</td><td class="n">45 452</td><td>Inviable para resolver exactamente</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Lo que crece, y por qué</h3>
+  <ol class="route">
+    <li><span><strong>Las variables de arco crecen con n².</strong> Hay <math><mrow><mi>n</mi><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></math> arcos posibles, más <em>n</em> binarias de transportista. Pasar de 12 a 50 clientes multiplica las binarias por unas 15. Pasar a 150 las lleva a 22 800.</span></li>
+    <li><span><strong>Las restricciones de capacidad y de jornada también crecen con n².</strong> Hay una por cada par de clientes. En la completa, esas dos familias son casi todo el modelo: 44 700 de 45 452.</span></li>
+    <li><span><strong>El espacio de soluciones crece como n!.</strong> Es el crecimiento que más importa. Las secuencias posibles de visita son las ordenaciones de los clientes, y su número es enorme incluso con pocos clientes.</span></li>
+  </ol>
+
+  <div class="tbl"><table>
+    <thead><tr><th class="n">Clientes</th><th>Ordenaciones posibles de los clientes</th></tr></thead>
+    <tbody>
+      <tr><td class="n">12</td><td class="n">479 001 600 (casi 480 millones)</td></tr>
+      <tr><td class="n">50</td><td class="n">3,04 × 10<sup>64</sup></td></tr>
+      <tr><td class="n">150</td><td class="n">5,71 × 10<sup>262</sup></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note warn">
+    <p><strong>Consecuencia para la decisión diaria.</strong> Con 150 clientes no existe una garantía exacta en un tiempo razonable, ni con el modelo ni con la programación dinámica (esta última crece como 2<sup>n</sup>, y con 12 clientes ya son 4 096 subconjuntos). Por eso el proyecto usa métodos aproximados en las instancias grandes, y los compara contra la mejor cota disponible en la completa, indicando el tiempo de cómputo del exacto cuando exista.</p>
+  </div>
+
+  <h3>Cómo mejoraríamos el exacto si hiciera falta</h3>
+  <p>Tres caminos, por orden de dificultad: ajustar más las cotas grandes, agregar desigualdades válidas que cierren la relajación (por ejemplo, cortes de capacidad y de jornada), o cambiar la formulación a una de conjuntos de partición con generación de columnas. Los tres quedan fuera del alcance de este informe.</p>
+</section>
+
+<section id="repaso">
+  <h2>7 · Preguntas de repaso</h2>
+  <p class="lede">Intenta responder cada pregunta antes de abrirla.</p>
+
+  <details class="q">
+    <summary>¿Qué decide exactamente el modelo?</summary>
+    <div><p>Decide dos cosas. Primero, qué arcos recorre cada camión (las variables <em>x</em>), lo que define las rutas. Segundo, qué clientes van con transportista externo (las variables <em>z</em>). Las variables <em>T</em> y <em>u</em> no son decisiones: solo llevan la cuenta del tiempo y de la carga.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Por qué hay tantas binarias si el problema parece simple?</summary>
+    <div><p>Porque cada arco posible es una decisión de sí o no. Con 12 clientes y la base hay 156 arcos, y cada uno puede usarse o no. Sumando las 12 binarias de transportista, son 168. El número crece con el cuadrado de los clientes, por eso el problema se vuelve difícil rápido.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Qué pasa en R4 cuando un arco no se usa?</summary>
+    <div><p>La restricción se vuelve inactiva. El término con la cota grande Q se suma a la derecha y la desigualdad siempre se cumple, porque la carga de cualquier cliente es menor o igual que Q. Así, R4 solo impone una condición cuando el arco sí se usa.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Cómo sabe el modelo que no hay subtours, es decir, ciclos que no pasan por la base?</summary>
+    <div><p>Lo sabe por R5. En un ciclo, cada cliente debe empezar después del anterior más su descarga y el viaje. Como cada descarga dura al menos 12 minutos, el tiempo tendría que crecer sin parar para volver al punto de partida, algo imposible. R5 no permite ese ciclo.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Por qué la matriz es simétrica pero usamos arcos dirigidos?</summary>
+    <div><p>Porque la duración total de una ruta no cambia al invertirla, pero la hora de llegada a cada cliente sí cambia. Las variables de tiempo necesitan saber el sentido del recorrido para contar esa hora. Una formulación no dirigida tendría la mitad de arcos, pero habría que orientar la ruta de todos modos.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Qué significa que el problema sea IP/MIP?</summary>
+    <div><p>IP quiere decir programación entera: algunas variables solo pueden ser enteras. MIP, programación entera mixta, quiere decir que el modelo mezcla variables enteras (las binarias de ruta) con continuas (los tiempos y las cargas). Nuestro modelo es mixto porque <em>T</em> y <em>u</em> pueden tomar cualquier valor real.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Qué garantiza que la solución del modelo sea un plan válido?</summary>
+    <div><p>Dos cosas. Primero, las restricciones R1 a R6 imponen las reglas del dossier. Segundo, el cuaderno vuelve a revisar la solución con un verificador independiente que comprueba las cuatro reglas, y compara el costo calculado con el valor del objetivo. Si algo no coincide, el cuaderno se detiene.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿El 106 786 es el óptimo? ¿Cómo lo sabes?</summary>
+    <div><p>Sí, y lo sabemos por la programación dinámica exacta, que revisa todas las combinaciones de clientes y rutas posibles para la instancia reducida. El solver CBC también llega a 106 786 $, pero no demuestra que no exista algo mejor en el tiempo disponible. Por eso el óptimo certificado es el de la programación dinámica.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Por qué el solver encuentra la solución pero no la certifica?</summary>
+    <div><p>Certificar exige cerrar la brecha entre la mejor solución encontrada y una cota inferior. Con cotas grandes poco ajustadas, la cota inferior sube muy despacio, y el solver tiene que explorar muchísimas ramas. Con 12 clientes ya agota los 600 segundos.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Qué crece al pasar de 12 a 150 clientes?</summary>
+    <div><p>Tres cosas, en distinto ritmo. Las binarias crecen con n²: de 168 a 22 800. Las restricciones de capacidad y jornada también crecen con n²: de 326 a 45 452. Y el número de secuencias de visita crece como n!, que es lo que hace imposible enumerar. El modelo crece cuadráticamente, pero el espacio de soluciones crece factorialmente.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Cuánto cuesta un segundo camión y por qué no conviene?</summary>
+    <div><p>Cuesta 55 000 $ fijos al día. Para compensarlo, dividir los clientes tendría que ahorrar más de 55 000 $ en kilómetros, es decir, más de 122 km. La ruta única ya recorre 115 km, así que la división no ahorra lo suficiente.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Por qué el flete externo no aparece en la solución óptima?</summary>
+    <div><p>Cada cliente despachado con flete cuesta al menos 75 000 $, más 300 $ por bidón. Si los 12 clientes fueran con flete, el costo sería de al menos 900 000 $. Atenderlos con el camión propio cuesta 106 786 $ en total. El flete está diseñado para ser caro, y el óptimo lo evita.</p></div>
+  </details>
+
+  <details class="q">
+    <summary>¿Qué es una cota grande (big-M) y por qué debe elegirse con cuidado?</summary>
+    <div><p>Es una constante que apaga una restricción cuando el arco no se usa. Debe ser al menos el mayor valor que el lado izquierdo puede tomar; si es menor, corta soluciones factibles y el modelo deja de ser correcto. Si es demasiado grande, la relajación se debilita y el solver tarda más. Por eso usamos cotas ajustadas por arco.</p></div>
+  </details>
+</section>
+
+<section id="glosario">
+  <h2>Glosario</h2>
+  <dl class="gloss">
+    <dt>Arco</dt><dd>Trayecto directo de un punto a otro. Tiene sentido: de <em>i</em> a <em>j</em> no es lo mismo que de <em>j</em> a <em>i</em> en el modelo.</dd>
+    <dt>Binaria</dt><dd>Variable que vale 0 o 1. Modela decisiones de sí o no.</dd>
+    <dt>Big-M</dt><dd>Constante grande que desactiva una restricción cuando una binaria vale 0.</dd>
+    <dt>CVRP</dt><dd>Problema de ruteo de vehículos con capacidad: visitar clientes con camiones de capacidad limitada al menor costo.</dd>
+    <dt>Cota</dt><dd>Valor que una cantidad no puede superar (cota superior) ni bajar de (cota inferior).</dd>
+    <dt>Dominio</dt><dd>Conjunto de valores que puede tomar una variable.</dd>
+    <dt>Función objetivo</dt><dd>Expresión que el modelo busca minimizar o maximizar. Aquí, el costo diario.</dd>
+    <dt>Holgura</dt><dd>Lo que sobra de un recurso. Aquí, minutos que quedan de jornada.</dd>
+    <dt>Incumbente</dt><dd>La mejor solución factible que el solver ha encontrado hasta el momento. No es necesariamente la óptima.</dd>
+    <dt>MIP / IP</dt><dd>Programación entera mixta (MIP) o entera (IP): modelos con variables que deben ser enteras.</dd>
+    <dt>MTZ</dt><dd>Miller-Tucker-Zemlin: formulación que usa variables auxiliares, como la carga acumulada, para evitar ciclos y controlar capacidad.</dd>
+    <dt>Relajación</dt><dd>Versión del modelo sin la exigencia de que las binarias sean enteras. Da una cota para el óptimo.</dd>
+    <dt>Restricción</dt><dd>Regla que una solución debe cumplir: una igualdad o una desigualdad.</dd>
+    <dt>Subtour</dt><dd>Ciclo dentro de las rutas que no pasa por la base. Es una solución inválida que el modelo debe impedir.</dd>
+  </dl>
+</section>
+
+<footer>
+  <p>Fuentes: Dossier D03 (enunciado y reglas de la sección 3), cuaderno IO2_U2_D03_Constructiva.ipynb (celdas 18 y 19), y los documentos <em>03_procesamiento_datos.md</em> y <em>04_modelamiento_matematico.md</em> del repositorio. Todas las cifras corresponden a la ejecución completa del cuaderno y a la ruta de la sección 4.</p>
+</footer>
+</main>
