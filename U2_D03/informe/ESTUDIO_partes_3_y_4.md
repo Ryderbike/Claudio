@@ -70,7 +70,8 @@ Esta guía resume lo que hay que saber para responder preguntas sobre los pasos 
 |---|---|
 | Óptimo certificado (reducida) | **106 786 $** (DP exacta) |
 | Plan óptimo de la reducida | 1 camión, 12 clientes, 115,08 km, duración 402,6 min, sin flete |
-| Valor del MIP (CBC, 600 s) | 107 236 $, **no certificado**, brecha de 0,42 % |
+| Valor del MIP final (CBC, 600 s) | 106 786 $, igual al óptimo, pero **no certificado** |
+| Primera versión del MIP (cotas big-M globales) | 107 236 $, brecha de 0,42 % |
 | Línea base aleatoria, reducida | promedio 250 919 $ (+135 % sobre el óptimo) |
 | Línea base aleatoria, completa | promedio 8 981 095 $, 10 semillas |
 
@@ -78,5 +79,5 @@ Esta guía resume lo que hay que saber para responder preguntas sobre los pasos 
 
 ## 5. Las dos cosas más importantes de este trabajo
 
-1. **El MIP no demuestra el óptimo ni con 12 clientes en 600 s.** Por eso el óptimo de referencia se obtuvo con una programación dinámica exacta, y el MIP se reporta como incumbente con su brecha. Un estado "Optimal" de PuLP no garantiza optimalidad cuando CBC se detiene por tiempo; el cuaderno usa `sol_status` para distinguirlo.
+1. **El MIP no demuestra el óptimo ni con 12 clientes en 600 s.** El MIP final encuentra el mismo valor que la DP (106 786 $), pero sin certificarlo. Por eso el óptimo de referencia es el de la programación dinámica exacta. Un estado "Optimal" de PuLP no garantiza optimalidad cuando CBC se detiene por tiempo; el cuaderno usa `sol_status` para distinguirlo.
 2. **Con 150 clientes no hay exacto razonable.** La solución del proyecto se apoya en métodos aproximados y se compara contra la mejor cota disponible (paso 8).

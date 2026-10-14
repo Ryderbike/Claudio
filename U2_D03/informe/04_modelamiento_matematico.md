@@ -147,7 +147,8 @@ El modelo está en la celda 18 del cuaderno, en PuLP 3.3.2 con el solver CBC.
 | Método | Valor | Estado | Tiempo |
 |---|---|---|---|
 | Exacto DP (subconjuntos) | **106 786,00 $** | Óptimo certificado | < 1 s |
-| Exacto CBC (MIP, límite 600 s) | 107 236,00 $ | **No certificado**: incumbente con brecha de 0,42 % | 600 s (límite) |
+| Exacto CBC (MIP final, límite 600 s) | 106 786,00 $ | **No certificado**: la mejor solución encontrada iguala al óptimo, pero CBC no demostró optimalidad | 600 s (límite) |
+| Exacto CBC (MIP primera versión, cotas big-M globales) | 107 236,00 $ | No certificado; brecha de 0,42 % | 600 s (límite) |
 | Línea base aleatoria (10 semillas) | 219 980 a 268 360 $ | Factible | < 0,001 s |
 
 **Solución óptima certificada.** Un solo camión sale de la base y visita los 12 clientes en este orden: 137, 88, 15, 113, 115, 68, 62, 86, 8, 26, 21, 53. Recorre 115,08 km y termina en 402,6 min de jornada (172,6 de viaje y 230 de descarga). Carga 204 bidones. Ningún cliente va con transportista arrendado.
@@ -158,9 +159,11 @@ El modelo está en la celda 18 del cuaderno, en PuLP 3.3.2 con el solver CBC.
 
 ### Hallazgo: el MIP no certifica el óptimo en 600 s
 
-El modelo tiene 168 variables binarias y 326 restricciones, y CBC no logra demostrar optimalidad en 600 s con 12 clientes. No medimos la relajación lineal, pero la hipótesis más probable es que las cotas *big-M* la debilitan y el árbol de ramificación crece. En una prueba aislada con cotas más ajustadas, CBC también encontró 106 786 $, pero se detuvo en su límite de 300 s sin demostrar el óptimo.
+El modelo tiene 168 variables binarias y 326 restricciones, y CBC no logra demostrar optimalidad en 600 s con 12 clientes. No medimos la relajación lineal, pero la hipótesis más probable es que las cotas *big-M* la debilitan y el árbol de ramificación crece.
 
-**Consecuencia para el informe.** El óptimo de referencia de la reducida es el de la DP (106 786 $). La brecha del MIP se reporta como 0,42 % en el incumbente, y el paso 8 usará ese valor certificado.
+La primera versión, con cotas big-M globales, terminó en 107 236 $ (brecha de 0,42 % sobre el óptimo). Ajustar las cotas por arco, como está en el modelo final, llevó a CBC a 106 786 $: el mismo valor que la DP. Aun así, CBC se detuvo en su límite de 600 s sin demostrar que ese valor es óptimo. Que el valor coincida con la DP es evidencia, no certificación.
+
+**Consecuencia para el informe.** El óptimo de referencia de la reducida es el de la DP (106 786 $), que sí está certificado. El MIP final tiene brecha de 0,00 % frente a esa referencia, pero sin certificación propia. El paso 8 usará la DP como referencia exacta.
 
 ---
 
