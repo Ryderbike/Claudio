@@ -1,0 +1,487 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Dossier D03, partes 3 y 4</title>
+<style>
+/* Diseño: una hoja de estudio sobria, con papel cálido, tinta azul marino y cifras en mono.
+   Tipos: Newsreader para títulos, IBM Plex Sans para el texto, IBM Plex Mono para cifras y fórmulas. */
+:root {
+  --paper: #f6f3ec;
+  --ink: #1d2330;
+  --muted: #5b6372;
+  --rule: #d9d3c5;
+  --accent: #1f4e8c;
+  --accent-soft: #e4ecf7;
+  --warn: #9a4a1c;
+  --warn-soft: #f7e9df;
+  --ok: #2e6b4a;
+  --ok-soft: #e3f0e8;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14171e;
+    --ink: #e8e6e1;
+    --muted: #9aa3b2;
+    --rule: #2c323d;
+    --accent: #8fb4e8;
+    --accent-soft: #1d2a3e;
+    --warn: #e9a06f;
+    --warn-soft: #34251c;
+    --ok: #86c9a2;
+    --ok-soft: #1c2e25;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #14171e;
+  --ink: #e8e6e1;
+  --muted: #9aa3b2;
+  --rule: #2c323d;
+  --accent: #8fb4e8;
+  --accent-soft: #1d2a3e;
+  --warn: #e9a06f;
+  --warn-soft: #34251c;
+  --ok: #86c9a2;
+  --ok-soft: #1c2e25;
+  color-scheme: dark;
+}
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 48px;
+}
+main { max-width: 52rem; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.2; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.9rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.75rem; margin-top: 3.2rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.2rem; margin-top: 1.8rem; }
+p { margin: 0.7rem 0; max-width: 65ch; }
+a { color: var(--accent); }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code, .mono { font-family: var(--mono); font-size: 0.9em; }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.6rem; }
+.lede { font-size: 1.08rem; color: var(--muted); }
+
+/* Encabezado */
+header.top { padding-block: 1.2rem 1rem; border-bottom: 2px solid var(--ink); }
+nav.toc { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+nav.toc a {
+  font-size: 0.85rem; text-decoration: none; color: var(--ink);
+  border: 1px solid var(--rule); padding: 0.3rem 0.7rem; background: transparent;
+}
+nav.toc a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Cifras clave */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.75rem; margin-top: 1.2rem; }
+.kpi { background: var(--accent-soft); padding: 0.9rem 1rem; min-width: 0; }
+.kpi .num { font-family: var(--mono); font-size: 1.35rem; font-weight: 500; color: var(--accent); display: block; overflow-wrap: anywhere; }
+.kpi .txt { font-size: 0.86rem; color: var(--ink); display: block; margin-top: 0.25rem; }
+.kpi.warn { background: var(--warn-soft); }
+.kpi.warn .num { color: var(--warn); }
+
+/* Callouts: fondo tenue, sin borde de acento */
+.callout { background: var(--accent-soft); padding: 0.9rem 1.1rem; margin: 1.2rem 0; max-width: 65ch; }
+.callout.warn { background: var(--warn-soft); }
+.callout.ok { background: var(--ok-soft); }
+.callout strong { font-weight: 600; }
+
+/* Tablas: scroll horizontal dentro de su contenedor */
+.tbl { overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; min-width: 30rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); border-bottom: 2px solid var(--ink); }
+td.n, th.n { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.hl { font-weight: 600; color: var(--accent); }
+td.bad { color: var(--warn); font-weight: 600; }
+
+/* Pasos del proceso: el orden es información */
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 1rem 0; }
+ol.flow li { counter-increment: s; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 0.6rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); }
+ol.flow li::before { content: counter(s); font-family: var(--mono); color: var(--accent); font-weight: 500; }
+
+/* Fórmulas */
+.eq {
+  font-family: var(--display); font-size: 1.12rem; font-style: italic;
+  background: var(--accent-soft); padding: 0.8rem 1rem; margin: 1rem 0;
+  overflow-x: auto; max-width: 100%;
+}
+.eq .rm { font-style: normal; font-family: var(--body); font-size: 0.95rem; }
+.rule-tag { font-family: var(--mono); font-size: 0.82rem; color: var(--accent); }
+
+/* Preguntas de repaso */
+details.q { border-bottom: 1px solid var(--rule); padding: 0.75rem 0; }
+details.q summary { cursor: pointer; font-weight: 600; list-style: none; padding-right: 1.5rem; position: relative; }
+details.q summary::-webkit-details-marker { display: none; }
+details.q summary::after { content: "+"; position: absolute; right: 0; top: 0; font-family: var(--mono); color: var(--accent); }
+details.q[open] summary::after { content: "–"; }
+details.q > div { margin-top: 0.5rem; color: var(--ink); max-width: 65ch; }
+
+/* Glosario */
+dl.gloss { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 0.5rem 1rem; margin: 1rem 0; }
+dl.gloss dt { font-weight: 600; font-family: var(--mono); font-size: 0.88rem; color: var(--accent); }
+dl.gloss dd { margin: 0; }
+@media (max-width: 30rem) {
+  dl.gloss { grid-template-columns: minmax(0, 1fr); }
+  dl.gloss dt { margin-top: 0.6rem; }
+}
+
+footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; }
+</style>
+
+<main>
+<header class="top">
+  <p class="eyebrow">Investigación de Operaciones II · Proyecto U2 · Grupo 07</p>
+  <h1>Dossier D03: partes 3 y 4 de la rúbrica</h1>
+  <p class="lede">Procesamiento de datos y modelamiento matemático de la distribución de agua purificada en bidones (Aguas del Desierto Ltda.). Cada cifra de esta página se reproduce con el cuaderno del dossier.</p>
+  <nav class="toc" aria-label="Secciones">
+    <a href="#resumen">Resumen</a>
+    <a href="#paso3">Paso 3 · Datos</a>
+    <a href="#paso4">Paso 4 · Modelo</a>
+    <a href="#resultados">Resultados</a>
+    <a href="#escala">Escalabilidad</a>
+    <a href="#repaso">Preguntas de repaso</a>
+    <a href="#glosario">Glosario</a>
+  </nav>
+</header>
+
+<section id="resumen">
+  <h2>Resumen en una página</h2>
+  <p>El paso 3 verifica que los datos sean correctos y documenta cómo se procesan. El paso 4 traduce el caso a un modelo de optimización (IP/MIP) que representa todas las reglas del dossier. Con ambos resolvemos una pregunta: ¿cuánto cuesta el mejor plan diario en la instancia reducida, y qué tan confiable es ese número?</p>
+
+  <div class="kpis" role="list">
+    <div class="kpi" role="listitem"><span class="num">106 786 $</span><span class="txt">Óptimo certificado de la reducida (programación dinámica exacta)</span></div>
+    <div class="kpi" role="listitem"><span class="num">1 camión</span><span class="txt">Plan óptimo: 12 clientes, 115,08 km, sin flete externo</span></div>
+    <div class="kpi" role="listitem"><span class="num">402,6 min</span><span class="txt">Duración de la ruta óptima, dentro de la jornada de 540</span></div>
+    <div class="kpi warn" role="listitem"><span class="num">No certificado</span><span class="txt">El MIP de CBC encuentra 106 786 $ en 600 s, pero no demuestra que sea óptimo</span></div>
+    <div class="kpi" role="listitem"><span class="num">168 · 326</span><span class="txt">Binarias y restricciones del MIP en la reducida</span></div>
+    <div class="kpi" role="listitem"><span class="num">+135 %</span><span class="txt">Costo promedio de la línea base aleatoria sobre el óptimo</span></div>
+  </div>
+
+  <div class="callout warn">
+    <p><strong>Cuidado con esta cifra.</strong> La primera versión del MIP, con cotas big-M globales, terminó en 107 236 $ (brecha de 0,42 %). La versión final, con cotas ajustadas por arco, llega a 106 786 $. Ese valor coincide con el óptimo, pero el solver se detuvo en su límite de 600 s sin demostrarlo. La referencia certificada es la de la DP.</p>
+  </div>
+</section>
+
+<section id="paso3">
+  <h2>Paso 3 · Procesamiento de datos</h2>
+  <p class="rule-tag">Rúbrica, criterio 3 (6 %): estructuras del modelo y de las plantillas generadas, documentadas y verificables.</p>
+
+  <h3>Fuentes</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Archivo</th><th>Contenido</th><th>SHA-256 (abreviado)</th></tr></thead>
+    <tbody>
+      <tr><td>Dossier_U2_D03.pdf</td><td>Enunciado, reglas, costos, instancias, preguntas P1 a P3</td><td class="mono">43e24e4f…8c53</td></tr>
+      <tr><td>D03_puntos.csv</td><td>151 filas (base + 150 clientes): posición, demanda, minutos de descarga, banderas de instancia</td><td class="mono">c35cd746…2aa5</td></tr>
+      <tr><td>D03_distancias.csv</td><td>Matriz de 151 × 151 de distancias de viaje en km</td><td class="mono">7a4fa7d1…48d8</td></tr>
+      <tr><td>D03_parametros.csv</td><td>13 parámetros: capacidad, jornada, velocidad, costos, flete, flota</td><td class="mono">3e13f4f4…edd1</td></tr>
+      <tr><td>Datos_U2_D03.xlsx</td><td>Las mismas tablas en cuatro hojas: Leeme, puntos, parametros, distancias</td><td class="mono">a896e9fe…7d37</td></tr>
+    </tbody>
+  </table></div>
+  <p>Los datos son de trabajo, verosímiles y no reales. Eso se declara como supuesto en el paso 2.</p>
+
+  <h3>Flujo de procesamiento</h3>
+  <p>El cuaderno transforma los datos en cinco etapas, cada una en una celda numerada. El orden importa porque cada etapa usa la anterior.</p>
+  <ol class="flow">
+    <li><span><strong>Carga (celda 1).</strong> Los datos vienen embebidos como un bloque comprimido (gzip + base64) que se descomprime a un diccionario <code>DATA</code> con las tablas <code>puntos</code>, <code>distancias</code> y <code>parametros</code>.</span></li>
+    <li><span><strong>Estructuras de acceso (celda 3).</strong> <code>PUNTOS</code> (id → fila), <code>DIST</code> (matriz <code>DIST[a][b]</code> en km) y <code>PAR</code> (parámetro → valor).</span></li>
+    <li><span><strong>Instancias (celda 3).</strong> La función <code>instancia(nombre)</code> devuelve los clientes de cada instancia, con su flota <code>K</code> y los parámetros del caso. Las instancias se definen por las banderas <code>en_reducida</code> y <code>en_intermedia</code>.</span></li>
+    <li><span><strong>Derivados (celda 3).</strong> <code>minutos(a, b, inst)</code> = km / 40 × 60. <code>costo_flete(i, inst)</code> = 75 000 + 300 × demanda.</span></li>
+    <li><span><strong>Evaluación y verificación (celda 5).</strong> <code>evaluar</code> calcula el costo diario. <code>verificar</code> revisa una por una las reglas de la sección 3 del dossier y devuelve las que se violan.</span></li>
+  </ol>
+
+  <div class="callout">
+    <p><strong>Decisión que hay que saber explicar.</strong> La matriz ya incluye el rodeo de las calles (factor 1,25). El tiempo de viaje se calcula directamente con la distancia de la matriz y <strong>no</strong> se vuelve a aplicar el factor. Aplicarlo dos veces sobrestimaría todos los tiempos y el costo por km.</p>
+  </div>
+
+  <h3>Controles de calidad de los datos</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Control</th><th>Resultado</th><th>Criterio</th></tr></thead>
+    <tbody>
+      <tr><td>Datos embebidos vs. <code>D03_puntos.csv</code></td><td>0 diferencias en 151 filas</td><td>Igualdad exacta de id, tipo, posición, demanda, minutos y banderas</td></tr>
+      <tr><td>Matriz embebida vs. <code>D03_distancias.csv</code></td><td>Diferencia máxima 0,00 km</td><td>Igualdad de las 151 × 151 celdas</td></tr>
+      <tr><td>Hojas del Excel vs. CSV</td><td>Idénticas</td><td>Igualdad celda a celda</td></tr>
+      <tr><td>Simetría y diagonal</td><td>Simétrica; diagonal en cero</td><td><code>D[a][b] = D[b][a]</code>; <code>D[a][a] = 0</code></td></tr>
+      <tr><td>Regla de rodeo</td><td>Error máximo 0,00 km</td><td><code>D[a][b]</code> = 1,25 × distancia euclídea, redondeada a 0,01 km</td></tr>
+      <tr><td>Identificadores</td><td>150 clientes, ids 1 a 150</td><td>Sin huecos ni duplicados</td></tr>
+      <tr><td>Demanda y descarga</td><td>Demanda de 6 a 40 bidones (promedio 16,85); descarga de 12 a 28 min</td><td>Coincide con el dossier</td></tr>
+      <tr><td>Totales por instancia</td><td>Completa 2 527 y 2 957 min; reducida 204 y 230; intermedia 866 y 969</td><td>Coinciden con la sección 4 del dossier</td></tr>
+      <tr><td>Capacidad agregada <code>K × Q</code></td><td>3 300, 600 y 1 200</td><td>Mayor que la demanda total en las tres instancias</td></tr>
+      <tr><td>Factibilidad individual</td><td>Ruta base → cliente → base: de 47,8 a 251,2 min</td><td>Ningún cliente excede la jornada de 540 min por sí solo</td></tr>
+      <tr><td>Parámetros vs. dossier</td><td>Coinciden</td><td>Q = 300; L = 540 min; 40 km/h; 55 000 $; 450 $/km; flete 75 000 $ + 300 $/bidón</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Estructuras de datos</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Estructura</th><th>Tipo</th><th>Contenido</th></tr></thead>
+    <tbody>
+      <tr><td><code>DATA</code></td><td>diccionario</td><td>Tablas <code>puntos</code>, <code>distancias</code>, <code>parametros</code> y código <code>D03</code></td></tr>
+      <tr><td><code>PUNTOS[i]</code></td><td>diccionario</td><td>Fila del punto i: posición, demanda, descarga, banderas</td></tr>
+      <tr><td><code>DIST[a][b]</code></td><td>lista de listas</td><td>Distancia en km del punto a al b (0 = base)</td></tr>
+      <tr><td><code>instancia(n)</code></td><td>diccionario</td><td><code>ids</code>, <code>K</code>, <code>Q</code>, <code>L</code>, <code>vel</code>, <code>F</code>, <code>c_km</code>, <code>flete_fijo</code>, <code>flete_unidad</code></td></tr>
+      <tr><td>Solución</td><td>diccionario</td><td><code>{"rutas": [[…], …], "externos": […]}</code>. Cada cliente aparece exactamente una vez</td></tr>
+      <tr><td><code>TABLA</code></td><td>lista de registros</td><td>Por corrida: dossier, instancia, método, valor, tiempo, semilla, factibilidad, notas</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Línea base generada</h3>
+  <p>La constructiva aleatoria del cuaderno corrió con 10 semillas por instancia. Todas las soluciones pasaron el verificador. Los costos son diarios, en pesos.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Instancia</th><th class="n">Mínimo</th><th class="n">Promedio</th><th class="n">Máximo</th><th class="n">Desviación</th><th>Brecha del promedio</th></tr></thead>
+    <tbody>
+      <tr><td>Reducida</td><td class="n">219 980</td><td class="n">250 919</td><td class="n">268 360</td><td class="n">16 795</td><td class="bad">+135 % sobre el óptimo</td></tr>
+      <tr><td>Intermedia</td><td class="n">1 744 827</td><td class="n">1 981 668</td><td class="n">2 206 024</td><td class="n">183 617</td><td>Sin referencia exacta</td></tr>
+      <tr><td>Completa</td><td class="n">8 603 435</td><td class="n">8 981 095</td><td class="n">9 733 928</td><td class="n">360 316</td><td>Sin referencia exacta</td></tr>
+    </tbody>
+  </table></div>
+  <p>La aleatoria es deliberadamente mala, como dice el dossier. En la completa, con la semilla 0, 84 de los 150 clientes terminan con transportista arrendado.</p>
+
+  <h3>Plantillas y su estado</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Plantilla</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>Constructiva aleatoria</td><td>Ejecutada: 10 semillas × 3 instancias, 30 de 30 factibles</td></tr>
+      <tr><td>Verificador de reglas</td><td>Operativo: asignación, flota, capacidad y jornada</td></tr>
+      <tr><td>Modelo exacto (IP/MIP)</td><td>Implementado en la celda 18; ver paso 4</td></tr>
+      <tr><td>Certificación exacta (DP)</td><td>Implementada en la celda 19</td></tr>
+      <tr><td>Constructiva propia</td><td class="bad">Pendiente: la plantilla todavía devuelve la aleatoria</td></tr>
+      <tr><td>Metaheurística (SA, TS, GA)</td><td class="bad">Pendiente: se entrega en la sesión 10</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Limitaciones del procesamiento</h3>
+  <ul>
+    <li><strong>Datos sintéticos.</strong> Sirven para comparar métodos, no para predecir costos reales.</li>
+    <li><strong>Día tipo y determinismo.</strong> Demandas conocidas la tarde anterior; tiempos de viaje y descarga fijos. Sin tráfico ni ventanas horarias.</li>
+    <li><strong>Velocidad constante.</strong> Los 40 km/h se aplican a todo el recorrido, aunque en caminos de faena sea menor. Esto subestima el tiempo en los campamentos más lejanos.</li>
+  </ul>
+</section>
+
+<section id="paso4">
+  <h2>Paso 4 · Modelamiento matemático</h2>
+  <p class="rule-tag">Rúbrica, criterio 4 (15 %): modelo IP/MIP completo y correcto, con binarias bien usadas, y nota de escalabilidad.</p>
+
+  <h3>Clasificación del problema</h3>
+  <p>El dossier no declara el tipo de problema. Nuestra clasificación es un <strong>problema de ruteo de vehículos capacitado (CVRP) con flota limitada, restricción de jornada y opción de subcontratación</strong>.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Rasgo del caso</th><th>Patrón de modelamiento</th></tr></thead>
+    <tbody>
+      <tr><td>Cada cliente, con un camión o con transportista</td><td>Partición de clientes con opción externa (<em>outsourcing</em>)</td></tr>
+      <tr><td>Cada camión sale de la base y vuelve</td><td>Ruteo con depósito único</td></tr>
+      <tr><td>Capacidad de 300 bidones por ruta</td><td>Restricción de capacidad (CVRP)</td></tr>
+      <tr><td>Jornada de 540 min con viaje y descarga</td><td>Restricción de duración</td></tr>
+      <tr><td>Como máximo 11 camiones</td><td>Flota limitada</td></tr>
+      <tr><td>$ 55 000 por camión y $ 450 por km</td><td>Costo fijo por vehículo más costo variable por distancia</td></tr>
+    </tbody>
+  </table></div>
+  <p>Por qué un modelo y métodos aproximados: la decisión tiene dos partes acopladas, qué clientes van juntos y en qué orden. Las secuencias posibles crecen como <em>n</em>!, así que una regla manual no garantiza calidad y un solver sin reducción no escala.</p>
+
+  <h3>Conjuntos, parámetros y variables</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Símbolo</th><th>Definición</th><th>Valor en el caso</th></tr></thead>
+    <tbody>
+      <tr><td><em>N</em></td><td>Clientes de la instancia</td><td>12, 50 o 150</td></tr>
+      <tr><td><em>V</em><sub>0</sub></td><td><em>N</em> más la base (nodo 0)</td><td>—</td></tr>
+      <tr><td><em>A</em></td><td>Arcos dirigidos (<em>i</em>, <em>j</em>), con <em>i</em> ≠ <em>j</em></td><td>—</td></tr>
+      <tr><td><em>d<sub>i</sub></em></td><td>Demanda del cliente <em>i</em>, en bidones</td><td>6 a 40</td></tr>
+      <tr><td><em>s<sub>i</sub></em></td><td>Minutos de descarga en <em>i</em></td><td>12 a 28</td></tr>
+      <tr><td><em>D<sub>ij</sub></em></td><td>Distancia en km (incluye el rodeo)</td><td>matriz del dossier</td></tr>
+      <tr><td><em>t<sub>ij</sub></em></td><td>Minutos de viaje: 60 · <em>D<sub>ij</sub></em> / 40</td><td>—</td></tr>
+      <tr><td><em>K</em>, <em>Q</em>, <em>L</em></td><td>Flota, capacidad por ruta, jornada</td><td>2 (reducida), 300, 540 min</td></tr>
+      <tr><td><em>F</em>, <em>c</em></td><td>Costo fijo por camión, costo por km</td><td>55 000 $, 450 $/km</td></tr>
+      <tr><td><em>f</em>, <em>g</em></td><td>Flete externo fijo por cliente, por bidón</td><td>75 000 $, 300 $/bidón</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Variable</th><th>Dominio</th><th>Significado</th></tr></thead>
+    <tbody>
+      <tr><td><em>x<sub>ij</sub></em></td><td class="hl">binaria {0, 1}, para (<em>i</em>, <em>j</em>) ∈ <em>A</em></td><td>1 si un camión recorre el arco <em>i</em> → <em>j</em></td></tr>
+      <tr><td><em>z<sub>i</sub></em></td><td class="hl">binaria {0, 1}, para <em>i</em> ∈ <em>N</em></td><td>1 si el cliente <em>i</em> va con transportista</td></tr>
+      <tr><td><em>T<sub>i</sub></em></td><td>continua en [0, <em>L</em> − <em>s<sub>i</sub></em>]</td><td>Minuto en que empieza la descarga en <em>i</em>, desde la salida de la base</td></tr>
+      <tr><td><em>u<sub>i</sub></em></td><td>continua en [<em>d<sub>i</sub></em>, <em>Q</em>]</td><td>Bidones acumulados en el camión hasta <em>i</em>, incluido <em>i</em></td></tr>
+    </tbody>
+  </table></div>
+  <p>Las variables <em>T</em> y <em>u</em> son auxiliares. <em>T</em> impone la jornada y <em>u</em> impone la capacidad a lo largo de cada ruta. Además eliminan los ciclos que no pasan por la base.</p>
+
+  <h3>Función objetivo</h3>
+  <div class="eq">
+    min Z = <span class="rm">F</span> Σ<sub>j∈N</sub> x<sub>0j</sub> &nbsp;+&nbsp; <span class="rm">c</span> Σ<sub>(i,j)∈A</sub> D<sub>ij</sub> x<sub>ij</sub> &nbsp;+&nbsp; Σ<sub>i∈N</sub> (f + g·d<sub>i</sub>) z<sub>i</sub>
+  </div>
+  <p>Tres términos: los camiones que salen, los kilómetros recorridos (incluido el regreso a la base) y los fletes externos.</p>
+
+  <h3>Restricciones</h3>
+  <p><span class="rule-tag">R1 · Atención.</span> Cada cliente se atiende una vez y completo: entra y sale una vez por un camión, o va con transportista.</p>
+  <div class="eq">
+    Σ<sub>j∈V₀, j≠i</sub> x<sub>ji</sub> + z<sub>i</sub> = 1 &nbsp;&nbsp; y &nbsp;&nbsp; Σ<sub>j∈V₀, j≠i</sub> x<sub>ij</sub> + z<sub>i</sub> = 1 &nbsp;&nbsp; ∀ i ∈ N
+  </div>
+
+  <p><span class="rule-tag">R2 · Flota.</span> A lo más <em>K</em> rutas por día.</p>
+  <div class="eq">Σ<sub>j∈N</sub> x<sub>0j</sub> ≤ K</div>
+
+  <p><span class="rule-tag">R3 · Vuelta a la base.</span> Cada ruta que sale vuelve. Es consecuencia de R1, pero la escribimos explícita.</p>
+  <div class="eq">Σ<sub>j∈N</sub> x<sub>0j</sub> = Σ<sub>i∈N</sub> x<sub>i0</sub></div>
+
+  <p><span class="rule-tag">R4 · Capacidad (MTZ).</span> La carga crece en <em>d<sub>j</sub></em> al entrar a <em>j</em> y nunca supera <em>Q</em>.</p>
+  <div class="eq">
+    u<sub>j</sub> ≥ u<sub>i</sub> + d<sub>j</sub> − Q (1 − x<sub>ij</sub>) &nbsp; ∀ i ≠ j ∈ N &nbsp;&nbsp;&nbsp; u<sub>i</sub> ≥ d<sub>i</sub> &nbsp; ∀ i ∈ N
+  </div>
+  <p>Si el arco no se usa, la restricción queda inactiva porque u<sub>i</sub> ≤ Q y d<sub>j</sub> ≤ u<sub>j</sub>.</p>
+
+  <p><span class="rule-tag">R5 · Jornada.</span> Viaje desde la base, descarga en cada punto y regreso no superan <em>L</em>.</p>
+  <div class="eq">
+    T<sub>j</sub> ≥ t<sub>0j</sub> − t<sub>0j</sub> (1 − x<sub>0j</sub>) &nbsp; ∀ j ∈ N<br>
+    T<sub>j</sub> ≥ T<sub>i</sub> + s<sub>i</sub> + t<sub>ij</sub> − (L + t<sub>ij</sub>) (1 − x<sub>ij</sub>) &nbsp; ∀ i ≠ j ∈ N<br>
+    T<sub>j</sub> + s<sub>j</sub> + t<sub>j0</sub> ≤ L + (L + t<sub>j0</sub>) (1 − x<sub>j0</sub>) &nbsp; ∀ j ∈ N
+  </div>
+
+  <div class="callout">
+    <p><strong>Por qué las cotas grandes (big-M) son válidas.</strong> Toda ruta factible cumple T<sub>i</sub> + s<sub>i</sub> ≤ L, porque la descarga en <em>i</em> termina antes del regreso. Por eso el lado izquierdo de cada restricción nunca supera su cota cuando el arco no se usa. Son más ajustadas que una cota global de L más los máximos, porque son más pequeñas para cada arco.</p>
+  </div>
+
+  <p><span class="rule-tag">R6 · Dominios.</span> <em>x</em> y <em>z</em> son binarias; <em>T</em> y <em>u</em> son continuas en sus intervalos.</p>
+
+  <h3>Mapeo de reglas del dossier a restricciones</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Regla del dossier (sección 3)</th><th>Restricción</th></tr></thead>
+    <tbody>
+      <tr><td>Cada cliente se atiende una sola vez y completo; los pedidos no se dividen</td><td class="hl">R1</td></tr>
+      <tr><td>Cada camión hace a lo más una ruta al día, sale de la base y vuelve</td><td class="hl">R3 y la estructura de arcos</td></tr>
+      <tr><td>Pueden salir a lo más K = 11 camiones</td><td class="hl">R2</td></tr>
+      <tr><td>La demanda de una ruta no supera Q = 300</td><td class="hl">R4</td></tr>
+      <tr><td>La duración de una ruta no supera L = 540 min</td><td class="hl">R5</td></tr>
+      <tr><td>Costo diario: 55 000 $ por camión, 450 $ por km, flete externo</td><td class="hl">Función objetivo</td></tr>
+      <tr><td>El transportista arrendado está siempre disponible</td><td class="hl">Variables <em>z<sub>i</sub></em> sin límite</td></tr>
+      <tr><td>Distancias simétricas con rodeo incluido</td><td class="hl">Matriz <em>D</em>, sin factor adicional</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Implementación y verificación</h3>
+  <p>El modelo está en la celda 18 del cuaderno, en PuLP 3.3.2 con el solver CBC. Tiene tres controles.</p>
+  <ol class="flow">
+    <li><span><strong>Solución extraída del modelo.</strong> La celda traduce <em>x</em> y <em>z</em> a la solución del paso 2 (rutas y externos) y la pasa por el verificador. Si una regla se viola, o si el costo no coincide con el objetivo, el cuaderno se detiene.</span></li>
+    <li><span><strong>Estado certificado.</strong> PuLP reporta «Optimal» también cuando CBC se detiene por tiempo con una solución. El cuaderno usa <code>modelo.sol_status</code>, que solo vale <code>LpSolutionOptimal</code> cuando hubo prueba de optimalidad.</span></li>
+    <li><span><strong>Referencia exacta independiente.</strong> La celda 19 calcula el óptimo de la reducida con programación dinámica sobre subconjuntos (Held-Karp), sin CBC.</span></li>
+  </ol>
+
+  <h3>Solución óptima de la reducida</h3>
+  <p>Un solo camión sale de la base y visita los 12 clientes en este orden: 137, 88, 15, 113, 115, 68, 62, 86, 8, 26, 21, 53. Recorre 115,08 km y termina en 402,6 min de jornada (172,6 de viaje y 230 de descarga). Carga 204 bidones. Ningún cliente va con transportista arrendado.</p>
+  <div class="callout ok">
+    <p><strong>Comprobación a mano.</strong> Costo = 55 000 + 450 × 115,08 = 106 786 $. Duración = 115,08 / 40 × 60 + 230 = 402,6 ≤ 540. Carga = 204 ≤ 300.</p>
+  </div>
+  <p>En la reducida conviene un solo camión. Dividir en dos no ahorra kilómetros suficientes para pagar el segundo camión (55 000 $). Un flete externo cuesta al menos 75 000 $ por cliente, y el camión propio atiende a todos por 106 786 $ en total.</p>
+</section>
+
+<section id="resultados">
+  <h2>Resultados en la instancia reducida</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Método</th><th class="n">Valor ($)</th><th>Estado</th><th class="n">Tiempo</th></tr></thead>
+    <tbody>
+      <tr><td>Exacto DP (subconjuntos)</td><td class="n hl">106 786,00</td><td>Óptimo certificado</td><td class="n">0,26 s</td></tr>
+      <tr><td>Exacto CBC, MIP final</td><td class="n">106 786,00</td><td class="bad">No certificado: iguala al óptimo, pero sin prueba de optimalidad</td><td class="n">600 s (límite)</td></tr>
+      <tr><td>Exacto CBC, primera versión (big-M global)</td><td class="n">107 236,00</td><td>No certificado; brecha de 0,42 %</td><td class="n">600 s (límite)</td></tr>
+      <tr><td>Línea base aleatoria (10 semillas)</td><td class="n">219 980 a 268 360</td><td>Factible; promedio +135 %</td><td class="n">&lt; 0,001 s</td></tr>
+    </tbody>
+  </table></div>
+  <p>Conclusión para el informe: el óptimo de referencia es el de la DP. Esa es la base del gap del paso 8. El MIP final tiene brecha de 0,00 % frente a esa referencia, pero sin certificación propia.</p>
+
+  <h3>Hallazgo: el MIP no certifica el óptimo en 600 s</h3>
+  <p>El modelo tiene 168 binarias y 326 restricciones, y CBC no demuestra optimalidad en 600 s con 12 clientes. No medimos la relajación lineal, pero la hipótesis más probable es que las cotas big-M la debilitan. Ajustar las cotas por arco llevó a CBC de 107 236 $ a 106 786 $. Que el valor coincida con la DP es evidencia, no certificación.</p>
+</section>
+
+<section id="escala">
+  <h2>Escalabilidad</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Instancia</th><th class="n">Clientes</th><th class="n">Binarias</th><th class="n">Restricciones</th><th>Estado del MIP</th></tr></thead>
+    <tbody>
+      <tr><td>Reducida</td><td class="n">12</td><td class="n">168</td><td class="n">326</td><td>Óptimo certificado por DP; CBC no certifica en 600 s</td></tr>
+      <tr><td>Intermedia</td><td class="n">50</td><td class="n">2 600</td><td class="n">5 152</td><td>Sin resolver</td></tr>
+      <tr><td>Completa</td><td class="n">150</td><td class="n">22 800</td><td class="n">45 452</td><td>Inviable para resolver exactamente</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><strong>Variables.</strong> Los arcos crecen con <em>n</em>²: <em>n</em>(<em>n</em>+1) binarias de ruteo, más <em>n</em> de flete externo. Pasar de 12 a 50 clientes multiplica las binarias por unas 15.</li>
+    <li><strong>Restricciones.</strong> Las de capacidad y de jornada también crecen con <em>n</em>², porque hay una por cada par de clientes. Son la mayor parte del modelo en la completa.</li>
+    <li><strong>Espacio de soluciones.</strong> Las secuencias posibles crecen como <em>n</em>!, mucho más rápido que el modelo. El solver necesita relajaciones fuertes para podar, y con cotas débiles no las tiene.</li>
+  </ul>
+  <div class="callout">
+    <p><strong>Consecuencia gerencial.</strong> Para la decisión diaria con 150 clientes no hay certificación exacta en un tiempo razonable. La solución del proyecto usa métodos aproximados (constructiva propia y metaheurística) y los compara contra la mejor cota disponible en la completa.</p>
+  </div>
+</section>
+
+<section id="repaso">
+  <h2>Preguntas de repaso</h2>
+  <p class="lede">Toca cada pregunta para ver la respuesta. Intenta responder antes de abrirla.</p>
+
+  <details class="q">
+    <summary>¿Por qué no aplicamos el factor 1,25 otra vez al calcular el tiempo?</summary>
+    <div>Porque la matriz de distancias ya incluye el rodeo de las calles. Aplicarlo dos veces sobrestimaría todos los tiempos de viaje y el costo por km.</div>
+  </details>
+  <details class="q">
+    <summary>¿Por qué arcos dirigidos si la matriz es simétrica?</summary>
+    <div>Porque las variables de tiempo <em>T</em> dependen del sentido de recorrido. Con distancias simétricas, una ruta y su inversa tienen la misma duración total y el mismo costo. Pero la hora de llegada a cada cliente sí cambia con el orden. Una formulación no dirigida tendría la mitad de arcos, aunque habría que orientar la ruta para contar los tiempos.</div>
+  </details>
+  <details class="q">
+    <summary>¿Qué son las cotas big-M?</summary>
+    <div>Constantes grandes que desactivan una restricción cuando el arco correspondiente no se usa. Deben ser lo bastante grandes para no cortar soluciones factibles, y por eso las elegimos ajustadas: toda ruta factible cumple T<sub>i</sub> + s<sub>i</sub> ≤ L.</div>
+  </details>
+  <details class="q">
+    <summary>¿Por qué no hay restricciones explícitas que eliminen ciclos sin la base?</summary>
+    <div>Porque las restricciones de tiempo lo hacen. Cada descarga tarda al menos 12 min, así que el tiempo crece en cada arco. Un ciclo que no pase por la base exigiría que el tiempo aumentara y volviera a su valor original, algo imposible.</div>
+  </details>
+  <details class="q">
+    <summary>¿Qué significa «Optimal» en PuLP?</summary>
+    <div>Por sí solo, poco. Cuando CBC se detiene por límite de tiempo con una solución factible, PuLP también escribe «Optimal». Lo que certifica el óptimo es <code>modelo.sol_status == pulp.LpSolutionOptimal</code>.</div>
+  </details>
+  <details class="q">
+    <summary>¿Por qué en la reducida conviene un solo camión?</summary>
+    <div>Porque el segundo camión cuesta 55 000 $ fijos y dividir los clientes entre dos no ahorra kilómetros suficientes para compensarlo. Lo demuestra la DP exacta: el mínimo se alcanza con una sola ruta de 115,08 km.</div>
+  </details>
+  <details class="q">
+    <summary>¿Por qué la DP por subconjuntos es exacta?</summary>
+    <div>Para un mismo conjunto de clientes S y un mismo último cliente j, la descarga total es la misma, así que la duración de la ruta crece con la distancia recorrida. El camino más corto es también el más factible. La DP guarda ese camino mínimo para cada (S, j) y después combina hasta K rutas disjuntas. Como revisa todas las combinaciones posibles, el resultado es el óptimo.</div>
+  </details>
+  <details class="q">
+    <summary>¿Por qué el MIP no basta para 150 clientes?</summary>
+    <div>Por el crecimiento combinatorio. Las variables y restricciones crecen con n², pero el espacio de secuencias crece con n!. Con cotas big-M débiles, el árbol de ramificación del solver se vuelve enorme. Ya con 12 clientes CBC no demuestra el óptimo en 600 s.</div>
+  </details>
+  <details class="q">
+    <summary>¿Qué es la tabla estándar de resultados?</summary>
+    <div>Un registro por corrida: instancia, método, valor, tiempo, semilla, factibilidad y notas. Cada número del informe debe poder regenerarse desde esa tabla. Si una corrida no está ahí, no se puede citar.</div>
+  </details>
+  <details class="q">
+    <summary>¿Los datos son reales?</summary>
+    <div>No. Son de trabajo, verosímiles, y el dossier lo declara. Eso se incluye como supuesto en el paso 2 y se trata como limitación en el paso 8.</div>
+  </details>
+</section>
+
+<section id="glosario">
+  <h2>Glosario</h2>
+  <dl class="gloss">
+    <dt>CVRP</dt><dd>Problema de ruteo de vehículos capacitado: visitar clientes con camiones de capacidad limitada, al menor costo.</dd>
+    <dt>Binaria</dt><dd>Variable que vale 0 o 1. Aquí indica si un arco se usa o si un cliente va con flete externo.</dd>
+    <dt>MIP / IP</dt><dd>Programa lineal entero mixto (MIP) o entero (IP): algunas variables son enteras, normalmente binarias.</dd>
+    <dt>MTZ</dt><dd>Miller-Tucker-Zemlin: formulación con variables auxiliares que elimina ciclos y acumula carga o tiempo a lo largo de la ruta.</dd>
+    <dt>Big-M</dt><dd>Cota grande que activa o desactiva una restricción según una binaria.</dd>
+    <dt>Incumbente</dt><dd>La mejor solución factible encontrada hasta el momento por el solver. No es necesariamente óptima.</dd>
+    <dt>Cota</dt><dd>Un valor que el óptimo no puede superar (cota superior) o no puede bajar de (cota inferior).</dd>
+    <dt>Gap</dt><dd>Brecha porcentual entre un valor y una referencia: 100 × (valor − referencia) / referencia.</dd>
+    <dt>Held-Karp</dt><dd>Programación dinámica sobre subconjuntos para rutas mínimas. Es exacta y escala mal con el número de clientes.</dd>
+    <dt>Flete externo</dt><dd>Transportista arrendado para un cliente, a 75 000 $ fijos más 300 $ por bidón.</dd>
+    <dt>sol_status</dt><dd>Atributo de PuLP que indica si la solución está probada como óptima o solo es factible.</dd>
+  </dl>
+</section>
+
+<footer>
+  <p>Fuentes: Dossier D03, cuaderno IO2_U2_D03_Constructiva.ipynb, y los documentos <code>03_procesamiento_datos.md</code> y <code>04_modelamiento_matematico.md</code> del repositorio. Las cifras corresponden a la ejecución completa del cuaderno.</p>
+</footer>
+</main>

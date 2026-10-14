@@ -34,7 +34,7 @@ Cada elemento proviene de una regla del caso:
 | *V₀* | *N* ∪ {0}, donde 0 es la base |
 | *A* | Arcos dirigidos *(i, j)* con *i, j ∈ V₀* e *i ≠ j* |
 
-Usamos arcos dirigidos aunque la matriz es simétrica, porque el sentido de recorrido importa para la jornada: el tiempo de llegada a un cliente depende de lo que se atendió antes.
+Usamos arcos dirigidos aunque la matriz es simétrica. Con distancias simétricas, una ruta y su inversa tienen el mismo costo y la misma duración total, así que una formulación no dirigida tendría la mitad de arcos. Mantenemos la dirigida porque las variables de tiempo *T_i* dependen del sentido de recorrido: la hora de llegada a cada cliente cambia con el orden, aunque la duración total no.
 
 ## 4.3 Parámetros
 
