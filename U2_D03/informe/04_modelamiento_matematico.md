@@ -111,7 +111,7 @@ T_j + s_j + t_{j0} &\le L + (L + t_{j0})\,(1 - x_{j0}) && \forall\, j \in N
 \end{aligned}
 $$
 
-**Por qué las cotas grandes (*big-M*) son válidas.** Toda ruta factible cumple *T_i + s_i ≤ L*, porque la descarga en *i* termina antes del regreso a la base. Por eso el lado izquierdo de cada restricción nunca supera el valor de su *M* cuando el arco no se usa. Usamos estas cotas ajustadas en lugar de una cota global de *L* más los máximos de descarga y de viaje, porque son más pequeñas para cada arco.
+**Por qué las cotas grandes (*big-M*) son válidas.** Toda ruta factible cumple *T_i + s_i ≤ L*, porque la descarga en *i* termina antes del regreso a la base. Por eso el lado izquierdo de cada restricción nunca supera el valor de su *M* cuando el arco no se usa. Para *M_0j* y *M_ij* son las cotas más pequeñas posibles. Para el arco de regreso, *M_j0 = L + t_j0* es válida pero holgada en *L* minutos: la restricción ya suma *L* en su lado derecho, así que la cota más fuerte sería *t_j0*. Ese valor más fuerte no se usó en el cuaderno. Una cota global de *L* más los máximos también sería válida, pero más grande.
 
 **(R6) Dominios.** *x* y *z* son binarias; *T* y *u* son continuas en sus intervalos.
 

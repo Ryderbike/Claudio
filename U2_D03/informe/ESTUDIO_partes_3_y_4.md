@@ -58,7 +58,7 @@ Esta guía resume lo que hay que saber para responder preguntas sobre los pasos 
 **Preguntas que suelen hacer:**
 
 - *¿Por qué arcos dirigidos si la matriz es simétrica?* Porque las variables de tiempo dependen del sentido de recorrido. La duración total de una ruta no cambia al invertirla, pero sí la hora de llegada a cada cliente. Una formulación no dirigida tendría la mitad de arcos, pero habría que orientar la ruta para contar los tiempos.
-- *¿Qué son las cotas big-M?* Constantes grandes que "apagan" una restricción cuando el arco no se usa. Las elegimos ajustadas para que sean válidas: toda ruta factible cumple `T_i + s_i ≤ L`.
+- *¿Qué son las cotas big-M?* Constantes grandes que "apagan" una restricción cuando el arco no se usa. Las elegimos válidas por arco: toda ruta factible cumple `T_i + s_i ≤ L`, y el arco de regreso admite una cota más fuerte que la usada.
 - *¿Por qué no hay restricciones que eliminen subtours (ciclos sin la base)?* Las restricciones de tiempo y de carga lo hacen: como cada descarga tarda al menos 12 min, el tiempo crece en cada arco, y un ciclo sin la base sería contradictorio.
 - *¿Cuántas variables y restricciones tiene?* Reducida: 168 binarias, 326 restricciones. Intermedia: 2 600 binarias. Completa: 22 800 binarias y 45 452 restricciones.
 

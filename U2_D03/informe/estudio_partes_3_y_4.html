@@ -345,7 +345,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
   </div>
 
   <div class="callout">
-    <p><strong>Por qué las cotas grandes (big-M) son válidas.</strong> Toda ruta factible cumple T<sub>i</sub> + s<sub>i</sub> ≤ L, porque la descarga en <em>i</em> termina antes del regreso. Por eso el lado izquierdo de cada restricción nunca supera su cota cuando el arco no se usa. Son más ajustadas que una cota global de L más los máximos, porque son más pequeñas para cada arco.</p>
+    <p><strong>Por qué las cotas grandes (big-M) son válidas.</strong> Toda ruta factible cumple T<sub>i</sub> + s<sub>i</sub> ≤ L, porque la descarga en <em>i</em> termina antes del regreso. Por eso el lado izquierdo de cada restricción nunca supera su cota cuando el arco no se usa. Son válidas por arco. Para el arco de regreso la cota usada, L + t<sub>j0</sub>, es holgada en L; una cota más fuerte, t<sub>j0</sub>, también sería válida y no se usó en el cuaderno.</p>
   </div>
 
   <p><span class="rule-tag">R6 · Dominios.</span> <em>x</em> y <em>z</em> son binarias; <em>T</em> y <em>u</em> son continuas en sus intervalos.</p>
@@ -432,7 +432,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
   </details>
   <details class="q">
     <summary>¿Qué son las cotas big-M?</summary>
-    <div>Constantes grandes que desactivan una restricción cuando el arco correspondiente no se usa. Deben ser lo bastante grandes para no cortar soluciones factibles, y por eso las elegimos ajustadas: toda ruta factible cumple T<sub>i</sub> + s<sub>i</sub> ≤ L.</div>
+    <div>Constantes grandes que desactivan una restricción cuando el arco correspondiente no se usa. Deben ser lo bastante grandes para no cortar soluciones factibles, y por eso las elegimos válidas por arco: toda ruta factible cumple T<sub>i</sub> + s<sub>i</sub> ≤ L.</div>
   </details>
   <details class="q">
     <summary>¿Por qué no hay restricciones explícitas que eliminen ciclos sin la base?</summary>

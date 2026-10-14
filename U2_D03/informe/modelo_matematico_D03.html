@@ -73,6 +73,7 @@ li { margin: 0.35rem 0; }
 a { color: var(--accent); }
 a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 code, .mono { font-family: var(--mono); font-size: 0.88em; }
+span.mono, code { overflow-wrap: anywhere; }
 .eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.6rem; }
 .lede { font-size: 1.08rem; color: var(--muted); }
 .tag { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); }
@@ -205,32 +206,56 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
     <span class="label">PUNTAJE DEL CRITERIO</span>
     <math display="block"><mrow><mtext>puntaje</mtext><mo>=</mo><mtext>peso</mtext><mo>×</mo><mfrac><mtext>nivel</mtext><mn>3</mn></mfrac></mrow></math>
   </div>
-  <p>Por ejemplo, el criterio 4 en nivel Destacado vale 15 × 3/3 = <strong>15 puntos</strong> de 100. En nivel Competente vale 15 × 2/3 = <strong>10 puntos</strong>. El criterio 3 en nivel Competente vale 6 × 2/3 = <strong>4 puntos</strong>. Los puntos se suman y el total P pasa a nota con una escala de 60 % de exigencia.</p>
+  <p>Por ejemplo, el criterio 4 en nivel Destacado vale 15 × 3/3 = <strong>15 puntos</strong> de 100. En nivel Competente vale 15 × 2/3 = <strong>10 puntos</strong>. El criterio 3 en nivel Competente vale 6 × 2/3 = <strong>4 puntos</strong>.</p>
 
   <h3>Nuestra autoevaluación</h3>
   <div class="tbl"><table>
     <thead><tr><th>Criterio</th><th>Nivel que sostenemos</th><th>Evidencia en el repositorio</th><th>Lo que todavía falta</th></tr></thead>
     <tbody>
-      <tr><td>3 · Datos</td><td class="bad">Competente (2)</td><td>Fuentes con huella, 13 controles de calidad, estructuras documentadas y línea base de 30 corridas, todas factibles.</td><td>Las plantillas de constructiva propia y de metaheurística todavía no producen resultados. Con ellas, el nivel Destacado es defendible.</td></tr>
-      <tr><td>4 · Modelo</td><td class="good">Destacado (3)</td><td>Modelo con conjuntos, parámetros, variables binarias y continuas, objetivo y seis familias de restricciones. Su solución pasa el verificador y su costo coincide con el objetivo. Escalabilidad cuantificada.</td><td>El solver no certifica el óptimo en 600 s. El óptimo certificado proviene de una programación dinámica exacta, y la sección 5 lo explica.</td></tr>
+      <tr><td>3 · Datos</td><td class="bad">Competente (2)</td><td>Fuentes con huella, 13 controles de calidad, estructuras documentadas, inventario completo de 35 corridas en la tabla estándar.</td><td>La plantilla de constructiva propia todavía devuelve la solución aleatoria, y la de metaheurística no está. Con ellas, el nivel Destacado es defendible.</td></tr>
+      <tr><td>4 · Modelo</td><td class="good">Destacado (3)</td><td>Modelo con conjuntos, parámetros, variables binarias y continuas, objetivo y seis familias de restricciones. Su solución pasa el verificador y su costo coincide con el objetivo. Escalabilidad cuantificada.</td><td>Alcance: el modelo está validado solo en la instancia reducida. Intermedia y completa no se resolvieron con el MIP. El solver no certifica el óptimo en 600 s; la referencia certificada es la programación dinámica (sección 5).</td></tr>
     </tbody>
   </table></div>
+  <p>Con estos dos criterios, la autoevaluación suma 4 + 15 = 19 de los 21 puntos posibles. La nota final depende de los nueve criterios restantes, que se evalúan en otras partes del informe.</p>
+
+  <h3>De puntaje a nota</h3>
+  <p>El puntaje total P, en escala de 0 a 100, se convierte en nota con una escala que exige 60 % para el 4,0:</p>
+  <div class="formula">
+    <span class="label">CONVERSIÓN DE P A NOTA</span>
+    <math display="block"><mrow><mtext>Nota</mtext><mo>=</mo><mn>4,0</mn><mo>+</mo><mn>3,0</mn><mo>×</mo><mfrac><mrow><mi>P</mi><mo>−</mo><mn>60</mn></mrow><mn>40</mn></mfrac><mspace width="1em"/><mtext>si P ≥ 60</mtext></mrow></math>
+    <math display="block"><mrow><mtext>Nota</mtext><mo>=</mo><mn>1,0</mn><mo>+</mo><mn>3,0</mn><mo>×</mo><mfrac><mi>P</mi><mn>60</mn></mfrac><mspace width="1em"/><mtext>si P &lt; 60</mtext></mrow></math>
+  </div>
+  <p>La nota se redondea a un decimal.</p>
 </section>
 
 <section id="paso3">
   <h2>2 · Paso 3: procesamiento de datos</h2>
   <p>El paso 3 transforma los datos crudos del dossier en la forma que necesita el modelo, y deja constancia de cada transformación para que cualquiera pueda repetirla. Un dato mal procesado contamina todo lo que viene después, por eso el paso empieza verificando y no calculando.</p>
 
+  <h3>Fuentes y huellas</h3>
+  <p>Cada archivo tiene una huella digital (SHA-256). Si la huella coincide, el archivo es el mismo, byte por byte.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Archivo</th><th>Contenido</th><th>SHA-256 (8 primeros … 4 últimos)</th></tr></thead>
+    <tbody>
+      <tr><td>Dossier_U2_D03.pdf</td><td>Enunciado, reglas, costos, instancias, preguntas P1 a P3</td><td class="mono">43e24e4f…8c53</td></tr>
+      <tr><td>D03_puntos.csv</td><td>151 filas: base y 150 clientes, con posición, demanda, minutos de descarga y banderas de instancia</td><td class="mono">c35cd746…2aa5</td></tr>
+      <tr><td>D03_distancias.csv</td><td>Matriz de 151 × 151 de distancias en km</td><td class="mono">7a4fa7d1…48d8</td></tr>
+      <tr><td>D03_parametros.csv</td><td>13 parámetros: capacidad, jornada, velocidad, costos, flete y flota</td><td class="mono">3e13f4f4…edd1</td></tr>
+      <tr><td>Datos_U2_D03.xlsx</td><td>Las mismas tablas en cuatro hojas: Leeme, puntos, parametros, distancias</td><td class="mono">a896e9fe…7d37</td></tr>
+    </tbody>
+  </table></div>
+  <p>La huella del cuaderno cambia respecto de la original, porque el grupo completó la celda del modelo y agregó la celda de certificación. El cuaderno que se entrega es la versión del repositorio.</p>
+
   <h3>Qué hicimos, en orden</h3>
   <ol class="route">
-    <li><span><strong>Recibir las fuentes.</strong> El dossier trae el PDF con el enunciado, tres archivos CSV (puntos, distancias y parámetros) y un Excel con las mismas tablas. Registramos la huella digital (SHA-256) de cada archivo para saber después que es el mismo.</span></li>
-    <li><span><strong>Comprobar que las copias coincidan.</strong> Los datos del cuaderno deben ser idénticos a los CSV, celda por celda. Comparamos los 151 puntos y la matriz completa de 151 × 151 distancias. Resultado: cero diferencias.</span></li>
-    <li><span><strong>Revisar la lógica de la matriz.</strong> Una matriz de distancias de viaje debe ser simétrica, tener cero en la diagonal y cumplir la regla del dossier: distancia de viaje = 1,25 × distancia en línea recta, redondeada a 0,01 km. Las tres cosas se cumplen en los 22 650 pares.</span></li>
-    <li><span><strong>Contrastar con el enunciado.</strong> Las cifras del dossier se comparan con las de los datos: 150 clientes; demanda entre 6 y 40 bidones (promedio 16,85); descarga entre 12 y 28 minutos; totales de cada instancia (2 527 bidones y 2 957 minutos en la completa); jornada de 540 minutos y velocidad de 40 km/h. Todo coincide.</span></li>
-    <li><span><strong>Transformar lo necesario.</strong> La matriz da distancias en kilómetros, pero las restricciones del modelo trabajan con minutos. Convertimos con el factor: <em>minutos = km × 60 / 40</em>, es decir, <em>minutos = 1,5 × km</em>. El flete externo de cada cliente es 75 000 $ fijos más 300 $ por bidón.</span></li>
-    <li><span><strong>Elegir las instancias.</strong> El dossier define tres instancias del mismo caso: la completa (150 clientes), la reducida (12) y la intermedia (50). La reducida sirve para comparar contra el óptimo exacto. Cada una tiene su propia flota (K = 11, 2 y 4).</span></li>
-    <li><span><strong>Definir una solución.</strong> Una solución es una lista de rutas, cada una con los clientes en orden, más la lista de clientes que van con transportista. Un cliente aparece exactamente una vez.</span></li>
-    <li><span><strong>Verificar cada solución.</strong> Un verificador revisa las cuatro reglas del dossier: que todos los clientes estén atendidos una sola vez, que no se usen más camiones que la flota, que ninguna ruta supere la capacidad y que ninguna supere la jornada. Si una regla falla, la solución se descarta.</span></li>
+    <li><span><strong>Recibir las fuentes.</strong> El dossier trae el PDF, tres CSV y un Excel con las mismas tablas. Registramos la huella de cada archivo.</span></li>
+    <li><span><strong>Comprobar que las copias coincidan.</strong> Los datos del cuaderno deben ser idénticos a los CSV, celda por celda: 151 puntos y la matriz completa de 151 × 151. Resultado: cero diferencias.</span></li>
+    <li><span><strong>Revisar la lógica de la matriz.</strong> La matriz debe ser simétrica, tener cero en la diagonal y cumplir la regla del dossier: distancia de viaje = 1,25 × distancia en línea recta, redondeada a 0,01 km. Se cumplen en todos los pares.</span></li>
+    <li><span><strong>Contrastar con el enunciado.</strong> Las cifras de los datos coinciden con las del dossier: 150 clientes, demanda entre 6 y 40 bidones, descarga entre 12 y 28 minutos, totales por instancia y parámetros de costo y jornada.</span></li>
+    <li><span><strong>Transformar lo necesario.</strong> La matriz da kilómetros y el modelo trabaja con minutos. Convertimos con <em>minutos = km × 60 / 40</em>, es decir, <em>minutos = 1,5 × km</em>. El flete externo de cada cliente es 75 000 $ fijos más 300 $ por bidón.</span></li>
+    <li><span><strong>Elegir las instancias.</strong> Completa (150 clientes, K = 11), reducida (12, K = 2) e intermedia (50, K = 4). La reducida sirve para comparar contra el óptimo exacto.</span></li>
+    <li><span><strong>Definir una solución.</strong> Una solución es una lista de rutas, cada una con los clientes en orden, más la lista de clientes con transportista externo. Cada cliente aparece exactamente una vez.</span></li>
+    <li><span><strong>Verificar cada solución.</strong> Un verificador revisa cuatro reglas: que cada cliente se atienda una sola vez, que no se usen más camiones que la flota, que ninguna ruta supere la capacidad y que ninguna supere la jornada. La vuelta a la base no es una regla aparte del verificador: el formato de la solución, con rutas que salen y vuelven, ya la impone.</span></li>
     <li><span><strong>Generar resultados trazables.</strong> Cada corrida queda en una tabla estándar con instancia, método, valor, tiempo, semilla y si fue factible. Esa tabla es la única fuente para citar números en el informe.</span></li>
   </ol>
 
@@ -238,22 +263,78 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
     <p><strong>La decisión que más se pregunta.</strong> La matriz ya incluye el rodeo de las calles. Por eso el tiempo de viaje se calcula solo con la distancia de la matriz. Si se aplicara el factor 1,25 otra vez, todos los tiempos y el costo por kilómetro quedarían sobrestimados.</p>
   </div>
 
-  <h3>Qué produce el paso 3</h3>
+  <h3>Las 13 comprobaciones de calidad</h3>
+  <p>Cada comprobación se corrió antes de usar los datos. Todas aprobaron.</p>
   <div class="tbl"><table>
-    <thead><tr><th>Entregable</th><th>Qué es</th><th>Para qué sirve</th></tr></thead>
+    <thead><tr><th class="n">#</th><th>Control</th><th>Resultado</th></tr></thead>
     <tbody>
-      <tr><td>Datos verificados</td><td>Las tablas con las 13 comprobaciones aprobadas</td><td>Garantizan que el modelo parte de datos correctos</td></tr>
-      <tr><td>Estructuras de datos</td><td>Puntos, distancias, parámetros, instancias, soluciones y tabla de resultados</td><td>Cada cálculo del modelo y de los métodos usa las mismas definiciones</td></tr>
-      <tr><td>Línea base</td><td>30 soluciones aleatorias factibles (10 semillas × 3 instancias)</td><td>Punto de comparación para los métodos propios</td></tr>
+      <tr><td class="n">1</td><td>Datos del cuaderno contra <em>D03_puntos.csv</em></td><td>0 diferencias en 151 filas, en id, tipo, posición, demanda, minutos y banderas</td></tr>
+      <tr><td class="n">2</td><td>Matriz del cuaderno contra <em>D03_distancias.csv</em></td><td>Diferencia máxima de 0,00 km en las 151 × 151 celdas</td></tr>
+      <tr><td class="n">3</td><td>Hojas del Excel contra los CSV</td><td>Idénticas, celda por celda</td></tr>
+      <tr><td class="n">4</td><td>Simetría de la matriz</td><td>Sí: <em>D</em><sub>ab</sub> = <em>D</em><sub>ba</sub></td></tr>
+      <tr><td class="n">5</td><td>Diagonal de la matriz</td><td>Cero en todos los puntos</td></tr>
+      <tr><td class="n">6</td><td>Regla de rodeo</td><td>Error máximo de 0,00 km contra 1,25 × línea recta, redondeada a 0,01</td></tr>
+      <tr><td class="n">7</td><td>Identificadores</td><td>150 clientes con ids consecutivos de 1 a 150</td></tr>
+      <tr><td class="n">8</td><td>Demanda por cliente</td><td>Entre 6 y 40 bidones; promedio 16,85, que el dossier redondea a 17</td></tr>
+      <tr><td class="n">9</td><td>Minutos de descarga</td><td>Entre 12 y 28 minutos, como dice el dossier</td></tr>
+      <tr><td class="n">10</td><td>Totales por instancia</td><td>Completa 2 527 bidones y 2 957 min; reducida 204 y 230; intermedia 866 y 969. Coinciden con la sección 4 del dossier</td></tr>
+      <tr><td class="n">11</td><td>Capacidad agregada K × Q</td><td>3 300, 600 y 1 200 bidones: mayor que la demanda total en las tres instancias</td></tr>
+      <tr><td class="n">12</td><td>Factibilidad individual</td><td>Ninguna ruta de un solo cliente supera la jornada: entre 47,8 y 251,2 min con L = 540</td></tr>
+      <tr><td class="n">13</td><td>Parámetros contra el dossier</td><td>Q = 300; L = 540 min; 40 km/h; 55 000 $; 450 $/km; flete de 75 000 $ más 300 $ por bidón</td></tr>
     </tbody>
   </table></div>
+
+  <h3>Estructuras de datos</h3>
+  <p>Cada estructura tiene un uso definido. Las columnas de la última fila son las de la tabla estándar.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Estructura</th><th>Qué contiene</th><th>Para qué sirve</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mono">DATA</span></td><td>Las tres tablas del dossier y el código del caso</td><td>Punto de carga de todos los datos</td></tr>
+      <tr><td><span class="mono">PUNTOS</span> y <span class="mono">DIST</span></td><td>Cada punto por su identificador, y la matriz de distancias en km</td><td>Demanda, descarga y distancia de cualquier par de puntos</td></tr>
+      <tr><td><span class="mono">PAR</span></td><td>Los 13 parámetros del caso</td><td>Costos, jornada, capacidad y velocidad</td></tr>
+      <tr><td><span class="mono">instancia(nombre)</span></td><td>Clientes de la instancia, flota K y todos los parámetros</td><td>Cada cálculo por instancia usa la misma función</td></tr>
+      <tr><td>Solución</td><td><span class="mono">{"rutas": [[…], …], "externos": […]}</span></td><td>Entrada del costo y del verificador, y salida de los métodos</td></tr>
+      <tr><td><span class="mono">TABLA</span></td><td>Una fila por corrida: dossier, instancia, método, valor, tiempo, semilla, factibilidad y notas</td><td>Única fuente para citar resultados</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Plantillas generadas y su estado</h3>
+  <p>El criterio 3 pide documentar las plantillas. Esta es la lista completa, con su estado real.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Plantilla</th><th>Estado</th><th>Evidencia</th></tr></thead>
+    <tbody>
+      <tr><td>Constructiva aleatoria</td><td class="good">Ejecutada: 10 semillas en cada una de las tres instancias, más el escenario P3</td><td>Las 31 corridas aleatorias están en la tabla estándar; las 30 de la línea base son factibles</td></tr>
+      <tr><td>Verificador de reglas</td><td class="good">Operativo</td><td>Cada solución de la tabla pasa por él; el cuaderno se detiene si alguna falla</td></tr>
+      <tr><td>Modelo exacto IP/MIP</td><td class="good">Implementado y ejecutado en la reducida</td><td>Sección 3 de este documento; estado y valor en la tabla estándar</td></tr>
+      <tr><td>Certificación exacta (programación dinámica)</td><td class="good">Implementada y ejecutada en la reducida</td><td>Fila «exacto DP subconjuntos» en la tabla estándar</td></tr>
+      <tr><td>Constructiva propia</td><td class="bad">Pendiente</td><td>La plantilla devuelve la solución aleatoria; por eso las dos filas <span class="mono">mi_constructiva</span> tienen valores aleatorios</td></tr>
+      <tr><td>Metaheurística (SA, TS, GA)</td><td class="bad">Pendiente</td><td>Se entrega en la sesión 10, para el avance U2-A4</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Inventario de corridas</h3>
+  <p>La regla de evidencia pide reportar todas las corridas, no solo las mejores. Este es el inventario completo de la última ejecución del cuaderno: 35 filas en la tabla estándar. El archivo está en <span class="mono">U2_D03/evidencia/tabla_estandar_corrida_final.csv</span>.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Instancia</th><th>Método</th><th class="n">Corridas</th><th class="n">Mínimo ($)</th><th class="n">Promedio ($)</th><th class="n">Máximo ($)</th><th class="n">Tiempo (s)</th></tr></thead>
+    <tbody>
+      <tr><td>Reducida</td><td>Aleatoria</td><td class="n">10</td><td class="n">219 980</td><td class="n">250 919</td><td class="n">268 360</td><td class="n">&lt; 0,001</td></tr>
+      <tr><td>Intermedia</td><td>Aleatoria</td><td class="n">10</td><td class="n">1 744 827</td><td class="n">1 981 668</td><td class="n">2 206 024</td><td class="n">&lt; 0,001</td></tr>
+      <tr><td>Completa</td><td>Aleatoria</td><td class="n">10</td><td class="n">8 603 435</td><td class="n">8 981 095</td><td class="n">9 733 928</td><td class="n">&lt; 0,001</td></tr>
+      <tr><td>Escenario P3</td><td>Aleatoria (10 camiones)</td><td class="n">1</td><td class="n">9 009 720</td><td class="n">9 009 720</td><td class="n">9 009 720</td><td class="n">&lt; 0,001</td></tr>
+      <tr><td>Reducida</td><td>Constructiva propia (plantilla)</td><td class="n">1</td><td class="n">260 606</td><td class="n">260 606</td><td class="n">260 606</td><td class="n">&lt; 0,001</td></tr>
+      <tr><td>Completa</td><td>Constructiva propia (plantilla)</td><td class="n">1</td><td class="n">8 699 291</td><td class="n">8 699 291</td><td class="n">8 699 291</td><td class="n">0,002</td></tr>
+      <tr><td>Reducida</td><td>MIP con CBC, final</td><td class="n">1</td><td class="n">106 786</td><td class="n">106 786</td><td class="n">106 786</td><td class="n">600,8 (límite)</td></tr>
+      <tr><td>Reducida</td><td>Programación dinámica</td><td class="n">1</td><td class="n hl">106 786</td><td class="n">106 786</td><td class="n">106 786</td><td class="n">0,26</td></tr>
+    </tbody>
+  </table></div>
+  <p>Las dos filas «constructiva propia» tienen valores de la aleatoria, porque la plantilla todavía no tiene la regla del grupo. No son resultados de la constructiva propia.</p>
 
   <h3>La línea base, en cifras</h3>
   <p>La constructiva aleatoria es deliberadamente mala. Siempre produce una solución factible, pero casi nunca buena. Sirve para medir cuánto mejora cualquier método serio.</p>
   <div class="tbl"><table>
     <thead><tr><th>Instancia</th><th class="n">Mínimo</th><th class="n">Promedio</th><th class="n">Máximo</th><th>Brecha del promedio</th></tr></thead>
     <tbody>
-      <tr><td>Reducida</td><td class="n">219 980</td><td class="n">250 919</td><td class="n">268 360</td><td class="bad">+135 % sobre el óptimo de 106 786</td></tr>
+      <tr><td>Reducida</td><td class="n">219 980</td><td class="n">250 919</td><td class="n">268 360</td><td class="bad">+135 % sobre el óptimo DP de 106 786 (certificado, 0,26 s)</td></tr>
       <tr><td>Intermedia</td><td class="n">1 744 827</td><td class="n">1 981 668</td><td class="n">2 206 024</td><td>Sin referencia exacta</td></tr>
       <tr><td>Completa</td><td class="n">8 603 435</td><td class="n">8 981 095</td><td class="n">9 733 928</td><td>Sin referencia exacta</td></tr>
     </tbody>
@@ -618,14 +699,29 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
       <tr><td>Modelo IP/MIP con el solver CBC, primera versión</td><td class="n">107 236</td><td>Solución 0,42 % más cara; sin prueba de optimalidad. Salida en <span class="mono">U2_D03/evidencia/primera_version_salida.txt</span></td><td class="n">600 s (límite)</td></tr>
     </tbody>
   </table></div>
+  <p>En la primera exportación de la tabla estándar, la fila del CBC decía «Optimal». Ese estado de PuLP no certifica el óptimo cuando el solver se detiene por tiempo con una solución. Por eso el cuaderno corregido usa <span class="mono">sol_status</span> y registra la nota «límite de tiempo: solución sin cota probada».</p>
+
+  <h3>Cómo calculamos el óptimo exacto</h3>
+  <p>La programación dinámica sobre subconjuntos (Held-Karp) encuentra el óptimo sin usar un solver. Funciona así:</p>
+  <ol class="route">
+    <li><span><strong>Mejor camino por subconjunto.</strong> Sea <em>d</em>(<em>S</em>, <em>j</em>) la distancia mínima de un camino que sale de la base, visita exactamente los clientes de <em>S</em> y termina en <em>j</em>. Empezamos con <em>d</em>({<em>j</em>}, <em>j</em>) = <em>D</em><sub>0j</sub> y calculamos los subconjuntos de tamaño creciente:</span></li>
+    <li><span><strong>La recurrencia.</strong> <math display="inline"><mrow><mi>d</mi><mo>(</mo><mi>S</mi><mo>,</mo><mi>j</mi><mo>)</mo><mo>=</mo><munder><mo>mín</mo><mrow><mi>k</mi><mo>∈</mo><mi>S</mi><mo>∖</mo><mrow><mo>{</mo><mi>j</mi><mo>}</mo></mrow></mrow></munder><mrow><mo>[</mo><mi>d</mi><mo>(</mo><mi>S</mi><mo>∖</mo><mrow><mo>{</mo><mi>j</mi><mo>}</mo></mrow><mo>,</mo><mi>k</mi><mo>)</mo><mo>+</mo><msub><mi>D</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub><mo>]</mo></mrow></mrow></math></span></li>
+    <li><span><strong>Ruta factible.</strong> Para cada <em>S</em>, la ruta cuesta <em>F</em> + <em>c</em> × (<em>d</em>(<em>S</em>, <em>j</em>) + <em>D</em><sub>j0</sub>) con el mejor <em>j</em>. Solo es factible si la carga de <em>S</em> no pasa de <em>Q</em> y si la duración, <em>1,5</em> × km más la descarga de <em>S</em>, no pasa de <em>L</em>.</span></li>
+    <li><span><strong>Combinación.</strong> Se eligen hasta <em>K</em> conjuntos disjuntos que minimicen el costo total. Cada cliente que no entra en ninguno va con flete externo.</span></li>
+  </ol>
+  <div class="note">
+    <p><strong>Por qué es exacta.</strong> Revisa todos los subconjuntos y, para cada uno, la ruta de menor distancia. Como la duración crece con la distancia, esa ruta es también la más factible. No hay ninguna solución mejor que quede fuera de la búsqueda.</p>
+  </div>
+  <p>El costo crece como 2<sup>n</sup> en la tabla de subconjuntos y como 3<sup>n</sup> en la combinación de rutas. Con 12 clientes tarda 0,26 s. Con 50 o 150 clientes no es viable, por eso no la usamos en esas instancias.</p>
+
+  <div class="note">
+    <p><strong>Por qué confiamos en el 106 786.</strong> Dos métodos de naturaleza distinta llegan al mismo valor. El óptimo certificado proviene de la programación dinámica. El solver muestra que el modelo puede producir el mismo plan, aunque no pruebe que es el mejor.</p>
+  </div>
 
   <h3>Por qué el solver no lo certifica</h3>
-  <p>Un solver demuestra que una solución es óptima cuando cierra la brecha entre lo que encontró y lo mejor que aún podría existir. Con las cotas grandes del modelo, esa brecha se cierra muy despacio: el solver tiene que explorar muchas combinaciones antes de poder descartar las demás. Con 12 clientes ya no alcanza los 600 segundos disponibles.</p>
-  <p>La hipótesis más probable es que las cotas grandes son demasiado holgadas para que la relajación lineal, la versión continua del modelo, dé una buena cota. No medimos esa relajación, así que lo presentamos como hipótesis.</p>
-  <div class="note">
-    <p><strong>Por qué confiamos en el 106 786.</strong> Dos métodos de naturaleza distinta, uno que es un programa de optimización y otro que es una búsqueda exacta sobre subconjuntos, llegan al mismo valor. El óptimo certificado proviene del segundo. El primero muestra que el modelo puede producir el mismo plan, aunque no pruebe que es el mejor.</p>
-  </div>
-  <p>La primera versión del modelo, con una sola cota global, llegaba a 107 236 $. Su salida completa está en la carpeta de evidencia del repositorio. Lo reportamos igual, porque la regla de evidencia del curso pide mostrar todas las corridas, no solo las mejores.</p>
+  <p>Un solver demuestra que una solución es óptima cuando cierra la brecha entre lo que encontró y una cota inferior. En nuestra corrida, esa brecha no se cierra en 600 segundos, aun con 12 clientes.</p>
+  <p>Nuestra hipótesis es que las cotas grandes debilitan la cota inferior: la versión continua del modelo da una cota lejos del óptimo, y el solver tiene que explorar muchas ramas. No medimos esa relajación, así que lo presentamos como hipótesis, no como hecho.</p>
+  <p>La primera versión del modelo, con una sola cota global, llegaba a 107 236 $. Su salida completa está en la carpeta de evidencia del repositorio. Lo reportamos igual, porque la regla de evidencia del curso pide mostrar todas las corridas, no solo las mejores. Esa versión ya no está en el cuaderno.</p>
 </section>
 
 <section id="escala">
@@ -637,7 +733,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
     <tbody>
       <tr><td>Reducida</td><td class="n">12</td><td class="n">168</td><td class="n">24</td><td class="n">326</td><td>Óptimo certificado por DP; el solver no lo certifica en 600 s</td></tr>
       <tr><td>Intermedia</td><td class="n">50</td><td class="n">2 600</td><td class="n">100</td><td class="n">5 152</td><td>No se intentó resolver</td></tr>
-      <tr><td>Completa</td><td class="n">150</td><td class="n">22 800</td><td class="n">300</td><td class="n">45 452</td><td>Inviable para resolver exactamente</td></tr>
+      <tr><td>Completa</td><td class="n">150</td><td class="n">22 800</td><td class="n">300</td><td class="n">45 452</td><td>No intentado. Se espera inviable por el crecimiento; no lo medimos</td></tr>
     </tbody>
   </table></div>
 
@@ -659,7 +755,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
   </table></div>
 
   <div class="note warn">
-    <p><strong>Consecuencia para la decisión diaria.</strong> Con 150 clientes no existe una garantía exacta en un tiempo razonable, ni con el modelo ni con la programación dinámica (esta última crece como 2<sup>n</sup>, y con 12 clientes ya son 4 096 subconjuntos). Por eso el proyecto usa métodos aproximados en las instancias grandes, y los compara contra la mejor cota disponible en la completa, indicando el tiempo de cómputo del exacto cuando exista.</p>
+    <p><strong>Consecuencia para la decisión diaria.</strong> Con 150 clientes no existe una garantía exacta en un tiempo razonable, ni con el modelo ni con la programación dinámica (la tabla de subconjuntos crece al menos como 2<sup>n</sup>, la combinación de rutas como 3<sup>n</sup>, y con 12 clientes ya hay 4 096 subconjuntos). Por eso el proyecto usa métodos aproximados en las instancias grandes, y los compara contra la mejor cota disponible en la completa, indicando el tiempo de cómputo del exacto cuando exista.</p>
   </div>
 
   <h3>Cómo mejoraríamos el exacto si hiciera falta</h3>
@@ -712,7 +808,7 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
 
   <details class="q">
     <summary>¿Por qué el solver encuentra la solución pero no la certifica?</summary>
-    <div><p>Certificar exige cerrar la brecha entre la mejor solución encontrada y una cota inferior. Con cotas grandes poco ajustadas, la cota inferior sube muy despacio, y el solver tiene que explorar muchísimas ramas. Con 12 clientes ya agota los 600 segundos.</p></div>
+    <div><p>Certificar exige cerrar la brecha entre la mejor solución encontrada y una cota inferior. Nuestra hipótesis es que las cotas grandes debilitan esa cota inferior, y el solver tiene que explorar muchas ramas. No medimos la relajación, así que es una hipótesis. Con 12 clientes, el solver agota los 600 segundos sin demostrarlo.</p></div>
   </details>
 
   <details class="q">
@@ -757,6 +853,6 @@ footer { margin-top: 3rem; font-size: 0.85rem; color: var(--muted); border-top: 
 </section>
 
 <footer>
-  <p>Fuentes: Dossier D03 (enunciado y reglas de la sección 3), cuaderno IO2_U2_D03_Constructiva.ipynb (celdas 18 y 19), y los documentos <em>03_procesamiento_datos.md</em> y <em>04_modelamiento_matematico.md</em> del repositorio. Las cifras de la reducida provienen de la ejecución completa del cuaderno; las de 50 y 150 clientes son conteos analíticos. La salida de la primera versión del modelo está en U2_D03/evidencia/.</p>
+  <p>Fuentes: Dossier D03 (enunciado y reglas de la sección 3), cuaderno IO2_U2_D03_Constructiva.ipynb (celdas 18 y 19), y los documentos <em>03_procesamiento_datos.md</em> y <em>04_modelamiento_matematico.md</em> del repositorio. Las cifras de la reducida provienen de la ejecución del cuaderno; la tabla de la corrida final está en U2_D03/evidencia/. Las de 50 y 150 clientes son conteos analíticos. El valor 107 236 $ viene de una versión anterior del modelo, cuya salida está en U2_D03/evidencia/; esa versión ya no está en el cuaderno.</p>
 </footer>
 </main>
