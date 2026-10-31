@@ -1,0 +1,19 @@
+[
+ {"cut":1,"t0":0.0,"t1":2.5,"text":"Es [viernes]. Llegas [destruido] a casa y abres el [refrigerador]...","say":"Es viernes. Llegas destruido a casa y abres el refrigerador."},
+ {"cut":2,"t0":2.5,"t1":5.5,"text":"...no hay [nada] hecho, así que te desplomas en el [sofá].","say":"No hay nada hecho, así que te desplomas en el sofá."},
+ {"cut":3,"t0":5.5,"t1":8.5,"text":"Te quedas [pegado] al teléfono pensando en tu [vida]...","say":"Te quedas pegado al teléfono pensando en tu vida."},
+ {"cut":4,"t0":8.5,"t1":11.0,"text":"...sin saber que tu [perro] acaba de activar un [protocolo].","say":"Sin saber que tu perro acaba de activar un protocolo."},
+ {"cut":5,"t0":11.0,"t1":14.0,"text":"¿Cómo sabe que estás [mal] si no dijiste ni una [palabra]?","say":"¿Cómo sabe que estás mal, si no dijiste ni una palabra?"},
+ {"cut":6,"t0":14.0,"t1":17.0,"text":"Primero: sus [orejas] funcionan como un [detector] de ritmo.","say":"Primero: sus orejas funcionan como un detector de ritmo."},
+ {"cut":7,"t0":17.0,"t1":20.0,"text":"Capta que tus [suspiros] son pesados y que ni siquiera te [mueves].","say":"Capta que tus suspiros son pesados, y que ni siquiera te mueves."},
+ {"cut":8,"t0":20.0,"t1":23.0,"text":"Segundo, y más loco: tu perro puede [oler] tu [cansancio].","say":"Segundo, y más loco: tu perro puede oler tu cansancio."},
+ {"cut":9,"t0":23.0,"t1":26.0,"text":"Cuando te estresas, sueltas [cortisol], y él lo huele con un [93%] de precisión.","say":"Cuando te estresas, sueltas cortisol, y él lo huele con un noventa y tres por ciento de precisión."},
+ {"cut":10,"t0":26.0,"t1":29.0,"text":"Él te esperó todo el día para [jugar], pero suelta su [pelota]...","say":"Él te esperó todo el día para jugar, pero suelta su pelota."},
+ {"cut":11,"t0":29.0,"t1":32.0,"text":"...y [apaga] su energía para [sincronizarse] contigo.","say":"Y apaga su energía para sincronizarse contigo."},
+ {"cut":12,"t0":32.0,"t1":35.5,"text":"Se sube al [sofá] y aplasta su cuerpo [tibio] contra tu pierna.","say":"Se sube al sofá y aplasta su cuerpo tibio contra tu pierna."},
+ {"cut":13,"t0":35.5,"t1":39.0,"text":"No es solo cariño: ese [peso] presiona un [freno] en tu sistema nervioso.","say":"No es solo cariño: ese peso presiona un freno en tu sistema nervioso."},
+ {"cut":14,"t0":39.0,"t1":42.0,"text":"Sueltas el [teléfono], lo tocas y tu batería vuelve a [cargar].","say":"Sueltas el teléfono, lo tocas, y tu batería vuelve a cargar."},
+ {"cut":15,"t0":42.0,"t1":44.5,"text":"Afuera el [mundo] te exige que siempre [funciones]...","say":"Afuera el mundo te exige que siempre funciones."},
+ {"cut":16,"t0":44.5,"t1":47.5,"text":"...pero en este [sofá], para él eres [suficiente].","say":"Pero en este sofá, para él eres suficiente."},
+ {"cut":17,"t0":47.5,"t1":50.0,"text":"Si quieres [entender] cómo funciona tu [perro], [suscríbete].","say":"Si quieres entender cómo funciona tu perro, suscríbete."}
+]

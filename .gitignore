@@ -1,0 +1,3 @@
+node_modules/
+audio/vo/raw_*.wav
+audio/stem_*.wav

@@ -1,0 +1,1346 @@
+[
+ {
+  "start": 0.030000000000000006,
+  "end": 1.3379364758761954,
+  "words": [
+   {
+    "text": "Es",
+    "hl": false,
+    "start": 0.07,
+    "end": 0.17199505006827492
+   },
+   {
+    "text": "viernes",
+    "hl": true,
+    "start": 0.17199505006827492,
+    "end": 0.5289777253072372
+   },
+   {
+    "text": "Llegas",
+    "hl": false,
+    "start": 0.7159686504324079,
+    "end": 0.9879554506144745
+   },
+   {
+    "text": "destruido",
+    "hl": true,
+    "start": 0.9879554506144745,
+    "end": 1.3789364758761953
+   }
+  ]
+ },
+ {
+  "start": 1.3389364758761952,
+  "end": 1.745916676149295,
+  "words": [
+   {
+    "text": "a",
+    "hl": false,
+    "start": 1.3789364758761953,
+    "end": 1.446933175921712
+   },
+   {
+    "text": "casa",
+    "hl": false,
+    "start": 1.446933175921712,
+    "end": 1.6339241010468826
+   },
+   {
+    "text": "y",
+    "hl": false,
+    "start": 1.6339241010468826,
+    "end": 1.786916676149295
+   }
+  ]
+ },
+ {
+  "start": 1.746916676149295,
+  "end": 2.809,
+  "words": [
+   {
+    "text": "abres",
+    "hl": false,
+    "start": 1.786916676149295,
+    "end": 2.0929018263541193
+   },
+   {
+    "text": "el",
+    "hl": false,
+    "start": 2.0929018263541193,
+    "end": 2.1948968764223946
+   },
+   {
+    "text": "refrigerador",
+    "hl": true,
+    "start": 2.1948968764223946,
+    "end": 2.6538746017296315
+   }
+  ]
+ },
+ {
+  "start": 2.81,
+  "end": 3.789,
+  "words": [
+   {
+    "text": "no",
+    "hl": false,
+    "start": 2.85,
+    "end": 2.97
+   },
+   {
+    "text": "hay",
+    "hl": false,
+    "start": 2.97,
+    "end": 3.1100000000000003
+   },
+   {
+    "text": "nada",
+    "hl": true,
+    "start": 3.1100000000000003,
+    "end": 3.31
+   },
+   {
+    "text": "hecho",
+    "hl": false,
+    "start": 3.31,
+    "end": 3.5700000000000003
+   }
+  ]
+ },
+ {
+  "start": 3.79,
+  "end": 4.609,
+  "words": [
+   {
+    "text": "así",
+    "hl": false,
+    "start": 3.83,
+    "end": 3.99
+   },
+   {
+    "text": "que",
+    "hl": false,
+    "start": 3.99,
+    "end": 4.15
+   },
+   {
+    "text": "te",
+    "hl": false,
+    "start": 4.15,
+    "end": 4.25
+   },
+   {
+    "text": "desplomas",
+    "hl": false,
+    "start": 4.25,
+    "end": 4.65
+   }
+  ]
+ },
+ {
+  "start": 4.61,
+  "end": 5.459,
+  "words": [
+   {
+    "text": "en",
+    "hl": false,
+    "start": 4.65,
+    "end": 4.8100000000000005
+   },
+   {
+    "text": "el",
+    "hl": false,
+    "start": 4.8100000000000005,
+    "end": 4.91
+   },
+   {
+    "text": "sofá",
+    "hl": true,
+    "start": 4.91,
+    "end": 5.23
+   }
+  ]
+ },
+ {
+  "start": 5.46,
+  "end": 6.159,
+  "words": [
+   {
+    "text": "Te",
+    "hl": false,
+    "start": 5.5,
+    "end": 5.6
+   },
+   {
+    "text": "quedas",
+    "hl": false,
+    "start": 5.6,
+    "end": 5.86
+   },
+   {
+    "text": "pegado",
+    "hl": true,
+    "start": 5.86,
+    "end": 6.2
+   }
+  ]
+ },
+ {
+  "start": 6.16,
+  "end": 6.919,
+  "words": [
+   {
+    "text": "al",
+    "hl": false,
+    "start": 6.2,
+    "end": 6.28
+   },
+   {
+    "text": "teléfono",
+    "hl": false,
+    "start": 6.28,
+    "end": 6.64
+   },
+   {
+    "text": "pensando",
+    "hl": false,
+    "start": 6.64,
+    "end": 6.96
+   }
+  ]
+ },
+ {
+  "start": 6.92,
+  "end": 7.91,
+  "words": [
+   {
+    "text": "en",
+    "hl": false,
+    "start": 6.96,
+    "end": 7.18
+   },
+   {
+    "text": "tu",
+    "hl": false,
+    "start": 7.18,
+    "end": 7.28
+   },
+   {
+    "text": "vida",
+    "hl": true,
+    "start": 7.28,
+    "end": 7.46
+   }
+  ]
+ },
+ {
+  "start": 8.46,
+  "end": 9.139000000000001,
+  "words": [
+   {
+    "text": "sin",
+    "hl": false,
+    "start": 8.5,
+    "end": 8.64
+   },
+   {
+    "text": "saber",
+    "hl": false,
+    "start": 8.64,
+    "end": 8.88
+   },
+   {
+    "text": "que",
+    "hl": false,
+    "start": 8.88,
+    "end": 9.08
+   },
+   {
+    "text": "tu",
+    "hl": false,
+    "start": 9.08,
+    "end": 9.18
+   }
+  ]
+ },
+ {
+  "start": 9.14,
+  "end": 10.039000000000001,
+  "words": [
+   {
+    "text": "perro",
+    "hl": true,
+    "start": 9.18,
+    "end": 9.54
+   },
+   {
+    "text": "acaba",
+    "hl": false,
+    "start": 9.54,
+    "end": 9.86
+   },
+   {
+    "text": "de",
+    "hl": false,
+    "start": 9.86,
+    "end": 10.08
+   }
+  ]
+ },
+ {
+  "start": 10.040000000000001,
+  "end": 11.125235827664401,
+  "words": [
+   {
+    "text": "activar",
+    "hl": false,
+    "start": 10.08,
+    "end": 10.44
+   },
+   {
+    "text": "un",
+    "hl": false,
+    "start": 10.44,
+    "end": 10.52
+   },
+   {
+    "text": "protocolo",
+    "hl": true,
+    "start": 10.52,
+    "end": 11.06
+   }
+  ]
+ },
+ {
+  "start": 11.1262358276644,
+  "end": 11.865235827664401,
+  "words": [
+   {
+    "text": "¿Cómo",
+    "hl": false,
+    "start": 11.1662358276644,
+    "end": 11.3462358276644
+   },
+   {
+    "text": "sabe",
+    "hl": false,
+    "start": 11.3462358276644,
+    "end": 11.5862358276644
+   },
+   {
+    "text": "que",
+    "hl": false,
+    "start": 11.5862358276644,
+    "end": 11.7262358276644
+   },
+   {
+    "text": "estás",
+    "hl": false,
+    "start": 11.7262358276644,
+    "end": 11.9062358276644
+   }
+  ]
+ },
+ {
+  "start": 11.8662358276644,
+  "end": 12.9052358276644,
+  "words": [
+   {
+    "text": "mal",
+    "hl": true,
+    "start": 11.9062358276644,
+    "end": 12.2262358276644
+   },
+   {
+    "text": "si",
+    "hl": false,
+    "start": 12.4062358276644,
+    "end": 12.5062358276644
+   },
+   {
+    "text": "no",
+    "hl": false,
+    "start": 12.5062358276644,
+    "end": 12.626235827664399
+   },
+   {
+    "text": "dijiste",
+    "hl": false,
+    "start": 12.626235827664399,
+    "end": 12.946235827664399
+   }
+  ]
+ },
+ {
+  "start": 12.9062358276644,
+  "end": 14.003580498866215,
+  "words": [
+   {
+    "text": "ni",
+    "hl": false,
+    "start": 12.946235827664399,
+    "end": 13.126235827664399
+   },
+   {
+    "text": "una",
+    "hl": false,
+    "start": 13.3462358276644,
+    "end": 13.4862358276644
+   },
+   {
+    "text": "palabra?",
+    "hl": true,
+    "start": 13.4862358276644,
+    "end": 13.7662358276644
+   }
+  ]
+ },
+ {
+  "start": 14.004580498866215,
+  "end": 15.023580498866215,
+  "words": [
+   {
+    "text": "Primero",
+    "hl": false,
+    "start": 14.044580498866214,
+    "end": 14.324580498866213
+   },
+   {
+    "text": "sus",
+    "hl": false,
+    "start": 14.624580498866214,
+    "end": 14.744580498866213
+   },
+   {
+    "text": "orejas",
+    "hl": true,
+    "start": 14.744580498866213,
+    "end": 15.064580498866214
+   }
+  ]
+ },
+ {
+  "start": 15.024580498866214,
+  "end": 15.823580498866216,
+  "words": [
+   {
+    "text": "funcionan",
+    "hl": false,
+    "start": 15.064580498866214,
+    "end": 15.584580498866213
+   },
+   {
+    "text": "como",
+    "hl": false,
+    "start": 15.584580498866213,
+    "end": 15.724580498866214
+   },
+   {
+    "text": "un",
+    "hl": false,
+    "start": 15.724580498866214,
+    "end": 15.864580498866214
+   }
+  ]
+ },
+ {
+  "start": 15.824580498866215,
+  "end": 16.959,
+  "words": [
+   {
+    "text": "detector",
+    "hl": true,
+    "start": 15.864580498866214,
+    "end": 16.204580498866214
+   },
+   {
+    "text": "de",
+    "hl": false,
+    "start": 16.204580498866214,
+    "end": 16.404580498866213
+   },
+   {
+    "text": "ritmo",
+    "hl": false,
+    "start": 16.404580498866213,
+    "end": 16.704580498866214
+   }
+  ]
+ },
+ {
+  "start": 16.96,
+  "end": 17.858999999999998,
+  "words": [
+   {
+    "text": "Capta",
+    "hl": false,
+    "start": 17.0,
+    "end": 17.28
+   },
+   {
+    "text": "que",
+    "hl": false,
+    "start": 17.28,
+    "end": 17.4
+   },
+   {
+    "text": "tus",
+    "hl": false,
+    "start": 17.4,
+    "end": 17.54
+   },
+   {
+    "text": "suspiros",
+    "hl": true,
+    "start": 17.54,
+    "end": 17.9
+   }
+  ]
+ },
+ {
+  "start": 17.86,
+  "end": 18.819,
+  "words": [
+   {
+    "text": "son",
+    "hl": false,
+    "start": 17.9,
+    "end": 18.08
+   },
+   {
+    "text": "pesados",
+    "hl": false,
+    "start": 18.08,
+    "end": 18.52
+   },
+   {
+    "text": "y",
+    "hl": false,
+    "start": 18.52,
+    "end": 18.78
+   },
+   {
+    "text": "que",
+    "hl": false,
+    "start": 18.78,
+    "end": 18.86
+   }
+  ]
+ },
+ {
+  "start": 18.82,
+  "end": 19.959,
+  "words": [
+   {
+    "text": "ni",
+    "hl": false,
+    "start": 18.86,
+    "end": 19.0
+   },
+   {
+    "text": "siquiera",
+    "hl": false,
+    "start": 19.0,
+    "end": 19.3
+   },
+   {
+    "text": "te",
+    "hl": false,
+    "start": 19.3,
+    "end": 19.44
+   },
+   {
+    "text": "mueves",
+    "hl": true,
+    "start": 19.44,
+    "end": 19.740000000000002
+   }
+  ]
+ },
+ {
+  "start": 19.96,
+  "end": 21.399,
+  "words": [
+   {
+    "text": "Segundo",
+    "hl": false,
+    "start": 20.0,
+    "end": 20.4
+   },
+   {
+    "text": "y",
+    "hl": false,
+    "start": 20.4,
+    "end": 20.72
+   },
+   {
+    "text": "más",
+    "hl": false,
+    "start": 20.72,
+    "end": 20.88
+   },
+   {
+    "text": "loco",
+    "hl": false,
+    "start": 20.88,
+    "end": 21.2
+   }
+  ]
+ },
+ {
+  "start": 21.400000000000002,
+  "end": 21.899,
+  "words": [
+   {
+    "text": "tu",
+    "hl": false,
+    "start": 21.44,
+    "end": 21.52
+   },
+   {
+    "text": "perro",
+    "hl": false,
+    "start": 21.52,
+    "end": 21.68
+   },
+   {
+    "text": "puede",
+    "hl": false,
+    "start": 21.68,
+    "end": 21.94
+   }
+  ]
+ },
+ {
+  "start": 21.900000000000002,
+  "end": 22.959,
+  "words": [
+   {
+    "text": "oler",
+    "hl": true,
+    "start": 21.94,
+    "end": 22.18
+   },
+   {
+    "text": "tu",
+    "hl": false,
+    "start": 22.18,
+    "end": 22.28
+   },
+   {
+    "text": "cansancio",
+    "hl": true,
+    "start": 22.28,
+    "end": 22.72
+   }
+  ]
+ },
+ {
+  "start": 22.96,
+  "end": 23.976453692848768,
+  "words": [
+   {
+    "text": "Cuando",
+    "hl": false,
+    "start": 23.0,
+    "end": 23.123327720345305
+   },
+   {
+    "text": "te",
+    "hl": false,
+    "start": 23.123327720345305,
+    "end": 23.24665544069061
+   },
+   {
+    "text": "estresas",
+    "hl": false,
+    "start": 23.24665544069061,
+    "end": 23.554974741553874
+   },
+   {
+    "text": "sueltas",
+    "hl": false,
+    "start": 23.755382287114994,
+    "end": 24.01745369284877
+   }
+  ]
+ },
+ {
+  "start": 23.97745369284877,
+  "end": 24.67017211979111,
+  "words": [
+   {
+    "text": "cortisol",
+    "hl": true,
+    "start": 24.01745369284877,
+    "end": 24.279525098582543
+   },
+   {
+    "text": "y",
+    "hl": false,
+    "start": 24.279525098582543,
+    "end": 24.541596504316317
+   },
+   {
+    "text": "él",
+    "hl": false,
+    "start": 24.541596504316317,
+    "end": 24.634092294575296
+   },
+   {
+    "text": "lo",
+    "hl": false,
+    "start": 24.634092294575296,
+    "end": 24.71117211979111
+   }
+  ]
+ },
+ {
+  "start": 24.671172119791112,
+  "end": 24.99390738569754,
+  "words": [
+   {
+    "text": "huele",
+    "hl": false,
+    "start": 24.71117211979111,
+    "end": 24.865331770222745
+   },
+   {
+    "text": "con",
+    "hl": false,
+    "start": 24.865331770222745,
+    "end": 24.94241159543856
+   },
+   {
+    "text": "un",
+    "hl": false,
+    "start": 24.94241159543856,
+    "end": 25.03490738569754
+   }
+  ]
+ },
+ {
+  "start": 24.99490738569754,
+  "end": 26.309,
+  "words": [
+   {
+    "text": "93%",
+    "hl": true,
+    "start": 25.03490738569754,
+    "end": 25.62071405733774
+   },
+   {
+    "text": "de",
+    "hl": false,
+    "start": 25.62071405733774,
+    "end": 25.836537567942024
+   },
+   {
+    "text": "precisión",
+    "hl": false,
+    "start": 25.836537567942024,
+    "end": 26.175688798891613
+   }
+  ]
+ },
+ {
+  "start": 26.310000000000002,
+  "end": 26.989,
+  "words": [
+   {
+    "text": "Él",
+    "hl": false,
+    "start": 26.35,
+    "end": 26.490000000000002
+   },
+   {
+    "text": "te",
+    "hl": false,
+    "start": 26.490000000000002,
+    "end": 26.610000000000003
+   },
+   {
+    "text": "esperó",
+    "hl": false,
+    "start": 26.610000000000003,
+    "end": 26.810000000000002
+   },
+   {
+    "text": "todo",
+    "hl": false,
+    "start": 26.810000000000002,
+    "end": 27.03
+   }
+  ]
+ },
+ {
+  "start": 26.990000000000002,
+  "end": 28.089000000000002,
+  "words": [
+   {
+    "text": "el",
+    "hl": false,
+    "start": 27.03,
+    "end": 27.03
+   },
+   {
+    "text": "día",
+    "hl": false,
+    "start": 27.03,
+    "end": 27.450000000000003
+   },
+   {
+    "text": "para",
+    "hl": false,
+    "start": 27.450000000000003,
+    "end": 27.630000000000003
+   },
+   {
+    "text": "jugar",
+    "hl": true,
+    "start": 27.630000000000003,
+    "end": 27.85
+   }
+  ]
+ },
+ {
+  "start": 28.090000000000003,
+  "end": 29.165621315192745,
+  "words": [
+   {
+    "text": "pero",
+    "hl": false,
+    "start": 28.130000000000003,
+    "end": 28.25
+   },
+   {
+    "text": "suelta",
+    "hl": false,
+    "start": 28.25,
+    "end": 28.590000000000003
+   },
+   {
+    "text": "su",
+    "hl": false,
+    "start": 28.590000000000003,
+    "end": 28.71
+   },
+   {
+    "text": "pelota",
+    "hl": true,
+    "start": 28.71,
+    "end": 29.01
+   }
+  ]
+ },
+ {
+  "start": 29.166621315192746,
+  "end": 30.025621315192744,
+  "words": [
+   {
+    "text": "y",
+    "hl": false,
+    "start": 29.206621315192745,
+    "end": 29.306621315192746
+   },
+   {
+    "text": "apaga",
+    "hl": true,
+    "start": 29.406621315192744,
+    "end": 29.586621315192744
+   },
+   {
+    "text": "su",
+    "hl": false,
+    "start": 29.586621315192744,
+    "end": 29.726621315192745
+   },
+   {
+    "text": "energía",
+    "hl": false,
+    "start": 29.726621315192745,
+    "end": 30.066621315192744
+   }
+  ]
+ },
+ {
+  "start": 30.026621315192745,
+  "end": 31.816621315192744,
+  "words": [
+   {
+    "text": "para",
+    "hl": false,
+    "start": 30.066621315192744,
+    "end": 30.286621315192747
+   },
+   {
+    "text": "sincronizarse",
+    "hl": true,
+    "start": 30.286621315192747,
+    "end": 30.946621315192743
+   },
+   {
+    "text": "contigo",
+    "hl": false,
+    "start": 30.946621315192743,
+    "end": 31.366621315192745
+   }
+  ]
+ },
+ {
+  "start": 31.96,
+  "end": 32.859,
+  "words": [
+   {
+    "text": "Se",
+    "hl": false,
+    "start": 32.0,
+    "end": 32.12
+   },
+   {
+    "text": "sube",
+    "hl": false,
+    "start": 32.12,
+    "end": 32.4
+   },
+   {
+    "text": "al",
+    "hl": false,
+    "start": 32.4,
+    "end": 32.5
+   },
+   {
+    "text": "sofá",
+    "hl": true,
+    "start": 32.56,
+    "end": 32.9
+   }
+  ]
+ },
+ {
+  "start": 32.86,
+  "end": 33.79900000000001,
+  "words": [
+   {
+    "text": "y",
+    "hl": false,
+    "start": 32.9,
+    "end": 33.06
+   },
+   {
+    "text": "aplasta",
+    "hl": false,
+    "start": 33.06,
+    "end": 33.48
+   },
+   {
+    "text": "su",
+    "hl": false,
+    "start": 33.48,
+    "end": 33.62
+   },
+   {
+    "text": "cuerpo",
+    "hl": false,
+    "start": 33.62,
+    "end": 33.84
+   }
+  ]
+ },
+ {
+  "start": 33.800000000000004,
+  "end": 35.35,
+  "words": [
+   {
+    "text": "tibio",
+    "hl": true,
+    "start": 33.84,
+    "end": 34.18
+   },
+   {
+    "text": "contra",
+    "hl": false,
+    "start": 34.18,
+    "end": 34.4
+   },
+   {
+    "text": "tu",
+    "hl": false,
+    "start": 34.4,
+    "end": 34.56
+   },
+   {
+    "text": "pierna",
+    "hl": false,
+    "start": 34.56,
+    "end": 34.9
+   }
+  ]
+ },
+ {
+  "start": 35.46,
+  "end": 36.499,
+  "words": [
+   {
+    "text": "No",
+    "hl": false,
+    "start": 35.5,
+    "end": 35.62
+   },
+   {
+    "text": "es",
+    "hl": false,
+    "start": 35.62,
+    "end": 35.74
+   },
+   {
+    "text": "solo",
+    "hl": false,
+    "start": 35.74,
+    "end": 35.88
+   },
+   {
+    "text": "cariño",
+    "hl": false,
+    "start": 35.88,
+    "end": 36.32
+   }
+  ]
+ },
+ {
+  "start": 36.5,
+  "end": 37.239000000000004,
+  "words": [
+   {
+    "text": "ese",
+    "hl": false,
+    "start": 36.54,
+    "end": 36.66
+   },
+   {
+    "text": "peso",
+    "hl": true,
+    "start": 36.66,
+    "end": 36.82
+   },
+   {
+    "text": "presiona",
+    "hl": false,
+    "start": 36.82,
+    "end": 37.28
+   }
+  ]
+ },
+ {
+  "start": 37.24,
+  "end": 37.759,
+  "words": [
+   {
+    "text": "un",
+    "hl": false,
+    "start": 37.28,
+    "end": 37.42
+   },
+   {
+    "text": "freno",
+    "hl": true,
+    "start": 37.42,
+    "end": 37.74
+   },
+   {
+    "text": "en",
+    "hl": false,
+    "start": 37.74,
+    "end": 37.8
+   }
+  ]
+ },
+ {
+  "start": 37.76,
+  "end": 38.959,
+  "words": [
+   {
+    "text": "tu",
+    "hl": false,
+    "start": 37.8,
+    "end": 37.9
+   },
+   {
+    "text": "sistema",
+    "hl": false,
+    "start": 37.9,
+    "end": 38.22
+   },
+   {
+    "text": "nervioso",
+    "hl": false,
+    "start": 38.22,
+    "end": 38.62
+   }
+  ]
+ },
+ {
+  "start": 38.96,
+  "end": 40.179,
+  "words": [
+   {
+    "text": "Sueltas",
+    "hl": false,
+    "start": 39.0,
+    "end": 39.36
+   },
+   {
+    "text": "el",
+    "hl": false,
+    "start": 39.36,
+    "end": 39.44
+   },
+   {
+    "text": "teléfono",
+    "hl": true,
+    "start": 39.44,
+    "end": 39.86
+   },
+   {
+    "text": "lo",
+    "hl": false,
+    "start": 40.14,
+    "end": 40.22
+   }
+  ]
+ },
+ {
+  "start": 40.18,
+  "end": 41.319,
+  "words": [
+   {
+    "text": "tocas",
+    "hl": false,
+    "start": 40.22,
+    "end": 40.6
+   },
+   {
+    "text": "y",
+    "hl": false,
+    "start": 40.6,
+    "end": 40.88
+   },
+   {
+    "text": "tu",
+    "hl": false,
+    "start": 40.88,
+    "end": 40.98
+   },
+   {
+    "text": "batería",
+    "hl": false,
+    "start": 40.98,
+    "end": 41.36
+   }
+  ]
+ },
+ {
+  "start": 41.32,
+  "end": 42.15938548752835,
+  "words": [
+   {
+    "text": "vuelve",
+    "hl": false,
+    "start": 41.36,
+    "end": 41.68
+   },
+   {
+    "text": "a",
+    "hl": false,
+    "start": 41.68,
+    "end": 41.72
+   },
+   {
+    "text": "cargar",
+    "hl": true,
+    "start": 41.72,
+    "end": 42.0
+   }
+  ]
+ },
+ {
+  "start": 42.160385487528345,
+  "end": 42.919385487528345,
+  "words": [
+   {
+    "text": "Afuera",
+    "hl": false,
+    "start": 42.200385487528344,
+    "end": 42.50038548752834
+   },
+   {
+    "text": "el",
+    "hl": false,
+    "start": 42.50038548752834,
+    "end": 42.60038548752834
+   },
+   {
+    "text": "mundo",
+    "hl": true,
+    "start": 42.60038548752834,
+    "end": 42.78038548752834
+   },
+   {
+    "text": "te",
+    "hl": false,
+    "start": 42.78038548752834,
+    "end": 42.96038548752834
+   }
+  ]
+ },
+ {
+  "start": 42.92038548752834,
+  "end": 44.459,
+  "words": [
+   {
+    "text": "exige",
+    "hl": false,
+    "start": 42.96038548752834,
+    "end": 43.300385487528345
+   },
+   {
+    "text": "que",
+    "hl": false,
+    "start": 43.300385487528345,
+    "end": 43.42038548752834
+   },
+   {
+    "text": "siempre",
+    "hl": false,
+    "start": 43.42038548752834,
+    "end": 43.660385487528345
+   },
+   {
+    "text": "funciones",
+    "hl": true,
+    "start": 43.660385487528345,
+    "end": 44.160385487528345
+   }
+  ]
+ },
+ {
+  "start": 44.46,
+  "end": 45.499,
+  "words": [
+   {
+    "text": "pero",
+    "hl": false,
+    "start": 44.5,
+    "end": 44.62
+   },
+   {
+    "text": "en",
+    "hl": false,
+    "start": 44.62,
+    "end": 44.8
+   },
+   {
+    "text": "este",
+    "hl": false,
+    "start": 44.8,
+    "end": 44.96
+   },
+   {
+    "text": "sofá",
+    "hl": true,
+    "start": 44.96,
+    "end": 45.32
+   }
+  ]
+ },
+ {
+  "start": 45.5,
+  "end": 46.67,
+  "words": [
+   {
+    "text": "para",
+    "hl": false,
+    "start": 45.54,
+    "end": 45.6
+   },
+   {
+    "text": "él",
+    "hl": false,
+    "start": 45.6,
+    "end": 45.78
+   },
+   {
+    "text": "eres",
+    "hl": false,
+    "start": 45.78,
+    "end": 45.94
+   },
+   {
+    "text": "suficiente",
+    "hl": true,
+    "start": 45.94,
+    "end": 46.22
+   }
+  ]
+ },
+ {
+  "start": 47.46,
+  "end": 48.379000000000005,
+  "words": [
+   {
+    "text": "Si",
+    "hl": false,
+    "start": 47.5,
+    "end": 47.6
+   },
+   {
+    "text": "quieres",
+    "hl": false,
+    "start": 47.6,
+    "end": 47.82
+   },
+   {
+    "text": "entender",
+    "hl": true,
+    "start": 47.82,
+    "end": 48.14
+   },
+   {
+    "text": "cómo",
+    "hl": false,
+    "start": 48.14,
+    "end": 48.42
+   }
+  ]
+ },
+ {
+  "start": 48.38,
+  "end": 50.0,
+  "words": [
+   {
+    "text": "funciona",
+    "hl": false,
+    "start": 48.42,
+    "end": 48.8
+   },
+   {
+    "text": "tu",
+    "hl": false,
+    "start": 48.8,
+    "end": 49.0
+   },
+   {
+    "text": "perro",
+    "hl": true,
+    "start": 49.0,
+    "end": 49.3
+   },
+   {
+    "text": "suscríbete",
+    "hl": true,
+    "start": 49.52,
+    "end": 49.86
+   }
+  ]
+ }
+]
