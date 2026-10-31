@@ -1,0 +1,19 @@
+[
+ {"id":1, "slot":[0.0,2.5],  "text":"Es [LUNES], siete de la [MAÑANA]. Suena la [ALARMA]..."},
+ {"id":2, "slot":[2.5,5.5],  "text":"...después de pasar todo el [FIN DE SEMANA] pegado a tu [GATO]."},
+ {"id":3, "slot":[5.5,8.5],  "text":"Vas al [BAÑO] a cepillarte los [DIENTES] medio dormido..."},
+ {"id":4, "slot":[8.5,11.0], "text":"...y él te mira [FIJO] desde el [LAVAMANOS] en silencio."},
+ {"id":5, "slot":[11.0,14.0],"text":"¿Por qué te [PERSIGUE] así justo los [LUNES]?"},
+ {"id":6, "slot":[14.0,17.0],"text":"El cerebro de tu gato [FUNCIONA] como un [RELOJ] de rutinas."},
+ {"id":7, "slot":[17.0,20.0],"text":"Tras [48 HORAS] juntos, él memorizó tres [SEÑALES] de peligro:"},
+ {"id":8, "slot":[20.0,23.0],"text":"El ruido del [CEPILLO], que te pongas [ZAPATOS] y el sonido de las [LLAVES]."},
+ {"id":9, "slot":[23.0,26.0],"text":"Para ti es ir a [TRABAJAR]; para él, su manada lo está [ABANDONANDO]."},
+ {"id":10,"slot":[26.0,29.0],"text":"Intentas [EXPLICARLE] que vuelves en la [TARDE] y le haces cariño..."},
+ {"id":11,"slot":[29.0,32.0],"text":"...pero cuando [CIERRAS] la puerta, la casa queda en [SILENCIO]."},
+ {"id":12,"slot":[32.0,35.5],"text":"Su nivel de [ESTRÉS] sube porque su territorio quedó [VACÍO]."},
+ {"id":13,"slot":[35.5,39.0],"text":"Pero en vez de ir a su [CAMA], busca un [REFUGIO] químico."},
+ {"id":14,"slot":[39.0,42.0],"text":"Busca la [ROPA] que dejaste tirada porque guarda tu [OLOR]."},
+ {"id":15,"slot":[42.0,44.5],"text":"Respirar tus [FEROMONAS] apaga su ansiedad y [CALMA] su cerebro."},
+ {"id":16,"slot":[44.5,47.5],"text":"Así que se [DUERME] abrazando tu olor hasta que [VUELVAS]."},
+ {"id":17,"slot":[47.5,50.0],"text":"Si quieres [ENTENDER] cómo funciona tu [GATO], [SUSCRÍBETE]."}
+]
