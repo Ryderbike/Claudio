@@ -337,7 +337,7 @@ function stressParticles(w, u, anchors, n, speed = 0.55, spread = 1) {
     const ph = ((u * speed + rnd(i * 3.1) * 3) % 1.6) / 1.6; // 0..1 life
     const drift = (rnd(i * 7.3) - 0.5) * 1.1 * spread;
     const side = a.x >= 0 ? 1 : -1;
-    const pos = V(a.x + drift * 0.5 + side * ph * 0.25 + Math.sin(u * 2.1 + i) * 0.06, a.y - 0.1 + ph * 1.15, a.z + 0.35 + rnd(i * 5.1) * 0.4);
+    const pos = V(a.x + drift * 0.5 + side * (0.25 + ph * 0.6) + Math.sin(u * 2.1 + i) * 0.06, a.y - 0.1 + ph * 0.75, a.z + 0.35 + rnd(i * 5.1) * 0.4);
     const fade = Math.sin(ph * Math.PI);
     const sz = 0.022 + rnd(i * 2.3) * 0.03;
     w.stress.push(pos, sz, 0xff2e4a, fade);
@@ -355,7 +355,7 @@ function cut08(w, t, u, D) {
   human.setHand(-1, V(-0.4, 1.5, 0.8)); human.setHand(1, V(0.4, 1.5, 0.8));
   human.updateMatrixWorld(true);
   const sl = human.torso.localToWorld(V(-0.5, 0.98, 0.1)), sr = human.torso.localToWorld(V(0.5, 0.98, 0.1)), nk = human.torso.localToWorld(V(0, 1.1, 0.1));
-  stressParticles(w, u, [sl, sr, nk, V(sl.x * 0.5, sl.y, sl.z), V(sr.x * 0.5, sr.y, sr.z)], 36, 0.5);
+  stressParticles(w, u, [sl, sr, V(sl.x * 0.7, sl.y - 0.15, sl.z), V(sr.x * 0.7, sr.y - 0.15, sr.z)], 30, 0.5);
   view(w, V(1.9, 2.6, 4.8).add(shake(u, 0.006, 8)), V(0.0, 2.1, 0.3), 2.0);
   w.views[0].clear = 0x161b36;
 }

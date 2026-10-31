@@ -3,7 +3,7 @@
  {"cut":2,"t0":2.5,"t1":5.5,"text":"...no hay [nada] hecho, así que te desplomas en el [sofá].","say":"No hay nada hecho, así que te desplomas en el sofá."},
  {"cut":3,"t0":5.5,"t1":8.5,"text":"Te quedas [pegado] al teléfono pensando en tu [vida]...","say":"Te quedas pegado al teléfono pensando en tu vida."},
  {"cut":4,"t0":8.5,"t1":11.0,"text":"...sin saber que tu [perro] acaba de activar un [protocolo].","say":"Sin saber que tu perro acaba de activar un protocolo."},
- {"cut":5,"t0":11.0,"t1":14.0,"text":"¿Cómo sabe que estás [mal] si no dijiste ni una [palabra]?","say":"¿Cómo sabe que estás mal, si no dijiste ni una palabra?"},
+ {"cut":5,"t0":11.0,"t1":14.0,"text":"¿Cómo sabe que estás [mal], si no dijiste ni una [palabra]?","say":"¿Cómo sabe que estás mal, si no dijiste ni una palabra?"},
  {"cut":6,"t0":14.0,"t1":17.0,"text":"Primero: sus [orejas] funcionan como un [detector] de ritmo.","say":"Primero: sus orejas funcionan como un detector de ritmo."},
  {"cut":7,"t0":17.0,"t1":20.0,"text":"Capta que tus [suspiros] son pesados y que ni siquiera te [mueves].","say":"Capta que tus suspiros son pesados, y que ni siquiera te mueves."},
  {"cut":8,"t0":20.0,"t1":23.0,"text":"Segundo, y más loco: tu perro puede [oler] tu [cansancio].","say":"Segundo, y más loco: tu perro puede oler tu cansancio."},

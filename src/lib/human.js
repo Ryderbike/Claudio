@@ -99,10 +99,9 @@ export class Human extends THREE.Group {
       arc.position.y = 0.06;
       arc.scale.set(1, 0.8, 1);
       arc.visible = false;
-      const bag = blackMesh(new THREE.TorusGeometry(0.17, 0.016, 6, 20, Math.PI * 0.6));
-      bag.rotation.z = Math.PI + Math.PI * 0.2; // small ∪ under the eye
-      bag.position.set(0, -0.26, 0);
-      bag.material = new THREE.MeshBasicMaterial({ color: 0x5a6a8c });
+      // heavy eyelid line (tired look) sitting on top of the squashed eye
+      const bag = blackMesh(new THREE.CapsuleGeometry(0.032, 0.24, 4, 10));
+      bag.rotation.z = Math.PI / 2 - s * 0.1;
       bag.visible = false;
       g.add(open, arc, bag);
       this.face.add(g);
@@ -136,6 +135,7 @@ export class Human extends THREE.Group {
       e.bag.visible = bags;
       e.open.scale.y = 0.19 * Math.max(0.12, eyeOpen);
       e.open.position.set(look[0] * 0.05, look[1] * 0.05 - (1 - eyeOpen) * 0.03, 0);
+      e.bag.position.set(look[0] * 0.05, e.open.position.y + 0.19 * Math.max(0.12, eyeOpen) * 0.85, 0.01);
     }
     for (const k of Object.keys(this.mouths)) this.mouths[k].visible = k === mouth;
   }

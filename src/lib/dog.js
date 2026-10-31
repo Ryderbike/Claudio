@@ -53,7 +53,7 @@ export class Dog extends THREE.Group {
     this.head.add(shine);
 
     // mouth cavity + jaw
-    this.cavity = ellipsoid(0.19, 0.13, 0.27, MOUTH, { outline: 0 });
+    this.cavity = ellipsoid(0.19, 0.13, 0.27, 0x3a0f18, { outline: 0 });
     this.cavity.position.set(0, 0.03, 0.74);
     this.head.add(this.cavity);
     this.jaw = new THREE.Group(); this.jaw.position.set(0, 0.06, 0.45); this.head.add(this.jaw);
@@ -136,8 +136,8 @@ export class Dog extends THREE.Group {
       e.open.scale.y = 0.1 * Math.max(0.1, open);
     }
   }
-  xrayHead(a) { for (const s of this.headShells) s.setXray(a); this.neck.setXray(a); }
-  xrayEars(a) { for (const s of this.earShells) s.setXray(a); }
+  xrayHead(a) { for (const s of this.headShells) s.setXray(a, 0.3, 0.3); this.neck.setXray(a, 0.3, 0.3); }
+  xrayEars(a) { for (const s of this.earShells) s.setXray(a, 0.3, 0.25); }
 
   /** tint the whole dog with an emissive aura colour */
   setAura(color, k) {
@@ -157,7 +157,7 @@ export class Dog extends THREE.Group {
     this.head.rotation.set(P.headPitch, P.headYaw, P.headRoll, 'YXZ');
     this.jaw.rotation.x = P.jaw;
     this.tongue.visible = P.jaw > 0.15 || P.tongue > 0.5;
-    this.cavity.visible = true;
+    this.cavity.visible = P.jaw > 0.12; // no 'lipstick' slit when the mouth is closed
     this.ears.forEach((e, i) => {
       e.pivot.rotation.z = e.s * P.earLift[i];
       e.pivot.rotation.x = -P.earLift[i] * 0.4;

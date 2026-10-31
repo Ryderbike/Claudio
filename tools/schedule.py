@@ -55,13 +55,47 @@ json.dump(sched, open(f'{ROOT}/audio/schedule.json', 'w'), indent=1)
 
 # ------------------------------------------------------------------ subtitle words
 def display_words(text):
+    """-> list of (word, highlighted, ends_phrase)"""
     t = text.replace('...', ' ').replace('…', ' ')
     toks = t.split()
     out = []
     for tk in toks:
         hl = '[' in tk
         clean = re.sub(r'[\[\]\.,:;!]', '', tk)
-        if clean: out.append((clean, hl))
+        if clean: out.append((clean, hl, bool(re.search(r'[\.,:;?!]\]?$', tk))))
+    if out: out[-1] = (out[-1][0], out[-1][1], True)
+    return out
+
+
+WEAK = set('a al de del el la lo los las un una tu su sus tus mi y o que en con para por si ni te se es no ese este'.split())
+
+
+def smart_chunks(words):
+    """phrase-aware chunks of <=4 words; never end a chunk on a weak function word"""
+    phrases, cur = [], []
+    for i, w in enumerate(words):
+        cur.append(i)
+        if w[2]: phrases.append(cur); cur = []
+    if cur: phrases.append(cur)
+    # merge tiny phrases into the next one when it fits
+    merged = []
+    for ph in phrases:
+        if merged and len(merged[-1]) <= 2 and len(merged[-1]) + len(ph) <= 4: merged[-1] = merged[-1] + ph
+        else: merged.append(ph)
+    if len(merged) > 1 and len(merged[-1]) <= 1 and len(merged[-2]) + len(merged[-1]) <= 4:
+        merged[-2] += merged.pop()
+    out = []
+    for ph in merged:
+        while len(ph) > 4:
+            best = None
+            for k in (4, 3, 2):
+                rest = len(ph) - k
+                if rest == 1: continue
+                if words[ph[k - 1]][0].lower() in WEAK: continue
+                best = k; break
+            if best is None: best = 3 if len(ph) - 3 != 1 else 2
+            out.append(ph[:best]); ph = ph[best:]
+        out.append(ph)
     return out
 
 
@@ -139,8 +173,8 @@ for x, c in zip(sched, sc):
     times = align_times(words, ws, x, f)
     i = 0
     cc = []
-    for sz in chunk_sizes(len(words)):
-        part = words[i:i + sz]; tt = times[i:i + sz]; i += sz
+    for idx in smart_chunks(words):
+        part = [words[j] for j in idx]; tt = [times[j] for j in idx]
         cc.append(dict(start=tt[0][0] - 0.04, end=tt[-1][1], words=[dict(text=w[0], hl=w[1], start=t[0], end=t[1]) for w, t in zip(part, tt)]))
     chunks.extend(cc)
 

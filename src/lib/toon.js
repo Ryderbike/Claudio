@@ -89,12 +89,12 @@ export class Toon extends THREE.Group {
   setEmissive(c, k = 1) { this.fillMat.emissive.set(c).multiplyScalar(k); return this; }
 
   /** Make this part a see-through "X-ray" shell: a = 0 opaque, 1 = 30% opacity. Outline stays solid. */
-  setXray(a, minOpacity = 0.3) {
+  setXray(a, minOpacity = 0.3, baseMix = 0.72) {
     const op = 1 - (1 - minOpacity) * a;
     const m = this.fillMat;
     // glassy cyan lift so the 30% shell stays luminous over dark backgrounds
     if (this._baseEmissive === undefined) { this._baseEmissive = m.emissive.clone(); this._baseColor = m.color.clone(); }
-    m.color.copy(this._baseColor).lerp(XRAY_BASE, a * 0.72);
+    m.color.copy(this._baseColor).lerp(XRAY_BASE, a * baseMix);
     m.emissive.copy(this._baseEmissive).lerp(XRAY_TINT, a * 0.42);
     if (a <= 0.001) {
       m.transparent = false; m.opacity = 1; m.depthWrite = true;

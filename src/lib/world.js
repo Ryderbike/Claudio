@@ -108,7 +108,7 @@ export function createWorld(W, H) {
     tube.renderOrder = 10; scribble.add(tube);
     scribble.userData.tube = tube;
   }
-  const gaugeD = brainGauge(1.7); scene.add(gaugeD); // dog brain gauge (billboard)
+  const gaugeD = brainGauge(1.7); gaugeD.renderOrder = 30; gaugeD.material.depthTest = false; scene.add(gaugeD); // dog brain gauge (billboard)
   gaugeD.visible = false;
   const qmark = questionMark(0.9); scene.add(qmark); qmark.visible = false;
   const sign = subscribeSign(3.4); scene.add(sign); sign.visible = false;
@@ -120,9 +120,9 @@ export function createWorld(W, H) {
   const meterBars = [];
   for (let i = 0; i < 7; i++) {
     const bar = new THREE.Mesh(new THREE.BoxGeometry(0.06, 1, 0.03), new THREE.MeshBasicMaterial({ color: 0x33ff88, transparent: true, depthWrite: false }));
-    bar.renderOrder = 10; bar.position.set(-0.04 + 0 * i, -0.3, 0.0); meter.add(bar); meterBars.push(bar);
+    bar.renderOrder = 30; bar.position.set(-0.04 + 0 * i, -0.3, 0.0); meter.add(bar); meterBars.push(bar);
   }
-  const meterFrame = new THREE.Mesh(new THREE.PlaneGeometry(0.78, 0.8), new THREE.MeshBasicMaterial({ color: 0x0a1020, transparent: true, opacity: 0.55, depthWrite: false })); meterFrame.renderOrder = 9; meter.add(meterFrame);
+  const meterFrame = new THREE.Mesh(new THREE.PlaneGeometry(0.78, 0.8), new THREE.MeshBasicMaterial({ color: 0x0a1020, transparent: true, opacity: 0.55, depthWrite: false })); meterFrame.renderOrder = 29; meter.add(meterFrame);
   meter.visible = false;
 
   // radar rings pool
