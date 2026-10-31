@@ -262,8 +262,9 @@ def main():
     put(sfx, shimmer(), S[15] + 0.1)
     put(sfx, purr(D[15] + D[16]), S[15] + 0.4)
     put(sfx, piano_chord(), S[16] + 0.05)
-    put(sfx, pop(500, 1200, 0.14, 0.55), S[17] + 1.15)
-    put(sfx, ding(), S[17] + 1.25)
+    HT = TL[-1]["words"][-1]["t"]
+    put(sfx, pop(500, 1200, 0.14, 0.55), HT - 0.02)
+    put(sfx, ding(), HT + 0.08)
 
     # pad: frío (La menor) -> cálido (Do mayor 7) desde el corte 13
     put(mus, pad(S[2] + D[2], (220, 261.6, 329.6), 1), 0)
