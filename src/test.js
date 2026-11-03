@@ -1,0 +1,27 @@
+import * as THREE from 'three';
+import { Human } from './lib/human.js';
+import { Dog } from './lib/dog.js';
+import { OUTLINE, V } from './lib/toon.js';
+const q = new URLSearchParams(location.search);
+const W = innerWidth, H = innerHeight;
+const r = new THREE.WebGLRenderer({ antialias: true, stencil: true });
+r.setSize(W, H); r.setPixelRatio(1); document.body.appendChild(r.domElement);
+OUTLINE.uRes.value.set(W, H); OUTLINE.uScale.value = H / 1920 * 1.0;
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x3a4468);
+const stripe = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 8), new THREE.MeshBasicMaterial({ color: 0xff3030 })); stripe.position.set(-1.6, 3, -1); scene.add(stripe);
+const stripe2 = stripe.clone(); stripe2.position.x = -1.2; stripe2.material = new THREE.MeshBasicMaterial({ color: 0x30ff30 }); scene.add(stripe2);
+scene.add(new THREE.AmbientLight(0xffffff, 1.6)); const k = new THREE.DirectionalLight(0xffffff, 2.2); k.position.set(2, 5, 6); scene.add(k);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40).rotateX(-Math.PI/2), new THREE.MeshToonMaterial({ color: 0x4a2f1f })); scene.add(floor);
+const h = new Human(); h.position.set(-1.6, 1.97, 0); scene.add(h);
+const d = new Dog(); d.position.set(1.8, 0, 0); d.rotation.y = +(q.get('dy') ?? -0.5); scene.add(d);
+if (q.get('x')) { h.xray(1); d.xrayHead(1); d.xrayEars(1); }
+h.setFace({ eyeOpen: +(q.get('eo') ?? 0.5), bags: true, mouth: q.get('m') || 'flat', closed: q.get('c') === '1' });
+d.setEyes({ closed: q.get('c') === '1' });
+d.pose.jaw = +(q.get('jaw') ?? 0);
+h.solve(); d.solve();
+const cam = new THREE.PerspectiveCamera(+(q.get('fov') ?? 30), W / H, 0.1, 200);
+const [cx, cy, cz] = (q.get('cam') || '0,2.6,15').split(',').map(Number);
+const [tx, ty, tz] = (q.get('at') || '0,2.4,0').split(',').map(Number);
+cam.position.set(cx, cy, cz); cam.lookAt(tx, ty, tz);
+r.render(scene, cam);
+window.__ready = true;
